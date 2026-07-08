@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_shift_cascade_form" model="ir.ui.view">
+        <field name="model">hr.shift.cascade</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name="action_start"
+                        type="object"
+                        string="Start"
+                        class="btn-primary"
+                        invisible="state != 'draft'"
+                    />
+                    <button
+                        name="action_generate_candidates"
+                        type="object"
+                        string="Regenerate Candidates"
+                        invisible="state not in ('draft', 'running')"
+                    />
+                    <button
+                        name="action_cancel"
+                        type="object"
+                        string="Cancel"
+                        invisible="state not in ('draft', 'running')"
+                    />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="planning_id" readonly="state != 'draft'" />
+                            <field name="template_id" readonly="state != 'draft'" />
+                            <field name="day_number" readonly="state != 'draft'" />
+                        </group>
+                        <group>
+                            <field name="rule_id" readonly="state != 'draft'" />
+                            <field name="claim_id" invisible="not claim_id" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="candidates" string="Call List">
+                            <field name="candidate_ids">
+                                <list
+                                    editable="bottom"
+                                    decoration-success="state == 'accepted'"
+                                    decoration-muted="state in ('declined', 'no_answer', 'skipped')"
+                                >
+                                    <field name="sequence" widget="handle" />
+                                    <field
+                                        name="employee_id"
+                                        widget="many2one_avatar_employee"
+                                        readonly="1"
+                                    />
+                                    <field name="work_phone" readonly="1" />
+                                    <field name="week_hours" readonly="1" />
+                                    <field
+                                        name="last_offered"
+                                        readonly="1"
+                                        optional="show"
+                                    />
+                                    <field name="note" />
+                                    <field name="state" widget="badge" />
+                                    <button
+                                        name="action_accept"
+                                        type="object"
+                                        string="Accepts"
+                                        icon="fa-check"
+                                        invisible="state != 'pending'"
+                                    />
+                                    <button
+                                        name="action_decline"
+                                        type="object"
+                                        string="Declines"
+                                        icon="fa-times"
+                                        invisible="state != 'pending'"
+                                    />
+                                    <button
+                                        name="action_no_answer"
+                                        type="object"
+                                        string="No answer"
+                                        icon="fa-phone-slash"
+                                        invisible="state != 'pending'"
+                                    />
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter />
+            </form>
+        </field>
+    </record>
+    <record id="hr_shift_cascade_tree" model="ir.ui.view">
+        <field name="model">hr.shift.cascade</field>
+        <field name="arch" type="xml">
+            <list
+                decoration-success="state == 'filled'"
+                decoration-danger="state == 'exhausted'"
+                decoration-muted="state == 'cancelled'"
+            >
+                <field name="planning_id" />
+                <field name="template_id" />
+                <field name="day_number" />
+                <field name="state" widget="badge" />
+            </list>
+        </field>
+    </record>
+    <record id="hr_shift_cascade_search" model="ir.ui.view">
+        <field name="model">hr.shift.cascade</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="planning_id" />
+                <field name="template_id" />
+                <filter
+                    name="filter_running"
+                    string="Running"
+                    domain="[('state', '=', 'running')]"
+                />
+                <filter
+                    name="filter_exhausted"
+                    string="Exhausted"
+                    domain="[('state', '=', 'exhausted')]"
+                />
+                <group name="group_by">
+                    <filter
+                        name="group_planning"
+                        string="Planning"
+                        context="{'group_by': 'planning_id'}"
+                    />
+                    <filter
+                        name="group_state"
+                        string="Status"
+                        context="{'group_by': 'state'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="hr_shift_cascade_action" model="ir.actions.act_window">
+        <field name="name">Replacement Cascades</field>
+        <field name="res_model">hr.shift.cascade</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No replacement cascade yet
+            </p>
+            <p>
+                Launch a cascade from a coverage gap: it builds the
+                ordered list of who to call, balancing assigned hours
+                and fairness of rotation.
+            </p>
+        </field>
+    </record>
+    <menuitem
+        id="hr_shift_cascade_menu"
+        name="Replacement Cascades"
+        parent="hr_shift.shift_planning_root"
+        action="hr_shift_cascade_action"
+        sequence="60"
+        groups="hr_shift.group_shift_manager"
+    />
+</odoo>

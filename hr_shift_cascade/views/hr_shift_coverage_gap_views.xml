@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_shift_coverage_gap_tree" model="ir.ui.view">
+        <field name="model">hr.shift.coverage.gap</field>
+        <field name="inherit_id" ref="hr_shift_coverage.hr_shift_coverage_gap_tree" />
+        <field name="arch" type="xml">
+            <field name="missing" position="after">
+                <button
+                    name="action_launch_cascade"
+                    type="object"
+                    string="Launch Cascade"
+                    icon="fa-phone"
+                    groups="hr_shift.group_shift_manager"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>
