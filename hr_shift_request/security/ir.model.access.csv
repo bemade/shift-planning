@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_shift_availability_user,hr.shift.availability user,model_hr_shift_availability,base.group_user,1,1,1,1
+access_hr_shift_availability_manager,hr.shift.availability manager,model_hr_shift_availability,hr_shift.group_shift_manager,1,1,1,1
+access_hr_shift_claim_user,hr.shift.claim user,model_hr_shift_claim,base.group_user,1,1,1,0
+access_hr_shift_claim_manager,hr.shift.claim manager,model_hr_shift_claim,hr_shift.group_shift_manager,1,1,1,1
+access_hr_shift_swap_user,hr.shift.swap user,model_hr_shift_swap,base.group_user,1,1,1,0
+access_hr_shift_swap_manager,hr.shift.swap manager,model_hr_shift_swap,hr_shift.group_shift_manager,1,1,1,1

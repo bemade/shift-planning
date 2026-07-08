@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_shift_availability_tree" model="ir.ui.view">
+        <field name="model">hr.shift.availability</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field
+                    name="employee_id"
+                    widget="many2one_avatar_employee"
+                    readonly="not context.get('shift_manager_mode')"
+                />
+                <field name="template_id" placeholder="Any shift" />
+                <field name="day_number" placeholder="Any day" />
+                <field name="note" optional="show" />
+            </list>
+        </field>
+    </record>
+    <record id="hr_shift_availability_search" model="ir.ui.view">
+        <field name="model">hr.shift.availability</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="employee_id" />
+                <field name="template_id" />
+                <group name="group_by">
+                    <filter
+                        name="group_employee"
+                        string="Employee"
+                        context="{'group_by': 'employee_id'}"
+                    />
+                    <filter
+                        name="group_template"
+                        string="Template"
+                        context="{'group_by': 'template_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="hr_shift_availability_action_my" model="ir.actions.act_window">
+        <field name="name">My Availabilities</field>
+        <field name="res_model">hr.shift.availability</field>
+        <field name="view_mode">list</field>
+        <field name="domain">[('employee_id.user_id', '=', uid)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Declare when you are available for extra shifts
+            </p>
+            <p>
+                Your manager sees these availabilities when filling
+                open shifts.
+            </p>
+        </field>
+    </record>
+    <record id="hr_shift_availability_action_all" model="ir.actions.act_window">
+        <field name="name">Availabilities</field>
+        <field name="res_model">hr.shift.availability</field>
+        <field name="view_mode">list</field>
+        <field name="context">
+            {'search_default_group_employee': 1, 'shift_manager_mode': 1}
+        </field>
+    </record>
+    <menuitem
+        id="hr_shift_availability_menu_my"
+        name="My Availabilities"
+        parent="hr_shift.shift_planning_root"
+        action="hr_shift_availability_action_my"
+        sequence="40"
+    />
+    <menuitem
+        id="hr_shift_availability_menu_all"
+        name="Availabilities"
+        parent="hr_shift.shift_planning_root"
+        action="hr_shift_availability_action_all"
+        sequence="41"
+        groups="hr_shift.group_shift_manager"
+    />
+</odoo>

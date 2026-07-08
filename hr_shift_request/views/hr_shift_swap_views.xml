@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_shift_swap_form" model="ir.ui.view">
+        <field name="model">hr.shift.swap</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name="action_accept"
+                        type="object"
+                        string="Accept"
+                        class="btn-primary"
+                        invisible="state != 'submitted'"
+                    />
+                    <button
+                        name="action_approve"
+                        type="object"
+                        string="Approve"
+                        class="btn-primary"
+                        invisible="state != 'accepted'"
+                        groups="hr_shift.group_shift_manager"
+                    />
+                    <button
+                        name="action_refuse"
+                        type="object"
+                        string="Refuse"
+                        invisible="state not in ('submitted', 'accepted')"
+                    />
+                    <button
+                        name="action_cancel"
+                        type="object"
+                        string="Cancel"
+                        invisible="state not in ('submitted', 'accepted')"
+                    />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Offer">
+                            <field
+                                name="employee_id"
+                                widget="many2one_avatar_employee"
+                            />
+                            <field name="line_id" />
+                        </group>
+                        <group string="In Exchange">
+                            <field
+                                name="target_employee_id"
+                                widget="many2one_avatar_employee"
+                            />
+                            <field name="target_line_id" />
+                        </group>
+                    </group>
+                    <group>
+                        <field name="planning_id" />
+                    </group>
+                </sheet>
+                <chatter />
+            </form>
+        </field>
+    </record>
+    <record id="hr_shift_swap_tree" model="ir.ui.view">
+        <field name="model">hr.shift.swap</field>
+        <field name="arch" type="xml">
+            <list
+                decoration-success="state == 'approved'"
+                decoration-info="state == 'accepted'"
+                decoration-muted="state in ('refused', 'cancelled')"
+            >
+                <field name="employee_id" widget="many2one_avatar_employee" />
+                <field name="line_id" />
+                <field name="target_employee_id" widget="many2one_avatar_employee" />
+                <field name="target_line_id" optional="show" />
+                <field name="state" widget="badge" />
+            </list>
+        </field>
+    </record>
+    <record id="hr_shift_swap_search" model="ir.ui.view">
+        <field name="model">hr.shift.swap</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="employee_id" />
+                <field name="target_employee_id" />
+                <filter
+                    name="filter_waiting_manager"
+                    string="To Approve"
+                    domain="[('state', '=', 'accepted')]"
+                />
+                <group name="group_by">
+                    <filter
+                        name="group_state"
+                        string="Status"
+                        context="{'group_by': 'state'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="hr_shift_swap_action" model="ir.actions.act_window">
+        <field name="name">Shift Swaps</field>
+        <field name="res_model">hr.shift.swap</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No shift swap requested yet
+            </p>
+            <p>
+                Offer one of your shifts to a colleague — either as a
+                hand-over or in exchange for one of theirs. The colleague
+                accepts, then a shift manager approves.
+            </p>
+        </field>
+    </record>
+    <menuitem
+        id="hr_shift_swap_menu"
+        name="Shift Swaps"
+        parent="hr_shift.shift_planning_root"
+        action="hr_shift_swap_action"
+        sequence="51"
+    />
+</odoo>
