@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_shift_cascade_form" model="ir.ui.view">
+        <field name="model">hr.shift.cascade</field>
+        <field name="inherit_id" ref="hr_shift_cascade.hr_shift_cascade_form" />
+        <field name="arch" type="xml">
+            <field name="rule_id" position="after">
+                <field name="sms_enabled" readonly="state != 'draft'" />
+                <field
+                    name="sms_blast_size"
+                    invisible="not sms_enabled"
+                    readonly="state != 'draft'"
+                />
+                <field
+                    name="sms_timeout_minutes"
+                    invisible="not sms_enabled"
+                    readonly="state != 'draft'"
+                />
+            </field>
+            <field name="last_offered" position="after">
+                <field name="sms_sent_on" readonly="1" optional="show" />
+            </field>
+        </field>
+    </record>
+</odoo>

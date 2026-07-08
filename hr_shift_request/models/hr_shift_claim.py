@@ -75,6 +75,10 @@ class HrShiftClaim(models.Model):
         return claims
 
     def _check_manager(self):
+        if self.env.su:
+            # System flows (e.g. tokenized cascade acceptances) approve
+            # through sudo: the capability was granted upstream.
+            return
         if not self.env.user.has_group("hr_shift.group_shift_manager"):
             raise AccessError(
                 self.env._("Only shift managers can approve or refuse claims.")

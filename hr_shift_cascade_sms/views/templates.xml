@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="offer_page" name="Shift Cascade Offer">
+        <html>
+            <head>
+                <title>Shift Offer</title>
+                <meta charset="utf-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <style>
+                    body { font-family: sans-serif; max-width: 26rem;
+                           margin: 3rem auto; padding: 0 1rem;
+                           text-align: center; }
+                    .btn { display: inline-block; padding: .9rem 2rem;
+                           margin: .5rem; border: 0; border-radius: .5rem;
+                           font-size: 1.1rem; cursor: pointer;
+                           text-decoration: none; color: white; }
+                    .accept { background: #28a745; }
+                    .decline { background: #dc3545; }
+                    .muted { color: #666; }
+                </style>
+            </head>
+            <body>
+                <t t-if="status == 'pending'">
+                    <h2>
+                        <t t-esc="shift_label" />
+                    </h2>
+                    <p>Do you take this shift?</p>
+                    <form
+                        t-attf-action="/shift_cascade/{{ candidate.access_token }}/accept"
+                        method="post"
+                        style="display:inline"
+                    >
+                        <button class="btn accept" type="submit">
+                            I take it
+                        </button>
+                    </form>
+                    <form
+                        t-attf-action="/shift_cascade/{{ candidate.access_token }}/decline"
+                        method="post"
+                        style="display:inline"
+                    >
+                        <button class="btn decline" type="submit">
+                            Not available
+                        </button>
+                    </form>
+                </t>
+                <t t-if="status == 'accepted'">
+                    <h2>✅ Shift confirmed</h2>
+                    <p>
+                        <t t-esc="shift_label" /> is yours.
+                        Thank you!
+                    </p>
+                </t>
+                <t t-if="status == 'declined'">
+                    <h2>Answer recorded</h2>
+                    <p class="muted">Thanks for answering.</p>
+                </t>
+                <t t-if="status == 'answered'">
+                    <h2>Already answered</h2>
+                    <p class="muted">This offer was already confirmed.</p>
+                </t>
+                <t t-if="status == 'filled'">
+                    <h2>Shift already filled</h2>
+                    <p class="muted">
+                        A colleague accepted before you. Thanks anyway!
+                    </p>
+                </t>
+                <t t-if="status == 'closed'">
+                    <h2>Offer closed</h2>
+                    <p class="muted">This offer is no longer active.</p>
+                </t>
+                <t t-if="status == 'invalid'">
+                    <h2>Invalid link</h2>
+                    <p class="muted">This link is not valid.</p>
+                </t>
+            </body>
+        </html>
+    </template>
+</odoo>

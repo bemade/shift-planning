@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="hr.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <block name="employees_setting_container" position="after">
+                <block title="Shift Cascade SMS" name="hr_shift_cascade_sms">
+                    <setting
+                        string="SMS Gateway"
+                        help="HTTP gateway used to send cascade offers by SMS"
+                    >
+                        <field name="hr_shift_cascade_sms_gateway_url" />
+                        <field name="hr_shift_cascade_sms_gateway_method" />
+                    </setting>
+                    <setting
+                        string="Enable by Default"
+                        help="New cascades are created with SMS offers enabled"
+                    >
+                        <field name="hr_shift_cascade_sms_enabled_by_default" />
+                    </setting>
+                </block>
+            </block>
+        </field>
+    </record>
+</odoo>
