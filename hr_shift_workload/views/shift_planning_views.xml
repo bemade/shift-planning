@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="shift_workload_tree" model="ir.ui.view">
+        <field name="model">hr.shift.planning.shift</field>
+        <field name="arch" type="xml">
+            <list create="0" decoration-danger="overtime">
+                <field name="employee_id" widget="many2one_avatar_employee" />
+                <field name="planned_hours" sum="Total planned" />
+                <field name="allocated_hours" />
+                <field name="overtime" widget="boolean" />
+                <field name="planning_id" column_invisible="True" />
+            </list>
+        </field>
+    </record>
+    <record id="shift_planning_form" model="ir.ui.view">
+        <field name="model">hr.shift.planning</field>
+        <field name="inherit_id" ref="hr_shift.shift_planning_form" />
+        <field name="arch" type="xml">
+            <button name="generate_shifts" position="after">
+                <button
+                    type="object"
+                    name="action_view_workload"
+                    string="Workload"
+                    class="btn btn-secondary"
+                    invisible="state == 'new'"
+                />
+            </button>
+        </field>
+    </record>
+</odoo>

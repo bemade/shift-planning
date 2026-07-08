@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_shift_rotation_form" model="ir.ui.view">
+        <field name="model">hr.shift.rotation</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                    </group>
+                    <notebook>
+                        <page name="weeks" string="Week Patterns">
+                            <field name="week_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle" />
+                                    <field name="name" />
+                                </list>
+                                <form>
+                                    <group>
+                                        <field name="name" />
+                                        <field name="sequence" />
+                                    </group>
+                                    <field name="line_ids">
+                                        <list editable="bottom">
+                                            <field name="day_number" />
+                                            <field name="template_id" />
+                                        </list>
+                                    </field>
+                                </form>
+                            </field>
+                        </page>
+                        <page name="employees" string="Employees">
+                            <field name="assignment_ids">
+                                <list editable="bottom">
+                                    <field
+                                        name="employee_id"
+                                        widget="many2one_avatar_employee"
+                                    />
+                                    <field name="offset" />
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="hr_shift_rotation_tree" model="ir.ui.view">
+        <field name="model">hr.shift.rotation</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" />
+            </list>
+        </field>
+    </record>
+    <record id="hr_shift_rotation_action" model="ir.actions.act_window">
+        <field name="name">Rotations</field>
+        <field name="res_model">hr.shift.rotation</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem
+        id="hr_shift_rotation_menu"
+        name="Rotations"
+        parent="hr_shift.shift_planning_root"
+        action="hr_shift_rotation_action"
+        sequence="35"
+        groups="hr_shift.group_shift_manager"
+    />
+</odoo>

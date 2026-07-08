@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="shift_planning_line_timeline" model="ir.ui.view">
+        <field name="model">hr.shift.planning.line</field>
+        <field name="arch" type="xml">
+            <timeline
+                date_start="start_time"
+                date_stop="end_time"
+                default_group_by="employee_id"
+                event_open_popup="true"
+                zoomKey="ctrlKey"
+                mode="week"
+                colors="#dc3545: state == 'unassigned'; #28a745: state == 'assigned'; #ffc107: state in ('on_leave', 'holiday')"
+            >
+                <field name="template_id" />
+                <field name="state" />
+                <templates>
+                    <div t-name="timeline-item">
+                        <strong>
+                            <t t-esc="record.template_id[1]" />
+                        </strong>
+                    </div>
+                </templates>
+            </timeline>
+        </field>
+    </record>
+    <record id="shift_planning_line_timeline_action" model="ir.actions.act_window">
+        <field name="name">Shifts Timeline</field>
+        <field name="res_model">hr.shift.planning.line</field>
+        <field name="view_mode">timeline,list</field>
+        <field name="domain">[('template_id', '!=', False)]</field>
+    </record>
+    <menuitem
+        id="shift_planning_timeline_menu"
+        name="Timeline"
+        parent="hr_shift.shift_planning_root"
+        action="shift_planning_line_timeline_action"
+        sequence="15"
+        groups="hr_shift.group_shift_manager"
+    />
+</odoo>

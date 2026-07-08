@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="schedule_page" name="My Weekly Schedule">
+        <html>
+            <head>
+                <title>My Schedule</title>
+                <meta charset="utf-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <style>
+                    body { font-family: sans-serif; max-width: 26rem;
+                           margin: 3rem auto; padding: 0 1rem; }
+                    li { margin: .4rem 0; }
+                    .muted { color: #666; }
+                </style>
+            </head>
+            <body>
+                <t t-if="status == 'ok'">
+                    <h2>
+                        <t t-esc="planning_label" />
+                    </h2>
+                    <p>
+                        <t t-esc="employee_name" />
+                    </p>
+                    <ul>
+                        <li t-foreach="lines" t-as="line">
+                            <strong t-esc="line['day']" />
+                            <t t-if="line['date']">
+                                (<t t-esc="line['date']" />)
+                            </t>
+                            : <t t-esc="line['template']" />
+                        </li>
+                    </ul>
+                </t>
+                <t t-if="status == 'invalid'">
+                    <h2>Invalid link</h2>
+                    <p class="muted">This link is not valid.</p>
+                </t>
+            </body>
+        </html>
+    </template>
+</odoo>

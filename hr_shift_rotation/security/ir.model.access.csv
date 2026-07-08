@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_rotation_manager,hr.shift.rotation manager,model_hr_shift_rotation,hr_shift.group_shift_manager,1,1,1,1
+access_rotation_week_manager,hr.shift.rotation.week manager,model_hr_shift_rotation_week,hr_shift.group_shift_manager,1,1,1,1
+access_rotation_week_line_manager,hr.shift.rotation.week.line manager,model_hr_shift_rotation_week_line,hr_shift.group_shift_manager,1,1,1,1
+access_rotation_assignment_manager,hr.shift.rotation.assignment manager,model_hr_shift_rotation_assignment,hr_shift.group_shift_manager,1,1,1,1
+access_rotation_apply_manager,hr.shift.rotation.apply manager,model_hr_shift_rotation_apply,hr_shift.group_shift_manager,1,1,1,1
+access_rotation_user,hr.shift.rotation user,model_hr_shift_rotation,base.group_user,1,0,0,0
+access_rotation_week_user,hr.shift.rotation.week user,model_hr_shift_rotation_week,base.group_user,1,0,0,0
+access_rotation_week_line_user,hr.shift.rotation.week.line user,model_hr_shift_rotation_week_line,base.group_user,1,0,0,0
+access_rotation_assignment_user,hr.shift.rotation.assignment user,model_hr_shift_rotation_assignment,base.group_user,1,0,0,0
