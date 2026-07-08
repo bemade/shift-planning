@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_shift_coverage_rule_tree" model="ir.ui.view">
+        <field name="model">hr.shift.coverage.rule</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="template_id" />
+                <field name="job_id" />
+                <field name="department_id" optional="hide" />
+                <field name="min_employees" />
+                <field name="company_id" groups="base.group_multi_company" />
+            </list>
+        </field>
+    </record>
+    <record id="hr_shift_coverage_rule_search" model="ir.ui.view">
+        <field name="model">hr.shift.coverage.rule</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="template_id" />
+                <field name="job_id" />
+                <filter
+                    name="archived"
+                    string="Archived"
+                    domain="[('active', '=', False)]"
+                />
+                <group name="group_by">
+                    <filter
+                        name="group_template"
+                        string="Template"
+                        context="{'group_by': 'template_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="hr_shift_coverage_rule_action" model="ir.actions.act_window">
+        <field name="name">Coverage Rules</field>
+        <field name="res_model">hr.shift.coverage.rule</field>
+        <field name="view_mode">list</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Define the minimum staffing required per shift template
+            </p>
+            <p>
+                For example: the night shift always requires at least
+                2 attendants and 1 auxiliary nurse.
+            </p>
+        </field>
+    </record>
+    <menuitem
+        id="hr_shift_coverage_rule_menu"
+        name="Coverage Rules"
+        parent="hr_shift.shift_planning_root"
+        action="hr_shift_coverage_rule_action"
+        sequence="30"
+        groups="hr_shift.group_shift_manager"
+    />
+</odoo>

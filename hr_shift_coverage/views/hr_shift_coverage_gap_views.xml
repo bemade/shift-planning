@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_shift_coverage_gap_tree" model="ir.ui.view">
+        <field name="model">hr.shift.coverage.gap</field>
+        <field name="arch" type="xml">
+            <list create="0" edit="0" decoration-danger="missing &gt; 0">
+                <field name="date" />
+                <field name="day_number" />
+                <field name="template_id" />
+                <field name="job_id" />
+                <field name="required" />
+                <field name="assigned" />
+                <field name="missing" sum="Total missing" />
+                <field name="planning_id" column_invisible="True" />
+            </list>
+        </field>
+    </record>
+    <record id="hr_shift_coverage_gap_search" model="ir.ui.view">
+        <field name="model">hr.shift.coverage.gap</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="planning_id" />
+                <field name="template_id" />
+                <field name="job_id" />
+                <group name="group_by">
+                    <filter
+                        name="group_date"
+                        string="Date"
+                        context="{'group_by': 'date'}"
+                    />
+                    <filter
+                        name="group_template"
+                        string="Template"
+                        context="{'group_by': 'template_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="hr_shift_coverage_gap_action" model="ir.actions.act_window">
+        <field name="name">Coverage Gaps</field>
+        <field name="res_model">hr.shift.coverage.gap</field>
+        <field name="view_mode">list</field>
+        <field name="context">{'search_default_group_date': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No coverage gap detected
+            </p>
+            <p>
+                Gaps are computed from the coverage rules when you check
+                the coverage of a planning.
+            </p>
+        </field>
+    </record>
+</odoo>
