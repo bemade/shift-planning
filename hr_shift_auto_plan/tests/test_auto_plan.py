@@ -31,7 +31,7 @@ class TestAutoPlan(TransactionCase):
             {
                 "name": "Night",
                 "day_of_week_start": "0",
-                "day_of_week_end": "1",
+                "day_of_week_end": "6",
                 "start_time": 23.0,
                 "end_time": 7.0,
                 "tz": "UTC",
@@ -49,15 +49,20 @@ class TestAutoPlan(TransactionCase):
         )
         cls.planning.generate_shifts()
 
+    def _assigned_days(self, employee):
+        return self.planning.shift_ids.line_ids.filtered(
+            lambda line: line.employee_id == employee and line.state == "assigned"
+        )
+
     def test_01_auto_plan_fills_all_gaps(self):
-        """Both nights (Mon/Tue) get an employee; audit trail exists."""
+        """Every night of the week gets an employee; audit trail exists."""
         action = self.planning.action_auto_plan()
         self.assertEqual(action["params"]["type"], "success")
         self.assertFalse(self.planning.coverage_gap_ids)
         cascades = self.env["hr.shift.cascade"].search(
             [("planning_id", "=", self.planning.id)]
         )
-        self.assertEqual(len(cascades), 2)
+        self.assertEqual(len(cascades), 7)
         self.assertEqual(set(cascades.mapped("state")), {"filled"})
         self.assertEqual(set(cascades.mapped("claim_id.state")), {"approved"})
 
@@ -68,10 +73,36 @@ class TestAutoPlan(TransactionCase):
         self.assertEqual(action["params"]["type"], "warning")
         self.assertTrue(self.planning.coverage_gap_ids)
 
-    def test_03_spreads_load(self):
-        """With one night each, the two employees share the load."""
+    def test_03_weekly_continuity_with_cap(self):
+        """The same employee keeps the night shift up to 5 days, then the
+        remaining days go to the next candidate (fairness cap)."""
         self.planning.action_auto_plan()
-        assigned = self.planning.shift_ids.line_ids.filtered(
-            lambda line: line.state == "assigned"
+        days = sorted(len(self._assigned_days(employee)) for employee in self.employees)
+        self.assertEqual(days, [2, 5])
+
+    def test_04_uniform_week_gets_weekly_template(self):
+        """A fully uniform week is grouped under its template column."""
+        shift = self.planning.shift_ids.filtered(
+            lambda s: s.employee_id == self.employees[0]
         )
-        self.assertEqual(len(assigned.mapped("employee_id")), 2)
+        shift.line_ids.template_id = self.template_night
+        self.planning._auto_plan_set_weekly_templates()
+        self.assertEqual(shift.template_id, self.template_night)
+        # and the weekly write did not regenerate the lines
+        self.assertEqual(len(shift.line_ids), 7)
+        self.assertEqual(
+            set(shift.line_ids.mapped("template_id").ids),
+            {self.template_night.id},
+        )
+
+    def test_05_continuity_beats_fairness_within_template(self):
+        """Once someone starts a template, following days chain to them
+        even if a colleague has fewer hours."""
+        line = self.planning.shift_ids.line_ids.filtered(
+            lambda line: line.employee_id == self.employees[1]
+            and line.day_number == "0"
+        )
+        line.template_id = self.template_night
+        self.planning.action_auto_plan()
+        self.assertEqual(len(self._assigned_days(self.employees[1])), 5)
+        self.assertEqual(len(self._assigned_days(self.employees[0])), 2)
