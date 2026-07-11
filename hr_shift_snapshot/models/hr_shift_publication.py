@@ -84,7 +84,7 @@ class HrShiftPublication(models.Model):
                 [
                     ("planning_id", "=", self.planning_id.id),
                     ("day_number", "=", day_number),
-                    ("state", "=", "done"),
+                    ("state", "=", "filled"),
                     ("claim_id.employee_id", "=", employee.id),
                     ("write_date", ">=", self.create_date),
                 ],
