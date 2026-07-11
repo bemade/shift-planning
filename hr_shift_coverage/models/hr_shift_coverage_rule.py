@@ -50,6 +50,28 @@ class HrShiftCoverageRule(models.Model):
             parts.append(f"≥ {rule.min_employees}")
             rule.display_name = " — ".join(p for p in parts if p)
 
+    def _filter_rule_lines(self, lines, template, day_number):
+        """Lines matching this rule's job/department filters for a given
+        template and day."""
+        self.ensure_one()
+        lines = lines.filtered(
+            lambda line: line.template_id == template and line.day_number == day_number
+        )
+        if self.job_id:
+            lines = lines.filtered(lambda line: line.employee_id.job_id == self.job_id)
+        if self.department_id:
+            lines = lines.filtered(
+                lambda line: line.employee_id.department_id == self.department_id
+            )
+        return lines
+
+    def _covering_line_count(self, lines, day_number):
+        """How many employees the given assigned lines contribute towards
+        this rule on that day. Extension point for alternate coverage
+        sources (e.g. split shifts)."""
+        self.ensure_one()
+        return len(self._filter_rule_lines(lines, self.template_id, day_number))
+
     def _get_covered_day_numbers(self):
         """Day numbers ("0".."6") on which this rule requires staffing,
         derived from the template week days span (wrapping over the week

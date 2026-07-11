@@ -32,23 +32,8 @@ class ShiftPlanning(models.Model):
             gap_vals = []
             for rule in rules:
                 for day_number in rule._get_covered_day_numbers():
-                    lines = assigned_lines.filtered(
-                        lambda line, rule=rule, day=day_number: (
-                            line.template_id == rule.template_id
-                            and line.day_number == day
-                        )
-                    )
-                    if rule.job_id:
-                        lines = lines.filtered(
-                            lambda line, rule=rule: line.employee_id.job_id
-                            == rule.job_id
-                        )
-                    if rule.department_id:
-                        lines = lines.filtered(
-                            lambda line, rule=rule: line.employee_id.department_id
-                            == rule.department_id
-                        )
-                    missing = rule.min_employees - len(lines)
+                    assigned = rule._covering_line_count(assigned_lines, day_number)
+                    missing = rule.min_employees - assigned
                     if missing > 0:
                         gap_vals.append(
                             {
@@ -56,7 +41,7 @@ class ShiftPlanning(models.Model):
                                 "rule_id": rule.id,
                                 "day_number": day_number,
                                 "required": rule.min_employees,
-                                "assigned": len(lines),
+                                "assigned": assigned,
                                 "missing": missing,
                             }
                         )
