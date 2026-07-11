@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="shift_planning_form" model="ir.ui.view">
+        <field name="model">hr.shift.planning</field>
+        <field name="inherit_id" ref="hr_shift.shift_planning_form" />
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button
+                    type="object"
+                    name="action_view_publications"
+                    class="oe_stat_button"
+                    icon="fa-camera"
+                    invisible="publication_count == 0"
+                >
+                    <field
+                        name="publication_count"
+                        widget="statinfo"
+                        string="Publications"
+                    />
+                </button>
+            </div>
+            <sheet position="after">
+                <chatter />
+            </sheet>
+        </field>
+    </record>
+</odoo>

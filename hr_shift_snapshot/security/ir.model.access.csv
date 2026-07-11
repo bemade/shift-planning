@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_shift_publication_user,hr.shift.publication user,model_hr_shift_publication,base.group_user,1,0,0,0
+access_hr_shift_publication_manager,hr.shift.publication manager,model_hr_shift_publication,hr_shift.group_shift_manager,1,1,1,1
+access_hr_shift_publication_line_user,hr.shift.publication.line user,model_hr_shift_publication_line,base.group_user,1,0,0,0
+access_hr_shift_publication_line_manager,hr.shift.publication.line manager,model_hr_shift_publication_line,hr_shift.group_shift_manager,1,1,1,1
+access_hr_shift_publication_variance_user,hr.shift.publication.variance user,model_hr_shift_publication_variance,base.group_user,1,0,0,0
+access_hr_shift_publication_variance_manager,hr.shift.publication.variance manager,model_hr_shift_publication_variance,hr_shift.group_shift_manager,1,1,1,1

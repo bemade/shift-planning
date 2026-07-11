@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_shift_publication_tree" model="ir.ui.view">
+        <field name="model">hr.shift.publication</field>
+        <field name="arch" type="xml">
+            <list create="0">
+                <field name="planning_id" />
+                <field name="version" />
+                <field name="published_on" />
+                <field name="published_by_id" />
+                <field name="variance_count" />
+            </list>
+        </field>
+    </record>
+    <record id="hr_shift_publication_form" model="ir.ui.view">
+        <field name="model">hr.shift.publication</field>
+        <field name="arch" type="xml">
+            <form create="0">
+                <header>
+                    <button
+                        type="object"
+                        name="action_compute_variances"
+                        string="Analyse Variances"
+                        class="btn btn-primary"
+                    />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="planning_id" readonly="1" />
+                            <field name="version" />
+                        </group>
+                        <group>
+                            <field name="published_on" />
+                            <field name="published_by_id" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Published Schedule" name="lines">
+                            <field name="line_ids">
+                                <list create="0" edit="0" delete="0">
+                                    <field name="employee_name" />
+                                    <field name="day_number" />
+                                    <field name="template_name" />
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Variances" name="variances">
+                            <field name="variance_ids">
+                                <list
+                                    create="0"
+                                    edit="0"
+                                    delete="0"
+                                    decoration-warning="cause == 'manual'"
+                                >
+                                    <field name="employee_id" />
+                                    <field name="day_number" />
+                                    <field name="published_template_name" />
+                                    <field name="current_template_name" />
+                                    <field name="cause" />
+                                    <field name="cause_note" optional="show" />
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="hr_shift_publication_search" model="ir.ui.view">
+        <field name="model">hr.shift.publication</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="planning_id" />
+                <group name="group_by">
+                    <filter
+                        name="group_planning"
+                        string="Planning"
+                        context="{'group_by': 'planning_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="hr_shift_publication_action" model="ir.actions.act_window">
+        <field name="name">Publications</field>
+        <field name="res_model">hr.shift.publication</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No schedule published yet
+            </p>
+            <p>
+                Every time a planning is published, a frozen snapshot is
+                stored here so you can audit what changed afterwards.
+            </p>
+        </field>
+    </record>
+    <menuitem
+        id="hr_shift_publication_menu"
+        name="Publications"
+        parent="hr_shift.shift_planning_root"
+        action="hr_shift_publication_action"
+        sequence="45"
+        groups="hr_shift.group_shift_manager"
+    />
+</odoo>
