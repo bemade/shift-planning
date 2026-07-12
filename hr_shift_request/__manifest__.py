@@ -17,5 +17,6 @@
         "views/hr_shift_claim_views.xml",
         "views/hr_shift_swap_views.xml",
         "views/hr_shift_coverage_gap_views.xml",
+        "views/res_config_settings_views.xml",
     ],
 }
