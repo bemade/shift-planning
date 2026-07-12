@@ -3,7 +3,7 @@
 {
     "name": "Employees Shifts Requests",
     "summary": "Employee availabilities, open shift claims and shift swaps",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.1.0",
     "author": "Bemade, Odoo Community Association (OCA)",
     "maintainers": ["XtremXpert"],
     "license": "AGPL-3",

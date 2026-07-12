@@ -1,5 +1,9 @@
 # Copyright 2026 Bemade Inc.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+from datetime import datetime, time, timedelta
+
+import pytz
+
 from odoo import api, fields, models
 from odoo.exceptions import AccessError, UserError
 
@@ -63,9 +67,12 @@ class HrShiftSwap(models.Model):
     def create(self, vals_list):
         swaps = super().create(vals_list)
         for swap in swaps:
+            # sudo: user_id is a private employee field the requesting
+            # employee cannot read on the colleague's record.
+            swap_su = swap.sudo()
             partners = (
-                swap.employee_id.user_id.partner_id
-                | swap.target_employee_id.user_id.partner_id
+                swap_su.employee_id.user_id.partner_id
+                | swap_su.target_employee_id.user_id.partner_id
             )
             swap.message_subscribe(partner_ids=partners.ids)
             swap.message_post(
@@ -93,6 +100,48 @@ class HrShiftSwap(models.Model):
                     self.env._("Only the requested colleague can accept a swap.")
                 )
         self.write({"state": "accepted"})
+        for swap in self:
+            swap._auto_approve_if_urgent()
+
+    def _shift_start_datetime(self):
+        """Naive UTC datetime at which the offered shift starts."""
+        self.ensure_one()
+        line = self.line_id
+        start_date = line.planning_id.start_date
+        if not start_date or not line.template_id:
+            return False
+        tz = pytz.timezone(line.template_id.tz or self.env.user.tz or "UTC")
+        start_time = line.template_id.start_time
+        local_start = tz.localize(
+            datetime.combine(
+                start_date + timedelta(days=int(line.day_number)),
+                time(int(start_time) % 24, int(round(start_time % 1 * 60))),
+            )
+        )
+        return local_start.astimezone(pytz.utc).replace(tzinfo=None)
+
+    def _auto_approve_if_urgent(self):
+        """Apply the swap without manager approval when the shift starts
+        soon: an urgent slot must not stay empty for lack of a
+        confirmation."""
+        self.ensure_one()
+        hours = self.env.company.swap_auto_approve_hours
+        if not hours or self.state != "accepted":
+            return
+        start = self._shift_start_datetime()
+        if not start or start - fields.Datetime.now() > timedelta(hours=hours):
+            return
+        swap = self.sudo()
+        swap._apply()
+        swap.state = "approved"
+        swap.planning_id._update_coverage_gaps()
+        self.message_post(
+            body=self.env._(
+                "Approved automatically: the shift starts in less than "
+                "%(hours)s hours.",
+                hours=round(hours),
+            )
+        )
 
     def action_approve(self):
         if not self.env.user.has_group("hr_shift.group_shift_manager"):
