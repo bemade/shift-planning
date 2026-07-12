@@ -87,6 +87,21 @@ class TestShiftCascadeSms(TransactionCase):
         self.assertFalse(candidates[2].sms_sent_on)
         self.assertIn(candidates[0].access_token, sent[0][1])
 
+    def test_01b_number_normalization(self):
+        """Numbers are sent digits-only, keeping an explicit + prefix."""
+        self.attendants[0].mobile_phone = "+1 (514) 555-0001"
+        self.attendants[1].mobile_phone = "450 555-0102"
+        sent = []
+
+        def fake_send(gateway, number, message):
+            sent.append(number)
+            return True
+
+        with patch.object(HrShiftSmsGateway, "send", fake_send):
+            cascade = self._launch(blast=2)
+            cascade.action_start()
+        self.assertEqual(set(sent), {"+15145550001", "4505550102"})
+
     def test_02_token_accept_and_race(self):
         """First token acceptance wins; the loser gets 'filled'."""
         with patch.object(HrShiftSmsGateway, "send", lambda *a: True):

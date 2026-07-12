@@ -103,10 +103,20 @@ class HrShiftCascadeCandidate(models.Model):
             url=self._get_token_url(),
         )
 
+    def _sms_number(self):
+        """Phone number normalized for HTTP gateways: digits only, with
+        the leading ``+`` preserved when present."""
+        self.ensure_one()
+        raw = self.mobile_phone or self.work_phone or ""
+        digits = "".join(char for char in raw if char.isdigit())
+        if not digits:
+            return ""
+        return f"+{digits}" if raw.strip().startswith("+") else digits
+
     def _sms_send(self):
         """Send the offer to this candidate. Returns True on success."""
         self.ensure_one()
-        number = self.mobile_phone or self.work_phone
+        number = self._sms_number()
         if not number:
             self.write(
                 {
