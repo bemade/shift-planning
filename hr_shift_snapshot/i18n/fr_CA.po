@@ -1,0 +1,393 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_shift_snapshot
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-13 18:02+0000\n"
+"PO-Revision-Date: 2026-07-13 18:02+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_CA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_shift_snapshot
+#. odoo-python
+#: code:addons/hr_shift_snapshot/models/hr_shift_publication.py:0
+msgid "%(planning)s — v%(version)s"
+msgstr "%(planning)s — v%(version)s"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_planning__message_needaction
+msgid "Action Needed"
+msgstr "Nécessite une action"
+
+#. module: hr_shift_snapshot
+#: model_terms:ir.ui.view,arch_db:hr_shift_snapshot.hr_shift_publication_form
+msgid "Analyse Variances"
+msgstr "Analyser les écarts"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_planning__message_attachment_count
+msgid "Attachment Count"
+msgstr "Nombre de pièces jointes"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_variance__cause
+msgid "Cause"
+msgstr "Cause"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_variance__cause_note
+msgid "Cause Note"
+msgstr "Note de cause"
+
+#. module: hr_shift_snapshot
+#. odoo-python
+#: code:addons/hr_shift_snapshot/models/shift_planning.py:0
+msgid ""
+"Change after publication — %(employee)s, %(day)s: %(before)s → %(after)s"
+msgstr ""
+"Changement après publication — %(employee)s, %(day)s : %(before)s → "
+"%(after)s"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication__create_uid
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_line__create_uid
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_variance__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication__create_date
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_line__create_date
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_variance__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_variance__current_template_id
+msgid "Current Template"
+msgstr "Gabarit actuel"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_variance__current_template_name
+msgid "Current Template Name"
+msgstr "Nom du gabarit actuel"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_line__day_number
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_variance__day_number
+msgid "Day Number"
+msgstr "Numéro du jour"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_planning__display_name
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_planning_line__display_name
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication__display_name
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_line__display_name
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_variance__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_line__employee_id
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_variance__employee_id
+msgid "Employee"
+msgstr "Employée"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_line__employee_name
+msgid "Employee Name"
+msgstr "Nom de l'employée"
+
+#. module: hr_shift_snapshot
+#: model_terms:ir.actions.act_window,help:hr_shift_snapshot.hr_shift_publication_action
+msgid ""
+"Every time a planning is published, a frozen snapshot is\n"
+"                stored here so you can audit what changed afterwards."
+msgstr ""
+"Chaque fois qu'une planification est publiée, un instantané figé est\n"
+"                conservé ici pour vérifier ensuite ce qui a changé."
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_planning__message_follower_ids
+msgid "Followers"
+msgstr "Abonnés"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_planning__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Abonnés (partenaires)"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields.selection,name:hr_shift_snapshot.selection__hr_shift_publication_line__day_number__4
+#: model:ir.model.fields.selection,name:hr_shift_snapshot.selection__hr_shift_publication_variance__day_number__4
+msgid "Friday"
+msgstr "Vendredi"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_planning__has_message
+msgid "Has Message"
+msgstr "A un message"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_planning__id
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_planning_line__id
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication__id
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_line__id
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_variance__id
+msgid "ID"
+msgstr "Identifiant"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,help:hr_shift_snapshot.field_hr_shift_planning__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si coché, de nouveaux messages requièrent votre attention."
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,help:hr_shift_snapshot.field_hr_shift_planning__message_has_error
+#: model:ir.model.fields,help:hr_shift_snapshot.field_hr_shift_planning__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si coché, certains messages présentent une erreur de livraison."
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_planning__message_is_follower
+msgid "Is Follower"
+msgstr "Est abonné"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication__write_uid
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_line__write_uid
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_variance__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication__write_date
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_line__write_date
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_variance__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication__line_ids
+msgid "Line"
+msgstr "Lignes"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields.selection,name:hr_shift_snapshot.selection__hr_shift_publication_variance__cause__manual
+msgid "Manual change"
+msgstr "Changement manuel"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_planning__message_has_error
+msgid "Message Delivery error"
+msgstr "Erreur de livraison du message"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_planning__message_ids
+msgid "Messages"
+msgstr "Messages"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields.selection,name:hr_shift_snapshot.selection__hr_shift_publication_line__day_number__0
+#: model:ir.model.fields.selection,name:hr_shift_snapshot.selection__hr_shift_publication_variance__day_number__0
+msgid "Monday"
+msgstr "Lundi"
+
+#. module: hr_shift_snapshot
+#: model_terms:ir.actions.act_window,help:hr_shift_snapshot.hr_shift_publication_action
+msgid "No schedule published yet"
+msgstr "Aucun horaire publié pour l'instant"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_planning__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Nombre d'actions"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_planning__message_has_error_counter
+msgid "Number of errors"
+msgstr "Nombre d'erreurs"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,help:hr_shift_snapshot.field_hr_shift_planning__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Nombre de messages requérant une action"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,help:hr_shift_snapshot.field_hr_shift_planning__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Nombre de messages avec erreur de livraison"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication__planning_id
+#: model_terms:ir.ui.view,arch_db:hr_shift_snapshot.hr_shift_publication_search
+msgid "Planning"
+msgstr "Planification"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_planning__publication_ids
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_line__publication_id
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_variance__publication_id
+msgid "Publication"
+msgstr "Publication"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_planning__publication_count
+msgid "Publication Count"
+msgstr "Nombre de publications"
+
+#. module: hr_shift_snapshot
+#: model:ir.actions.act_window,name:hr_shift_snapshot.hr_shift_publication_action
+#: model:ir.ui.menu,name:hr_shift_snapshot.hr_shift_publication_menu
+#: model_terms:ir.ui.view,arch_db:hr_shift_snapshot.shift_planning_form
+msgid "Publications"
+msgstr "Publications"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication__published_by_id
+msgid "Published By"
+msgstr "Publié par"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication__published_on
+msgid "Published On"
+msgstr "Publié le"
+
+#. module: hr_shift_snapshot
+#: model_terms:ir.ui.view,arch_db:hr_shift_snapshot.hr_shift_publication_form
+msgid "Published Schedule"
+msgstr "Horaire publié"
+
+#. module: hr_shift_snapshot
+#: model:ir.model,name:hr_shift_snapshot.model_hr_shift_publication
+msgid "Published Schedule Snapshot"
+msgstr "Instantané d'horaire publié"
+
+#. module: hr_shift_snapshot
+#: model:ir.model,name:hr_shift_snapshot.model_hr_shift_publication_line
+msgid "Published Schedule Snapshot Line"
+msgstr "Ligne d'instantané d'horaire publié"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_variance__published_template_id
+msgid "Published Template"
+msgstr "Gabarit publié"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_variance__published_template_name
+msgid "Published Template Name"
+msgstr "Nom du gabarit publié"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields.selection,name:hr_shift_snapshot.selection__hr_shift_publication_variance__cause__cascade
+msgid "Replacement cascade"
+msgstr "Cascade de remplacement"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_planning__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Erreur de livraison SMS"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields.selection,name:hr_shift_snapshot.selection__hr_shift_publication_line__day_number__5
+#: model:ir.model.fields.selection,name:hr_shift_snapshot.selection__hr_shift_publication_variance__day_number__5
+msgid "Saturday"
+msgstr "Samedi"
+
+#. module: hr_shift_snapshot
+#: model:ir.model,name:hr_shift_snapshot.model_hr_shift_planning_line
+msgid "Shift of the day for the employee"
+msgstr "Quart du jour de l'employée"
+
+#. module: hr_shift_snapshot
+#: model:ir.model,name:hr_shift_snapshot.model_hr_shift_planning
+msgid "Shift plannings"
+msgstr "Planifications de quarts"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields.selection,name:hr_shift_snapshot.selection__hr_shift_publication_variance__cause__swap
+msgid "Shift swap"
+msgstr "Échange de quart"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields.selection,name:hr_shift_snapshot.selection__hr_shift_publication_line__day_number__6
+#: model:ir.model.fields.selection,name:hr_shift_snapshot.selection__hr_shift_publication_variance__day_number__6
+msgid "Sunday"
+msgstr "Dimanche"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_line__template_id
+msgid "Template"
+msgstr "Gabarit"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication_line__template_name
+msgid "Template Name"
+msgstr "Nom du gabarit"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields.selection,name:hr_shift_snapshot.selection__hr_shift_publication_line__day_number__3
+#: model:ir.model.fields.selection,name:hr_shift_snapshot.selection__hr_shift_publication_variance__day_number__3
+msgid "Thursday"
+msgstr "Jeudi"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields.selection,name:hr_shift_snapshot.selection__hr_shift_publication_line__day_number__1
+#: model:ir.model.fields.selection,name:hr_shift_snapshot.selection__hr_shift_publication_variance__day_number__1
+msgid "Tuesday"
+msgstr "Mardi"
+
+#. module: hr_shift_snapshot
+#. odoo-python
+#: code:addons/hr_shift_snapshot/models/shift_planning.py:0
+msgid "Unassigned"
+msgstr "Non assigné"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication__variance_ids
+msgid "Variance"
+msgstr "Écarts"
+
+#. module: hr_shift_snapshot
+#: model:ir.model,name:hr_shift_snapshot.model_hr_shift_publication_variance
+msgid "Variance Between Published and Current Schedule"
+msgstr "Écart entre l'horaire publié et l'horaire actuel"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication__variance_count
+msgid "Variance Count"
+msgstr "Nombre d'écarts"
+
+#. module: hr_shift_snapshot
+#: model_terms:ir.ui.view,arch_db:hr_shift_snapshot.hr_shift_publication_form
+msgid "Variances"
+msgstr "Écarts"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_publication__version
+msgid "Version"
+msgstr "Version"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,field_description:hr_shift_snapshot.field_hr_shift_planning__website_message_ids
+msgid "Website Messages"
+msgstr "Messages du site web"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields,help:hr_shift_snapshot.field_hr_shift_planning__website_message_ids
+msgid "Website communication history"
+msgstr "Historique des communications du site web"
+
+#. module: hr_shift_snapshot
+#: model:ir.model.fields.selection,name:hr_shift_snapshot.selection__hr_shift_publication_line__day_number__2
+#: model:ir.model.fields.selection,name:hr_shift_snapshot.selection__hr_shift_publication_variance__day_number__2
+msgid "Wednesday"
+msgstr "Mercredi"
