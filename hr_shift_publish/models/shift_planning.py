@@ -5,8 +5,6 @@ from datetime import timedelta
 
 from odoo import api, fields, models
 
-from odoo.addons.hr_shift.models.shift_template import WEEK_DAYS_SELECTION
-
 
 class ShiftPlanningShift(models.Model):
     _inherit = "hr.shift.planning.shift"
@@ -25,7 +23,9 @@ class ShiftPlanningShift(models.Model):
     def _get_schedule_lines(self):
         """Assigned lines of the week, rendered day by day."""
         self.ensure_one()
-        day_labels = dict(WEEK_DAYS_SELECTION)
+        day_labels = dict(
+            self.line_ids._fields["day_number"]._description_selection(self.env)
+        )
         start = self.planning_id.start_date
         return [
             {

@@ -1,0 +1,92 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_shift_publish
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-13 18:02+0000\n"
+"PO-Revision-Date: 2026-07-13 18:02+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_CA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_shift_publish
+#. odoo-python
+#: code:addons/hr_shift_publish/models/shift_planning.py:0
+msgid ""
+"%(name)s,<br/>Here is your schedule for %(week)s:<ul>%(rows)s</ul><a "
+"href=\"%(url)s\">See my schedule</a>"
+msgstr ""
+"%(name)s,<br/>Voici votre horaire pour %(week)s :<ul>%(rows)s</ul><a "
+"href=\"%(url)s\">Voir mon horaire</a>"
+
+#. module: hr_shift_publish
+#. odoo-python
+#: code:addons/hr_shift_publish/models/shift_planning.py:0
+msgid "%(sent)s employee(s) notified."
+msgstr "%(sent)s employée(s) avisée(s)."
+
+#. module: hr_shift_publish
+#: model:ir.model.fields,field_description:hr_shift_publish.field_hr_shift_planning__display_name
+#: model:ir.model.fields,field_description:hr_shift_publish.field_hr_shift_planning_shift__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: hr_shift_publish
+#: model:ir.model.fields,field_description:hr_shift_publish.field_hr_shift_planning__id
+#: model:ir.model.fields,field_description:hr_shift_publish.field_hr_shift_planning_shift__id
+msgid "ID"
+msgstr "Identifiant"
+
+#. module: hr_shift_publish
+#: model_terms:ir.ui.view,arch_db:hr_shift_publish.schedule_page
+msgid "Invalid link"
+msgstr "Lien invalide"
+
+#. module: hr_shift_publish
+#: model_terms:ir.ui.view,arch_db:hr_shift_publish.shift_planning_form
+msgid "Publish"
+msgstr "Publier"
+
+#. module: hr_shift_publish
+#: model:ir.model.fields,field_description:hr_shift_publish.field_hr_shift_planning__published_on
+msgid "Published On"
+msgstr "Publié le"
+
+#. module: hr_shift_publish
+#: model:ir.model.fields,field_description:hr_shift_publish.field_hr_shift_planning_shift__schedule_token
+msgid "Schedule Token"
+msgstr "Jeton d'horaire"
+
+#. module: hr_shift_publish
+#. odoo-python
+#: code:addons/hr_shift_publish/models/shift_planning.py:0
+msgid "Schedule published"
+msgstr "Horaire publié"
+
+#. module: hr_shift_publish
+#: model:ir.model,name:hr_shift_publish.model_hr_shift_planning_shift
+msgid "Shift of the week for a given employee"
+msgstr "Quart de la semaine d'une employée"
+
+#. module: hr_shift_publish
+#: model:ir.model,name:hr_shift_publish.model_hr_shift_planning
+msgid "Shift plannings"
+msgstr "Planifications de quarts"
+
+#. module: hr_shift_publish
+#: model_terms:ir.ui.view,arch_db:hr_shift_publish.schedule_page
+msgid "This link is not valid."
+msgstr "Ce lien n'est pas valide."
+
+#. module: hr_shift_publish
+#. odoo-python
+#: code:addons/hr_shift_publish/models/shift_planning.py:0
+msgid "Your schedule — %(week)s"
+msgstr "Votre horaire — %(week)s"
