@@ -1,0 +1,128 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_shift_auto_plan
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-13 18:02+0000\n"
+"PO-Revision-Date: 2026-07-13 18:02+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_CA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_shift_auto_plan
+#. odoo-python
+#: code:addons/hr_shift_auto_plan/models/shift_planning.py:0
+msgid ""
+" %(overloaded)s assignment(s) exceed contract hours — no lighter candidate "
+"was available; see the cascades."
+msgstr ""
+" %(overloaded)s assignation(s) dépassent les heures du contrat — aucune "
+"candidate moins chargée n'était disponible; voir les cascades."
+
+#. module: hr_shift_auto_plan
+#. odoo-python
+#: code:addons/hr_shift_auto_plan/models/shift_planning.py:0
+msgid ""
+"Assigned to %(employee)s %(overshoot).2f h beyond their contract hours: no "
+"candidate had room left and this is the smallest possible excess."
+msgstr ""
+"Assigné à %(employee)s %(overshoot).2f h au-delà de ses heures de contrat : "
+"aucune candidate n'avait de place et c'est le plus petit dépassement "
+"possible."
+
+#. module: hr_shift_auto_plan
+#: model_terms:ir.ui.view,arch_db:hr_shift_auto_plan.shift_planning_form
+msgid "Auto Plan"
+msgstr "Planifier automatiquement"
+
+#. module: hr_shift_auto_plan
+#: model:ir.model.fields,field_description:hr_shift_auto_plan.field_res_company__auto_plan_continuity_days
+#: model:ir.model.fields,field_description:hr_shift_auto_plan.field_res_config_settings__auto_plan_continuity_days
+msgid "Auto-Plan Continuity Cap (Days)"
+msgstr "Plafond de continuité de l'auto-planification (jours)"
+
+#. module: hr_shift_auto_plan
+#. odoo-python
+#: code:addons/hr_shift_auto_plan/models/shift_planning.py:0
+msgid "Auto-plan finished"
+msgstr "Auto-planification terminée"
+
+#. module: hr_shift_auto_plan
+#. odoo-python
+#: code:addons/hr_shift_auto_plan/models/shift_planning.py:0
+msgid ""
+"Auto-plan: %(filled)s shift(s) assigned, %(unfilled)s slot(s) left unfilled "
+"(no eligible candidate)."
+msgstr ""
+"Auto-planification : %(filled)s quart(s) assigné(s), %(unfilled)s "
+"créneau(x) non comblé(s) (aucune candidate admissible)."
+
+#. module: hr_shift_auto_plan
+#: model_terms:ir.ui.view,arch_db:hr_shift_auto_plan.res_config_settings_view_form
+msgid ""
+"Chain the same shift on an employee up to this                         many "
+"days a week. Shorter chains spread the week                         more "
+"evenly; longer chains favor stability."
+msgstr ""
+"Enchaîner le même quart pour une employée jusqu'à ce nombre de jours par "
+"semaine. Des enchaînements courts répartissent la semaine plus également; "
+"des enchaînements longs favorisent la stabilité."
+
+#. module: hr_shift_auto_plan
+#: model:ir.model,name:hr_shift_auto_plan.model_res_company
+msgid "Companies"
+msgstr "Sociétés"
+
+#. module: hr_shift_auto_plan
+#: model:ir.model,name:hr_shift_auto_plan.model_res_config_settings
+msgid "Config Settings"
+msgstr "Paramètres de configuration"
+
+#. module: hr_shift_auto_plan
+#: model:ir.model.fields,field_description:hr_shift_auto_plan.field_hr_shift_planning__display_name
+#: model:ir.model.fields,field_description:hr_shift_auto_plan.field_res_company__display_name
+#: model:ir.model.fields,field_description:hr_shift_auto_plan.field_res_config_settings__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: hr_shift_auto_plan
+#: model:ir.model.fields,field_description:hr_shift_auto_plan.field_hr_shift_planning__id
+#: model:ir.model.fields,field_description:hr_shift_auto_plan.field_res_company__id
+#: model:ir.model.fields,field_description:hr_shift_auto_plan.field_res_config_settings__id
+msgid "ID"
+msgstr "Identifiant"
+
+#. module: hr_shift_auto_plan
+#: model_terms:ir.ui.view,arch_db:hr_shift_auto_plan.res_config_settings_view_form
+msgid "Shift Auto-Plan"
+msgstr "Auto-planification des quarts"
+
+#. module: hr_shift_auto_plan
+#: model:ir.model,name:hr_shift_auto_plan.model_hr_shift_planning
+msgid "Shift plannings"
+msgstr "Planifications de quarts"
+
+#. module: hr_shift_auto_plan
+#: model:ir.model.fields,help:hr_shift_auto_plan.field_res_company__auto_plan_continuity_days
+#: model:ir.model.fields,help:hr_shift_auto_plan.field_res_config_settings__auto_plan_continuity_days
+msgid ""
+"The automatic planner chains the same shift on an employee up to this many "
+"days a week. Shorter chains spread the week more evenly and leave room for "
+"the weekend; longer chains favor schedule stability."
+msgstr ""
+"Le planificateur automatique enchaîne le même quart pour une employée "
+"jusqu'à ce nombre de jours par semaine. Des enchaînements courts "
+"répartissent la semaine plus également et laissent de la place pour la fin "
+"de semaine; des enchaînements longs favorisent la stabilité de l'horaire."
+
+#. module: hr_shift_auto_plan
+#: model_terms:ir.ui.view,arch_db:hr_shift_auto_plan.res_config_settings_view_form
+msgid "Weekly Continuity Cap"
+msgstr "Plafond de continuité hebdomadaire"
