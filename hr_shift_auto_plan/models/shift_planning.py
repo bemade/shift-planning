@@ -26,8 +26,10 @@ class ShiftPlanning(models.Model):
            rotation), skipping employees already at MAX_CONTINUITY_DAYS
            when someone lighter is available.
 
-        Returns a (candidate, overloaded) tuple; ``candidate`` is empty
-        when nobody is eligible.
+        Returns a (candidate, overshoot_hours) tuple; ``candidate`` is
+        empty when nobody is eligible, and ``overshoot_hours`` is how far
+        beyond their contract this assignment pushes them (0 when it
+        fits). When nobody fits, the candidate hurt the least is chosen.
         """
         candidates = cascade.candidate_ids.filtered(
             lambda candidate: candidate.state == "pending"
@@ -54,15 +56,20 @@ class ShiftPlanning(models.Model):
             )
             total_days = len(employee_lines)
             shift = candidate.line_id.shift_id
-            fits_hours = (
-                not shift.allocated_hours
-                or shift.planned_hours + duration <= shift.allocated_hours + 1e-6
-            )
-            scored.append((candidate, same_template, total_days, sequence, fits_hours))
-        within_hours = [entry for entry in scored if entry[4]]
-        base_pool = within_hours or scored
-        under_cap = [entry for entry in base_pool if entry[2] < MAX_CONTINUITY_DAYS]
-        pool = under_cap or base_pool
+            overshoot = 0.0
+            if shift.allocated_hours:
+                overshoot = max(
+                    0.0, shift.planned_hours + duration - shift.allocated_hours
+                )
+            scored.append((candidate, same_template, total_days, sequence, overshoot))
+        within_hours = [entry for entry in scored if entry[4] < 1e-6]
+        if not within_hours:
+            # Last resort: overload the candidate it hurts the least.
+            scored.sort(key=lambda entry: (entry[4], entry[3]))
+            chosen = scored[0]
+            return chosen[0], chosen[4]
+        under_cap = [entry for entry in within_hours if entry[2] < MAX_CONTINUITY_DAYS]
+        pool = under_cap or within_hours
         continuity = [entry for entry in pool if entry[1] > 0]
         if continuity:
             continuity.sort(key=lambda entry: (-entry[1], entry[3]))
@@ -70,7 +77,7 @@ class ShiftPlanning(models.Model):
         else:
             pool.sort(key=lambda entry: entry[3])
             chosen = pool[0]
-        return chosen[0], not chosen[4]
+        return chosen[0], 0.0
 
     def _auto_plan_scarcity(self, rule_id, template_id):
         """How many employees could ever take this slot: job and
@@ -154,18 +161,20 @@ class ShiftPlanning(models.Model):
                     }
                 )
                 cascade.action_generate_candidates()
-                candidate, over_hours = self._auto_plan_pick(cascade)
+                candidate, overshoot = self._auto_plan_pick(cascade)
                 if not candidate:
                     cascade.action_cancel()
                     unfilled += 1
                     continue
-                if over_hours:
+                if overshoot:
                     overloaded += 1
                     cascade.message_post(
                         body=self.env._(
-                            "Assigned to %(employee)s beyond their contract "
-                            "hours: no lighter candidate was available.",
+                            "Assigned to %(employee)s %(overshoot).2f h beyond "
+                            "their contract hours: no candidate had room left "
+                            "and this is the smallest possible excess.",
                             employee=candidate.employee_id.display_name,
+                            overshoot=overshoot,
                         )
                     )
                 cascade.state = "running"

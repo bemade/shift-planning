@@ -49,6 +49,11 @@ class TestAutoPlan(TransactionCase):
         )
         cls.planning.generate_shifts()
 
+    def _line_of(self, employee, day_number):
+        return self.planning.shift_ids.line_ids.filtered(
+            lambda line: line.employee_id == employee and line.day_number == day_number
+        )
+
     def _assigned_days(self, employee):
         return self.planning.shift_ids.line_ids.filtered(
             lambda line: line.employee_id == employee and line.state == "assigned"
@@ -188,3 +193,62 @@ class TestAutoPlan(TransactionCase):
             ]
         )
         self.assertTrue(overload_logs, "Each overload is logged on its cascade")
+
+    def test_08_last_resort_picks_smallest_overshoot(self):
+        """When everyone exceeds, the least-hurt candidate is chosen."""
+        cal8 = self.env["resource.calendar"].create(
+            {
+                "name": "8h",
+                "tz": "UTC",
+                "attendance_ids": [
+                    (5, 0, 0),
+                    (
+                        0,
+                        0,
+                        {
+                            "name": "Mon",
+                            "dayofweek": "0",
+                            "hour_from": 8,
+                            "hour_to": 16,
+                        },
+                    ),
+                ],
+            }
+        )
+        cal4 = self.env["resource.calendar"].create(
+            {
+                "name": "4h",
+                "tz": "UTC",
+                "attendance_ids": [
+                    (5, 0, 0),
+                    (
+                        0,
+                        0,
+                        {
+                            "name": "Mon",
+                            "dayofweek": "0",
+                            "hour_from": 8,
+                            "hour_to": 12,
+                        },
+                    ),
+                ],
+            }
+        )
+        self.employees[0].resource_calendar_id = cal8
+        self.employees[1].resource_calendar_id = cal4
+        for employee in self.employees:
+            self._line_of(employee, "0").template_id = self.template_night
+        cascade = self.env["hr.shift.cascade"].create(
+            {
+                "planning_id": self.planning.id,
+                "template_id": self.template_night.id,
+                "day_number": "1",
+                "rule_id": self.rule.id,
+            }
+        )
+        cascade.action_generate_candidates()
+        candidate, overshoot = self.planning._auto_plan_pick(cascade)
+        self.assertEqual(
+            candidate.employee_id, self.employees[0], "8h overshoot beats 12h overshoot"
+        )
+        self.assertAlmostEqual(overshoot, 8.0, places=2)
