@@ -175,3 +175,57 @@ class TestShiftCascade(TransactionCase):
         self.assertFalse(cascade.candidate_ids)
         with self.assertRaises(UserError):
             cascade.action_start()
+
+    def _create_day_template(self, name="Day", start=7.0, end=15.0):
+        return self.env["hr.shift.template"].create(
+            {
+                "name": name,
+                "day_of_week_start": "0",
+                "day_of_week_end": "6",
+                "start_time": start,
+                "end_time": end,
+                "tz": "UTC",
+            }
+        )
+
+    def test_07_busy_employees_ranked_after_free(self):
+        """Employees already working that day come after the free ones."""
+        template_day = self._create_day_template()
+        self._line(self.attendants[0], "0").template_id = template_day
+        cascade = self._launch("0")
+        candidates = cascade.candidate_ids
+        self.assertEqual(len(candidates), 3)
+        busy = candidates[-1]
+        self.assertEqual(busy.employee_id, self.attendants[0])
+        self.assertTrue(busy.is_extra_line)
+        self.assertFalse(busy.line_id)
+        self.assertFalse(any(candidates[:-1].mapped("is_extra_line")))
+
+    def test_08_busy_overlapping_excluded(self):
+        """A busy employee whose shift overlaps the slot is not called."""
+        template_evening = self._create_day_template("Evening", 15.0, 23.5)
+        self._line(self.attendants[0], "0").template_id = template_evening
+        cascade = self._launch("0")  # Night 23-7 overlaps evening until 23.5
+        self.assertNotIn(
+            self.attendants[0], cascade.candidate_ids.mapped("employee_id")
+        )
+
+    def test_09_busy_accept_creates_extra_line(self):
+        """Acceptance by a busy employee adds and assigns an extra line."""
+        template_day = self._create_day_template()
+        day_line = self._line(self.attendants[0], "0")
+        day_line.template_id = template_day
+        cascade = self._launch("0")
+        cascade.action_start()
+        busy = cascade.candidate_ids.filtered("is_extra_line")
+        self.assertEqual(busy.employee_id, self.attendants[0])
+        busy.action_accept()
+        self.assertEqual(cascade.state, "filled")
+        self.assertEqual(cascade.claim_id.state, "approved")
+        lines = self._line(self.attendants[0], "0")
+        self.assertEqual(len(lines), 2)
+        extra = lines - day_line
+        self.assertEqual(extra.template_id, self.template_night)
+        self.assertEqual(busy.line_id, extra)
+        self.assertEqual(cascade.claim_id.line_id, extra)
+        self.assertEqual(day_line.template_id, template_day)

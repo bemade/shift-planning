@@ -1,0 +1,50 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_shift_cascade
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-13 00:00+0000\n"
+"PO-Revision-Date: 2026-07-13 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_CA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade_candidate__is_extra_line
+msgid "Extra Shift"
+msgstr "Quart supplémentaire"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,help:hr_shift_cascade.field_hr_shift_cascade_candidate__line_id
+msgid ""
+"Free line the acceptance will assign. Empty for an employee already "
+"working that day: the extra line is created when they accept."
+msgstr ""
+"Ligne libre que l'acceptation assignera. Vide pour une employée déjà en "
+"poste ce jour-là : la ligne supplémentaire est créée à l'acceptation."
+
+#. module: hr_shift_cascade
+#: code:addons/hr_shift_cascade/models/hr_shift_cascade.py:0
+msgid ""
+"No eligible candidate for this slot: no employee matches the job, "
+"department and availability criteria with room left on that day."
+msgstr ""
+"Aucune candidate admissible pour ce créneau : aucune employée ne "
+"correspond aux critères de poste, de maison et de disponibilité avec de "
+"la place ce jour-là."
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,help:hr_shift_cascade.field_hr_shift_cascade_candidate__is_extra_line
+msgid ""
+"The employee already works that day: accepting adds this shift on top of "
+"their existing ones."
+msgstr ""
+"L'employée travaille déjà ce jour-là : accepter ajoute ce quart en plus "
+"de ses quarts existants."

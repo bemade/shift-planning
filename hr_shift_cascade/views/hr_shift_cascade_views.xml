@@ -53,6 +53,7 @@
                                         readonly="1"
                                     />
                                     <field name="work_phone" readonly="1" />
+                                    <field name="is_extra_line" optional="show" />
                                     <field name="week_hours" readonly="1" />
                                     <field
                                         name="last_offered"

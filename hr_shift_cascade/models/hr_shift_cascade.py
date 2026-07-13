@@ -80,6 +80,35 @@ class HrShiftCascade(models.Model):
             )
         return lines
 
+    def _get_busy_candidate_employees(self):
+        """Employees already working that day who could still take this
+        slot as an extra shift: right job and department, no free line
+        left on the day, not on leave, and none of their assigned shifts
+        overlapping the offered one."""
+        self.ensure_one()
+        employees = self.env["hr.employee"]
+        for shift in self.planning_id.shift_ids:
+            employee = shift.employee_id
+            if self.rule_id.job_id and employee.job_id != self.rule_id.job_id:
+                continue
+            if (
+                self.rule_id.department_id
+                and employee.department_id != self.rule_id.department_id
+            ):
+                continue
+            day_lines = shift.line_ids.filtered(
+                lambda line: line.day_number == self.day_number
+            )
+            assigned = day_lines.filtered(lambda line: line.state == "assigned")
+            if not assigned or len(assigned) != len(day_lines):
+                # No shift that day, a free line (regular candidate
+                # already), or an on-leave/holiday line.
+                continue
+            if any(line.template_id._overlaps(self.template_id) for line in assigned):
+                continue
+            employees |= employee
+        return employees
+
     def _employee_matches_availability(self, employee):
         """Employees without any declaration are considered available;
         employees who declared availabilities must have a matching one."""
@@ -102,15 +131,49 @@ class HrShiftCascade(models.Model):
         )
         return last_candidate.contacted_on or False
 
+    def _prepare_candidate_entry(self, employee, line):
+        self.ensure_one()
+        assigned_lines = self.planning_id.shift_ids.line_ids.filtered(
+            lambda planning_line, employee=employee: (
+                planning_line.employee_id == employee
+                and planning_line.state == "assigned"
+            )
+        )
+        return {
+            "employee": employee,
+            "line": line,
+            "hours": sum(
+                # hr_shift computes a negative duration for
+                # shifts crossing midnight (start and end are
+                # combined on the same date): normalize to the
+                # real elapsed time.
+                duration if duration >= 0 else duration + 24
+                for duration in assigned_lines.mapped("duration_hours")
+            ),
+            "last_offered": self._get_last_offered(employee),
+        }
+
     def action_generate_candidates(self):
         """(Re)build the ordered candidate list.
 
-        Ordering: fewest assigned hours in the week first (overtime
+        Two tiers: employees with a free line on the day first, then
+        employees already working that day whose shifts leave room for
+        this one (they get an extra line if they accept). Within each
+        tier: fewest assigned hours in the week first (overtime
         control), then least recently offered (fairness rotation), then
         name for determinism. The coordinator can reorder manually
         afterwards — that manual override is the human recourse required
         for automated decisions.
         """
+
+        def sort_key(entry):
+            return (
+                entry["hours"],
+                entry["last_offered"]
+                or fields.Datetime.from_string("1970-01-01 00:00:00"),
+                entry["employee"].name or "",
+            )
+
         for cascade in self:
             if cascade.state not in ("draft", "running"):
                 raise UserError(
@@ -120,51 +183,36 @@ class HrShiftCascade(models.Model):
                     )
                 )
             cascade.candidate_ids.unlink()
-            entries = []
+            free_entries = []
+            seen = self.env["hr.employee"]
             for line in cascade._get_candidate_lines():
                 employee = line.employee_id
-                if not cascade._employee_matches_availability(employee):
+                # One candidacy per employee, even with several free lines
+                if employee in seen or not cascade._employee_matches_availability(
+                    employee
+                ):
                     continue
-                assigned_lines = cascade.planning_id.shift_ids.line_ids.filtered(
-                    lambda planning_line, employee=employee: (
-                        planning_line.employee_id == employee
-                        and planning_line.state == "assigned"
-                    )
-                )
-                entries.append(
-                    {
-                        "employee": employee,
-                        "line": line,
-                        "hours": sum(
-                            # hr_shift computes a negative duration for
-                            # shifts crossing midnight (start and end are
-                            # combined on the same date): normalize to the
-                            # real elapsed time.
-                            duration if duration >= 0 else duration + 24
-                            for duration in assigned_lines.mapped("duration_hours")
-                        ),
-                        "last_offered": cascade._get_last_offered(employee),
-                    }
-                )
-            entries.sort(
-                key=lambda entry: (
-                    entry["hours"],
-                    entry["last_offered"]
-                    or fields.Datetime.from_string("1970-01-01 00:00:00"),
-                    entry["employee"].name or "",
-                )
-            )
+                seen |= employee
+                free_entries.append(cascade._prepare_candidate_entry(employee, line))
+            busy_entries = [
+                cascade._prepare_candidate_entry(employee, None)
+                for employee in cascade._get_busy_candidate_employees()
+                if cascade._employee_matches_availability(employee)
+            ]
+            free_entries.sort(key=sort_key)
+            busy_entries.sort(key=sort_key)
             self.env["hr.shift.cascade.candidate"].create(
                 [
                     {
                         "cascade_id": cascade.id,
                         "sequence": index + 1,
                         "employee_id": entry["employee"].id,
-                        "line_id": entry["line"].id,
+                        "line_id": entry["line"] and entry["line"].id,
+                        "is_extra_line": not entry["line"],
                         "week_hours": entry["hours"],
                         "last_offered": entry["last_offered"],
                     }
-                    for index, entry in enumerate(entries)
+                    for index, entry in enumerate(free_entries + busy_entries)
                 ]
             )
 
@@ -177,9 +225,9 @@ class HrShiftCascade(models.Model):
             if not cascade.candidate_ids:
                 raise UserError(
                     self.env._(
-                        "No eligible candidate for this slot: no free "
-                        "employee matches the job, department and "
-                        "availability criteria."
+                        "No eligible candidate for this slot: no employee "
+                        "matches the job, department and availability "
+                        "criteria with room left on that day."
                     )
                 )
         self.write({"state": "running"})
@@ -207,6 +255,13 @@ class HrShiftCascade(models.Model):
 
     def _fill(self, candidate):
         self.ensure_one()
+        if candidate.is_extra_line and not candidate.line_id:
+            # The employee already works that day: give them an extra
+            # line, which the approved claim below will assign.
+            shift = self.planning_id.shift_ids.filtered(
+                lambda shift: shift.employee_id == candidate.employee_id
+            )
+            candidate.line_id = shift.action_add_line(self.day_number)
         claim = self.env["hr.shift.claim"].create(
             {
                 "planning_id": self.planning_id.id,
@@ -248,6 +303,15 @@ class HrShiftCascadeCandidate(models.Model):
     line_id = fields.Many2one(
         comodel_name="hr.shift.planning.line",
         ondelete="cascade",
+        help="Free line the acceptance will assign. Empty for an "
+        "employee already working that day: the extra line is created "
+        "when they accept.",
+    )
+    is_extra_line = fields.Boolean(
+        string="Extra Shift",
+        readonly=True,
+        help="The employee already works that day: accepting adds this "
+        "shift on top of their existing ones.",
     )
     week_hours = fields.Float(
         string="Assigned Hours (week)",
