@@ -110,6 +110,14 @@
             <xpath expr="//button[@name='action_view_workload']" position="attributes">
                 <attribute name="string">Weekly hours</attribute>
             </xpath>
+            <xpath expr="//button[@name='action_view_workload']" position="after">
+                <button
+                    type="object"
+                    name="action_view_week_days"
+                    string="Day view"
+                    invisible="state == 'new'"
+                />
+            </xpath>
             <xpath expr="//button[@name='copy_to_planning']" position="attributes">
                 <attribute name="string">Copy to a new week</attribute>
             </xpath>
@@ -175,10 +183,18 @@ The shifts of the week are created but nobody is assigned yet. Launch the automa
                                     readonly="1"
                                 />
                                 <field name="department_id" optional="show" />
+                                <field name="day_code_0" />
+                                <field name="day_code_1" />
+                                <field name="day_code_2" />
+                                <field name="day_code_3" />
+                                <field name="day_code_4" />
+                                <field name="day_code_5" />
+                                <field name="day_code_6" />
                                 <field
                                     name="template_id"
                                     string="Weekly shift"
                                     options="{'no_create': True}"
+                                    optional="hide"
                                 />
                                 <field
                                     name="planned_hours"

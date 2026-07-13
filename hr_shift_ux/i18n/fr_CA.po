@@ -273,3 +273,53 @@ msgstr ""
 "Lancez l'assignation automatique ou assignez les employées ci-dessous, puis "
 "vérifiez la couverture. Les journées sans quart sont simplement les congés "
 "des employées."
+
+#. module: hr_shift_ux
+#: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning_shift__day_code_0
+msgid "Mon"
+msgstr "Lun"
+
+#. module: hr_shift_ux
+#: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning_shift__day_code_1
+msgid "Tue"
+msgstr "Mar"
+
+#. module: hr_shift_ux
+#: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning_shift__day_code_2
+msgid "Wed"
+msgstr "Mer"
+
+#. module: hr_shift_ux
+#: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning_shift__day_code_3
+msgid "Thu"
+msgstr "Jeu"
+
+#. module: hr_shift_ux
+#: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning_shift__day_code_4
+msgid "Fri"
+msgstr "Ven"
+
+#. module: hr_shift_ux
+#: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning_shift__day_code_5
+msgid "Sat"
+msgstr "Sam"
+
+#. module: hr_shift_ux
+#: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning_shift__day_code_6
+msgid "Sun"
+msgstr "Dim"
+
+#. module: hr_shift_ux
+#: code:addons/hr_shift_ux/models/shift_planning.py:0
+msgid "Leave"
+msgstr "Congé"
+
+#. module: hr_shift_ux
+#: code:addons/hr_shift_ux/models/shift_planning.py:0
+msgid "Day view — %(planning)s"
+msgstr "Vue par jour — %(planning)s"
+
+#. module: hr_shift_ux
+#: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_form
+msgid "Day view"
+msgstr "Vue par jour"
