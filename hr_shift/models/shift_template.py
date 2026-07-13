@@ -40,6 +40,27 @@ class ShiftTemplate(models.Model):
     )
     active = fields.Boolean(default=True)
 
+    def _normalized_end(self):
+        """End time on a continuous scale (end past midnight gets +24)."""
+        self.ensure_one()
+        if self.end_time <= self.start_time:
+            return self.end_time + 24
+        return self.end_time
+
+    def _overlaps(self, other):
+        """Whether the time windows of both templates strictly intersect.
+
+        Windows are compared on a continuous scale where an end at or
+        before the start means past midnight. Merely touching windows
+        (one ends exactly when the other starts) don't overlap.
+        """
+        self.ensure_one()
+        other.ensure_one()
+        return (
+            self.start_time < other._normalized_end()
+            and other.start_time < self._normalized_end()
+        )
+
     def _prepare_time(self):
         def _parse_float_time(float_time):
             hour, minute = divmod(abs(float_time) * 60, 60)

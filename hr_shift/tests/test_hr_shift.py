@@ -5,6 +5,7 @@ from datetime import datetime
 import pytz
 
 from odoo import fields
+from odoo.exceptions import UserError
 from odoo.tests import Form
 from odoo.tools import mute_logger
 
@@ -155,3 +156,97 @@ class TestHrShift(TestHrShiftBase):
         shift_b_line_1 = shift_b.line_ids.filtered(lambda x: x.day_number == "1")
         self.assertEqual(shift_b_line_1.state, "assigned")
         self.assertEqual(shift_b_line_1.template_id, self.template_afternoon)
+
+
+class TestHrShiftMultiLine(TestHrShiftBase):
+    """Several shifts for the same employee on the same day."""
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.planning = cls.env["hr.shift.planning"].create(
+            {
+                "year": 2025,
+                "week_number": 3,
+                "start_date": "2025-01-13",
+                "end_date": "2025-01-19",
+            }
+        )
+        cls.planning.generate_shifts()
+        cls.shift_a = cls.planning.shift_ids.filtered(
+            lambda x: x.employee_id == cls.employee_a
+        )
+        cls.template_late = cls.env["hr.shift.template"].create(
+            {
+                "name": "Late 10-16",
+                "day_of_week_start": "0",
+                "day_of_week_end": "4",
+                "start_time": 10,
+                "end_time": 16,
+                "tz": "Europe/Brussels",
+            }
+        )
+
+    def _lines(self, day_number):
+        return self.shift_a.line_ids.filtered(lambda x: x.day_number == day_number)
+
+    def test_action_add_line(self):
+        line = self._lines("0")
+        line.template_id = self.template_morning
+        extra = self.shift_a.action_add_line("0")
+        self.assertEqual(extra.shift_id, self.shift_a)
+        self.assertEqual(extra.day_number, "0")
+        self.assertEqual(extra.state, "unassigned")
+        self.assertFalse(extra.template_id)
+        self.assertEqual(len(self._lines("0")), 2)
+        extra.template_id = self.template_afternoon
+        self.assertEqual(extra.state, "assigned")
+        # An unassigned extra line can simply be removed
+        second_extra = self.shift_a.action_add_line("0")
+        second_extra.unlink()
+        self.assertEqual(len(self._lines("0")), 2)
+
+    def test_overlap_refused_contact_allowed(self):
+        line = self._lines("0")
+        line.template_id = self.template_morning  # 8-14
+        extra = self.shift_a.action_add_line("0")
+        with self.assertRaises(UserError) as capture, self.env.cr.savepoint():
+            extra.template_id = self.template_late  # 10-16 overlaps 8-14
+        message = str(capture.exception)
+        self.assertIn(self.template_morning.display_name, message)
+        self.assertIn(self.template_late.display_name, message)
+        # Merely consecutive windows are fine (14-20 touches 8-14)
+        extra.template_id = self.template_afternoon
+        self.assertEqual(extra.state, "assigned")
+
+    def test_overlap_cross_midnight_normalized(self):
+        template_night = self.env["hr.shift.template"].create(
+            {
+                "name": "Night 22-6",
+                "day_of_week_start": "0",
+                "day_of_week_end": "4",
+                "start_time": 22,
+                "end_time": 6,
+                "tz": "Europe/Brussels",
+            }
+        )
+        line = self._lines("0")
+        line.template_id = template_night  # 22-30 on the continuous scale
+        extra = self.shift_a.action_add_line("0")
+        # A shift within the crossing part of the night doesn't conflict:
+        # it belongs to the same calendar day, before the night starts.
+        extra.template_id = self.template_morning
+        self.assertEqual(extra.state, "assigned")
+        late_evening = self.env["hr.shift.template"].create(
+            {
+                "name": "Evening 20-23",
+                "day_of_week_start": "0",
+                "day_of_week_end": "4",
+                "start_time": 20,
+                "end_time": 23,
+                "tz": "Europe/Brussels",
+            }
+        )
+        another = self.shift_a.action_add_line("0")
+        with self.assertRaises(UserError), self.env.cr.savepoint():
+            another.template_id = late_evening  # 20-23 overlaps 22-30
