@@ -119,19 +119,21 @@
                                     >
                                         <t
                                             t-foreach="record.days_data.raw_value"
-                                            t-as="day"
-                                            t-key="day"
+                                            t-as="day_value"
+                                            t-key="day_value.weekday_number"
                                         >
-                                            <t t-if="day.state === 'assigned'">
+                                            <t t-if="day_value.state === 'assigned'">
                                                 <t t-set="color" t-value="'success'" />
                                             </t>
-                                            <t t-elif="day.state === 'unavailable'">
+                                            <t
+                                                t-elif="day_value.state === 'unavailable'"
+                                            >
                                                 <t t-set="color" t-value="'danger'" />
                                             </t>
-                                            <t t-elif="day.state === 'holiday'">
+                                            <t t-elif="day_value.state === 'holiday'">
                                                 <t t-set="color" t-value="'dark'" />
                                             </t>
-                                            <t t-elif="day.state === 'on_leave'">
+                                            <t t-elif="day_value.state === 'on_leave'">
                                                 <t t-set="color" t-value="'warning'" />
                                             </t>
                                             <t t-else="">
