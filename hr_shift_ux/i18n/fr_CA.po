@@ -254,5 +254,18 @@ msgstr ""
 
 #. module: hr_shift_ux
 #: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_kanban
-msgid "open day shifts"
+msgid "day shifts to assign"
 msgstr "quarts à combler"
+
+msgid "Coverage complete"
+msgstr "Couverture complète"
+
+msgid ""
+"The shifts of the week are created but nobody is assigned yet. Launch the "
+"automatic assignment or assign the employees below, then check the "
+"coverage. Days without a shift are simply the employees' days off."
+msgstr ""
+"Les quarts de la semaine sont créés mais personne n'est encore assigné. "
+"Lancez l'assignation automatique ou assignez les employées ci-dessous, puis "
+"vérifiez la couverture. Les journées sans quart sont simplement les congés "
+"des employées."
