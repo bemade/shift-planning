@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-13 00:00+0000\n"
-"PO-Revision-Date: 2026-07-13 00:00+0000\n"
+"POT-Creation-Date: 2026-07-13 18:02+0000\n"
+"PO-Revision-Date: 2026-07-13 18:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_CA\n"
@@ -17,28 +17,447 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: hr_shift_cascade
+#: model:ir.model.fields.selection,name:hr_shift_cascade.selection__hr_shift_cascade_candidate__state__accepted
+msgid "Accepted"
+msgstr "Accepté"
+
+#. module: hr_shift_cascade
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade.hr_shift_cascade_form
+msgid "Accepts"
+msgstr "Accepte"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade__message_needaction
+msgid "Action Needed"
+msgstr "Nécessite une action"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade_candidate__week_hours
+msgid "Assigned Hours (week)"
+msgstr "Heures assignées (semaine)"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade__message_attachment_count
+msgid "Attachment Count"
+msgstr "Nombre de pièces jointes"
+
+#. module: hr_shift_cascade
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade.hr_shift_cascade_form
+msgid "Call List"
+msgstr "Liste d'appels"
+
+#. module: hr_shift_cascade
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade.hr_shift_cascade_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields.selection,name:hr_shift_cascade.selection__hr_shift_cascade__state__cancelled
+msgid "Cancelled"
+msgstr "Annulée"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade__candidate_ids
+msgid "Candidate"
+msgstr "Candidates"
+
+#. module: hr_shift_cascade
+#. odoo-python
+#: code:addons/hr_shift_cascade/models/hr_shift_cascade.py:0
+msgid "Candidates can only be regenerated on a draft or running cascade."
+msgstr ""
+"Les candidates ne peuvent être régénérées que sur une cascade en brouillon "
+"ou en cours."
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade_candidate__cascade_id
+msgid "Cascade"
+msgstr "Cascade"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade__claim_id
+msgid "Claim"
+msgstr "Réclamation"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,help:hr_shift_cascade.field_hr_shift_cascade__claim_id
+msgid "Claim created and approved when a candidate accepts."
+msgstr "Réclamation créée et approuvée lorsqu'une candidate accepte."
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade_candidate__contacted_on
+msgid "Contacted On"
+msgstr "Contactée le"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,help:hr_shift_cascade.field_hr_shift_cascade__rule_id
+msgid ""
+"Coverage rule this cascade fills. Its job position and department restrict "
+"the candidate list."
+msgstr ""
+"Règle de couverture que cette cascade comble. Son poste et sa maison ou son "
+"département restreignent la liste des candidates."
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade__create_uid
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade_candidate__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade__create_date
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade_candidate__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade__day_number
+msgid "Day Number"
+msgstr "Numéro du jour"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields.selection,name:hr_shift_cascade.selection__hr_shift_cascade_candidate__state__declined
+msgid "Declined"
+msgstr "Refusé"
+
+#. module: hr_shift_cascade
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade.hr_shift_cascade_form
+msgid "Declines"
+msgstr "Refuse"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade__display_name
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade_candidate__display_name
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_coverage_gap__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields.selection,name:hr_shift_cascade.selection__hr_shift_cascade__state__draft
+msgid "Draft"
+msgstr "Brouillon"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade_candidate__employee_id
+msgid "Employee"
+msgstr "Employée"
+
+#. module: hr_shift_cascade
+#. odoo-python
+#: code:addons/hr_shift_cascade/models/hr_shift_cascade.py:0
+msgid ""
+"Every candidate was contacted without success: the slot is still open. "
+"Manual intervention required."
+msgstr ""
+"Toutes les candidates ont été contactées sans succès : le créneau est "
+"toujours à combler. Une intervention manuelle est requise."
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields.selection,name:hr_shift_cascade.selection__hr_shift_cascade__state__exhausted
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade.hr_shift_cascade_search
+msgid "Exhausted"
+msgstr "Épuisée"
+
+#. module: hr_shift_cascade
 #: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade_candidate__is_extra_line
 msgid "Extra Shift"
 msgstr "Quart supplémentaire"
 
 #. module: hr_shift_cascade
+#: model:ir.model.fields.selection,name:hr_shift_cascade.selection__hr_shift_cascade__state__filled
+msgid "Filled"
+msgstr "Comblée"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade__message_follower_ids
+msgid "Followers"
+msgstr "Abonnés"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Abonnés (partenaires)"
+
+#. module: hr_shift_cascade
 #: model:ir.model.fields,help:hr_shift_cascade.field_hr_shift_cascade_candidate__line_id
 msgid ""
-"Free line the acceptance will assign. Empty for an employee already "
-"working that day: the extra line is created when they accept."
+"Free line the acceptance will assign. Empty for an employee already working "
+"that day: the extra line is created when they accept."
 msgstr ""
 "Ligne libre que l'acceptation assignera. Vide pour une employée déjà en "
 "poste ce jour-là : la ligne supplémentaire est créée à l'acceptation."
 
 #. module: hr_shift_cascade
+#: model:ir.model.fields.selection,name:hr_shift_cascade.selection__hr_shift_cascade__day_number__4
+msgid "Friday"
+msgstr "Vendredi"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade__has_message
+msgid "Has Message"
+msgstr "A un message"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,help:hr_shift_cascade.field_hr_shift_cascade_candidate__week_hours
+msgid ""
+"Hours already assigned to this employee in the planning week when the list "
+"was generated."
+msgstr ""
+"Heures déjà assignées à cette employée dans la semaine de planification au "
+"moment où la liste a été générée."
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade__id
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade_candidate__id
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_coverage_gap__id
+msgid "ID"
+msgstr "Identifiant"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,help:hr_shift_cascade.field_hr_shift_cascade__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si coché, de nouveaux messages requièrent votre attention."
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,help:hr_shift_cascade.field_hr_shift_cascade__message_has_error
+#: model:ir.model.fields,help:hr_shift_cascade.field_hr_shift_cascade__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si coché, certains messages présentent une erreur de livraison."
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade__message_is_follower
+msgid "Is Follower"
+msgstr "Est abonné"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade_candidate__last_offered
+msgid "Last Offered"
+msgstr "Dernière offre"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade__write_uid
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade_candidate__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade__write_date
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade_candidate__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,help:hr_shift_cascade.field_hr_shift_cascade_candidate__last_offered
+msgid ""
+"Last time this employee was offered a replacement, for fairness rotation."
+msgstr ""
+"Dernière fois qu'un remplacement a été offert à cette employée, pour une "
+"rotation équitable."
+
+#. module: hr_shift_cascade
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade.hr_shift_coverage_gap_tree
+msgid "Launch Cascade"
+msgstr "Lancer la cascade"
+
+#. module: hr_shift_cascade
+#: model_terms:ir.actions.act_window,help:hr_shift_cascade.hr_shift_cascade_action
+msgid ""
+"Launch a cascade from a coverage gap: it builds the\n"
+"                ordered list of who to call, balancing assigned hours\n"
+"                and fairness of rotation."
+msgstr ""
+"Lancez une cascade depuis un trou de couverture : elle construit la\n"
+"                liste ordonnée des personnes à appeler, en équilibrant les\n"
+"                heures assignées et l'équité de la rotation."
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade_candidate__line_id
+msgid "Line"
+msgstr "Ligne"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade__message_has_error
+msgid "Message Delivery error"
+msgstr "Erreur de livraison du message"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade__message_ids
+msgid "Messages"
+msgstr "Messages"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields.selection,name:hr_shift_cascade.selection__hr_shift_cascade__day_number__0
+msgid "Monday"
+msgstr "Lundi"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields.selection,name:hr_shift_cascade.selection__hr_shift_cascade_candidate__state__no_answer
+msgid "No Answer"
+msgstr "Sans réponse"
+
+#. module: hr_shift_cascade
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade.hr_shift_cascade_form
+msgid "No answer"
+msgstr "Sans réponse"
+
+#. module: hr_shift_cascade
+#. odoo-python
 #: code:addons/hr_shift_cascade/models/hr_shift_cascade.py:0
 msgid ""
-"No eligible candidate for this slot: no employee matches the job, "
-"department and availability criteria with room left on that day."
+"No eligible candidate for this slot: no employee matches the job, department"
+" and availability criteria with room left on that day."
 msgstr ""
-"Aucune candidate admissible pour ce créneau : aucune employée ne "
-"correspond aux critères de poste, de maison et de disponibilité avec de "
-"la place ce jour-là."
+"Aucune candidate admissible pour ce créneau : aucune employée ne correspond "
+"aux critères de poste, de maison et de disponibilité avec de la place ce "
+"jour-là."
+
+#. module: hr_shift_cascade
+#: model_terms:ir.actions.act_window,help:hr_shift_cascade.hr_shift_cascade_action
+msgid "No replacement cascade yet"
+msgstr "Aucune cascade de remplacement pour l'instant"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade_candidate__note
+msgid "Note"
+msgstr "Note"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Nombre d'actions"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade__message_has_error_counter
+msgid "Number of errors"
+msgstr "Nombre d'erreurs"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,help:hr_shift_cascade.field_hr_shift_cascade__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Nombre de messages requérant une action"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,help:hr_shift_cascade.field_hr_shift_cascade__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Nombre de messages avec erreur de livraison"
+
+#. module: hr_shift_cascade
+#. odoo-python
+#: code:addons/hr_shift_cascade/models/hr_shift_cascade.py:0
+msgid "Only draft cascades can be started."
+msgstr "Seules les cascades en brouillon peuvent être démarrées."
+
+#. module: hr_shift_cascade
+#. odoo-python
+#: code:addons/hr_shift_cascade/models/hr_shift_cascade.py:0
+msgid "Only pending cascades can be cancelled."
+msgstr "Seules les cascades en attente peuvent être annulées."
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields.selection,name:hr_shift_cascade.selection__hr_shift_cascade_candidate__state__pending
+msgid "Pending"
+msgstr "En attente"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade__planning_id
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade.hr_shift_cascade_search
+msgid "Planning"
+msgstr "Planification"
+
+#. module: hr_shift_cascade
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade.hr_shift_cascade_form
+msgid "Regenerate Candidates"
+msgstr "Régénérer les candidates"
+
+#. module: hr_shift_cascade
+#: model:ir.actions.act_window,name:hr_shift_cascade.hr_shift_cascade_action
+#: model:ir.ui.menu,name:hr_shift_cascade.hr_shift_cascade_menu
+msgid "Replacement Cascades"
+msgstr "Cascades de remplacement"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade__rule_id
+msgid "Rule"
+msgstr "Règle"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields.selection,name:hr_shift_cascade.selection__hr_shift_cascade__state__running
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade.hr_shift_cascade_search
+msgid "Running"
+msgstr "En cours"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Erreur de livraison SMS"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields.selection,name:hr_shift_cascade.selection__hr_shift_cascade__day_number__5
+msgid "Saturday"
+msgstr "Samedi"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade_candidate__sequence
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: hr_shift_cascade
+#: model:ir.model,name:hr_shift_cascade.model_hr_shift_coverage_gap
+msgid "Shift Coverage Gap"
+msgstr "Trou de couverture de quart"
+
+#. module: hr_shift_cascade
+#: model:ir.model,name:hr_shift_cascade.model_hr_shift_cascade
+msgid "Shift Replacement Cascade"
+msgstr "Cascade de remplacement de quart"
+
+#. module: hr_shift_cascade
+#: model:ir.model,name:hr_shift_cascade.model_hr_shift_cascade_candidate
+msgid "Shift Replacement Cascade Candidate"
+msgstr "Candidate de cascade de remplacement de quart"
+
+#. module: hr_shift_cascade
+#. odoo-python
+#: code:addons/hr_shift_cascade/models/hr_shift_cascade.py:0
+msgid "Shift filled by %(employee)s."
+msgstr "Quart comblé par %(employee)s."
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields.selection,name:hr_shift_cascade.selection__hr_shift_cascade_candidate__state__skipped
+msgid "Skipped"
+msgstr "Sautée"
+
+#. module: hr_shift_cascade
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade.hr_shift_cascade_form
+msgid "Start"
+msgstr "Démarrer"
+
+#. module: hr_shift_cascade
+#. odoo-python
+#: code:addons/hr_shift_cascade/models/hr_shift_cascade.py:0
+msgid "Start the cascade before logging outcomes."
+msgstr "Démarrez la cascade avant de consigner les résultats."
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade__state
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade_candidate__state
+msgid "State"
+msgstr "État"
+
+#. module: hr_shift_cascade
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade.hr_shift_cascade_search
+msgid "Status"
+msgstr "Statut"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields.selection,name:hr_shift_cascade.selection__hr_shift_cascade__day_number__6
+msgid "Sunday"
+msgstr "Dimanche"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade__template_id
+msgid "Template"
+msgstr "Gabarit"
 
 #. module: hr_shift_cascade
 #: model:ir.model.fields,help:hr_shift_cascade.field_hr_shift_cascade_candidate__is_extra_line
@@ -46,5 +465,41 @@ msgid ""
 "The employee already works that day: accepting adds this shift on top of "
 "their existing ones."
 msgstr ""
-"L'employée travaille déjà ce jour-là : accepter ajoute ce quart en plus "
-"de ses quarts existants."
+"L'employée travaille déjà ce jour-là : accepter ajoute ce quart en plus de "
+"ses quarts existants."
+
+#. module: hr_shift_cascade
+#. odoo-python
+#: code:addons/hr_shift_cascade/models/hr_shift_cascade.py:0
+msgid "This candidate was already contacted."
+msgstr "Cette candidate a déjà été contactée."
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields.selection,name:hr_shift_cascade.selection__hr_shift_cascade__day_number__3
+msgid "Thursday"
+msgstr "Jeudi"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields.selection,name:hr_shift_cascade.selection__hr_shift_cascade__day_number__1
+msgid "Tuesday"
+msgstr "Mardi"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade__website_message_ids
+msgid "Website Messages"
+msgstr "Messages du site web"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,help:hr_shift_cascade.field_hr_shift_cascade__website_message_ids
+msgid "Website communication history"
+msgstr "Historique des communications du site web"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields.selection,name:hr_shift_cascade.selection__hr_shift_cascade__day_number__2
+msgid "Wednesday"
+msgstr "Mercredi"
+
+#. module: hr_shift_cascade
+#: model:ir.model.fields,field_description:hr_shift_cascade.field_hr_shift_cascade_candidate__work_phone
+msgid "Work Phone"
+msgstr "Téléphone professionnel"
