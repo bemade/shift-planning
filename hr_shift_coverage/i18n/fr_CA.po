@@ -1,0 +1,281 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_shift_coverage
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-13 18:02+0000\n"
+"PO-Revision-Date: 2026-07-13 18:02+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_CA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_rule__active
+msgid "Active"
+msgstr "Actif"
+
+#. module: hr_shift_coverage
+#: model_terms:ir.ui.view,arch_db:hr_shift_coverage.hr_shift_coverage_rule_search
+msgid "Archived"
+msgstr "Archivé"
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_gap__assigned
+msgid "Assigned"
+msgstr "Assignées"
+
+#. module: hr_shift_coverage
+#: model_terms:ir.ui.view,arch_db:hr_shift_coverage.shift_planning_form
+msgid "Check Coverage"
+msgstr "Vérifier la couverture"
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_rule__company_id
+msgid "Company"
+msgstr "Société"
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_planning__coverage_gap_ids
+msgid "Coverage Gap"
+msgstr "Trous de couverture"
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_planning__coverage_gap_count
+msgid "Coverage Gap Count"
+msgstr "Nombre de trous de couverture"
+
+#. module: hr_shift_coverage
+#: model:ir.actions.act_window,name:hr_shift_coverage.hr_shift_coverage_gap_action
+msgid "Coverage Gaps"
+msgstr "Trous de couverture"
+
+#. module: hr_shift_coverage
+#: model:ir.actions.act_window,name:hr_shift_coverage.hr_shift_coverage_rule_action
+#: model:ir.ui.menu,name:hr_shift_coverage.hr_shift_coverage_rule_menu
+msgid "Coverage Rules"
+msgstr "Règles de couverture"
+
+#. module: hr_shift_coverage
+#. odoo-python
+#: code:addons/hr_shift_coverage/models/shift_planning.py:0
+msgid "Coverage gaps for %(planning)s"
+msgstr "Trous de couverture pour %(planning)s"
+
+#. module: hr_shift_coverage
+#. odoo-python
+#: code:addons/hr_shift_coverage/models/shift_planning.py:0
+msgid "Coverage is complete"
+msgstr "La couverture est complète"
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_gap__create_uid
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_rule__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_gap__create_date
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_rule__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_gap__date
+#: model_terms:ir.ui.view,arch_db:hr_shift_coverage.hr_shift_coverage_gap_search
+msgid "Date"
+msgstr "Date"
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_gap__day_number
+msgid "Day Number"
+msgstr "Numéro du jour"
+
+#. module: hr_shift_coverage
+#: model_terms:ir.actions.act_window,help:hr_shift_coverage.hr_shift_coverage_rule_action
+msgid "Define the minimum staffing required per shift template"
+msgstr "Définissez le personnel minimal requis par gabarit de quart"
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_rule__department_id
+msgid "Department"
+msgstr "Maison / département"
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_gap__display_name
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_rule__display_name
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_planning__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: hr_shift_coverage
+#. odoo-python
+#: code:addons/hr_shift_coverage/models/shift_planning.py:0
+msgid "Every coverage rule is satisfied for this planning."
+msgstr "Toutes les règles de couverture sont satisfaites pour cette planification."
+
+#. module: hr_shift_coverage
+#: model_terms:ir.actions.act_window,help:hr_shift_coverage.hr_shift_coverage_rule_action
+msgid ""
+"For example: the night shift always requires at least\n"
+"                2 attendants and 1 auxiliary nurse."
+msgstr ""
+"Par exemple : le quart de nuit exige toujours au moins\n"
+"                2 préposées et 1 infirmière auxiliaire."
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields.selection,name:hr_shift_coverage.selection__hr_shift_coverage_gap__day_number__4
+msgid "Friday"
+msgstr "Vendredi"
+
+#. module: hr_shift_coverage
+#: model_terms:ir.actions.act_window,help:hr_shift_coverage.hr_shift_coverage_gap_action
+msgid ""
+"Gaps are computed from the coverage rules when you check\n"
+"                the coverage of a planning."
+msgstr ""
+"Les trous sont calculés à partir des règles de couverture lorsque vous\n"
+"                vérifiez la couverture d'une planification."
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_gap__id
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_rule__id
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_planning__id
+msgid "ID"
+msgstr "Identifiant"
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields,help:hr_shift_coverage.field_hr_shift_coverage_gap__job_id
+#: model:ir.model.fields,help:hr_shift_coverage.field_hr_shift_coverage_rule__job_id
+msgid ""
+"If set, only employees holding this job position count towards the required "
+"staffing. Leave empty to count any assigned employee."
+msgstr ""
+"Si renseigné, seules les employées occupant ce poste comptent dans le "
+"personnel requis. Laissez vide pour compter toute employée assignée."
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields,help:hr_shift_coverage.field_hr_shift_coverage_rule__department_id
+msgid ""
+"If set, only employees of this department count towards the required "
+"staffing."
+msgstr ""
+"Si renseigné, seules les employées de cette maison ou de ce département "
+"comptent dans le personnel requis."
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_gap__job_id
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_rule__job_id
+msgid "Job Position"
+msgstr "Poste"
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_gap__write_uid
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_rule__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_gap__write_date
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_rule__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_rule__min_employees
+msgid "Minimum Employees"
+msgstr "Nombre minimal d'employées"
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_gap__missing
+msgid "Missing"
+msgstr "Manquantes"
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields.selection,name:hr_shift_coverage.selection__hr_shift_coverage_gap__day_number__0
+msgid "Monday"
+msgstr "Lundi"
+
+#. module: hr_shift_coverage
+#: model_terms:ir.actions.act_window,help:hr_shift_coverage.hr_shift_coverage_gap_action
+msgid "No coverage gap detected"
+msgstr "Aucun trou de couverture détecté"
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_gap__planning_id
+msgid "Planning"
+msgstr "Planification"
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_gap__required
+msgid "Required"
+msgstr "Requises"
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_gap__rule_id
+msgid "Rule"
+msgstr "Règle"
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields.selection,name:hr_shift_coverage.selection__hr_shift_coverage_gap__day_number__5
+msgid "Saturday"
+msgstr "Samedi"
+
+#. module: hr_shift_coverage
+#: model:ir.model,name:hr_shift_coverage.model_hr_shift_coverage_gap
+msgid "Shift Coverage Gap"
+msgstr "Trou de couverture de quart"
+
+#. module: hr_shift_coverage
+#: model:ir.model,name:hr_shift_coverage.model_hr_shift_coverage_rule
+msgid "Shift Coverage Rule"
+msgstr "Règle de couverture de quart"
+
+#. module: hr_shift_coverage
+#: model:ir.model,name:hr_shift_coverage.model_hr_shift_planning
+msgid "Shift plannings"
+msgstr "Planifications de quarts"
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields.selection,name:hr_shift_coverage.selection__hr_shift_coverage_gap__day_number__6
+msgid "Sunday"
+msgstr "Dimanche"
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_gap__template_id
+#: model:ir.model.fields,field_description:hr_shift_coverage.field_hr_shift_coverage_rule__template_id
+#: model_terms:ir.ui.view,arch_db:hr_shift_coverage.hr_shift_coverage_gap_search
+#: model_terms:ir.ui.view,arch_db:hr_shift_coverage.hr_shift_coverage_rule_search
+msgid "Template"
+msgstr "Gabarit"
+
+#. module: hr_shift_coverage
+#: model:ir.model.constraint,message:hr_shift_coverage.constraint_hr_shift_coverage_rule_min_employees_positive
+msgid "The minimum number of employees must be strictly positive."
+msgstr "Le nombre minimal d'employées doit être strictement positif."
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields.selection,name:hr_shift_coverage.selection__hr_shift_coverage_gap__day_number__3
+msgid "Thursday"
+msgstr "Jeudi"
+
+#. module: hr_shift_coverage
+#: model_terms:ir.ui.view,arch_db:hr_shift_coverage.hr_shift_coverage_gap_tree
+msgid "Total missing"
+msgstr "Total manquant"
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields.selection,name:hr_shift_coverage.selection__hr_shift_coverage_gap__day_number__1
+msgid "Tuesday"
+msgstr "Mardi"
+
+#. module: hr_shift_coverage
+#: model:ir.model.fields.selection,name:hr_shift_coverage.selection__hr_shift_coverage_gap__day_number__2
+msgid "Wednesday"
+msgstr "Mercredi"
