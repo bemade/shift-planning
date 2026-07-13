@@ -134,3 +134,46 @@ class TestShiftSplit(TransactionCase):
         wizard.action_split()
         pairs = self.template_evening._split_pairs()
         self.assertEqual(len(pairs), 1)
+
+    def test_06_busy_employee_takes_part(self):
+        """End to end: an employee already working that day accepts a
+        part, on an extra line, and both halves close the gap."""
+        if "hr.shift.cascade" not in self.env:
+            self.skipTest("hr_shift_cascade is not installed")
+        template_morning = self.env["hr.shift.template"].create(
+            {
+                "name": "Morning",
+                "day_of_week_start": "0",
+                "day_of_week_end": "6",
+                "start_time": 6.0,
+                "end_time": 12.0,
+                "tz": "UTC",
+            }
+        )
+        morning_line = self._line(self.employees[1], "0")
+        morning_line.template_id = template_morning
+        wizard = self.env["hr.shift.split.wizard"].create(
+            {"line_id": self.line.id, "cut_time": 20.0}
+        )
+        result = wizard.action_split()
+        cascades = self.env["hr.shift.cascade"].search(result["domain"])
+        first_part = cascades.filtered(
+            lambda cascade: cascade.template_id.start_time == 16.0
+        )
+        second_part = cascades - first_part
+        # The busy employee is called on both parts, after the free ones
+        busy = first_part.candidate_ids.filtered("is_extra_line")
+        self.assertEqual(busy.employee_id, self.employees[1])
+        self.assertEqual(first_part.candidate_ids[-1], busy)
+        first_part.action_start()
+        busy.action_accept()
+        lines = self._line(self.employees[1], "0")
+        self.assertEqual(len(lines), 2)
+        self.assertEqual((lines - morning_line).template_id, first_part.template_id)
+        self.assertEqual(morning_line.template_id, template_morning)
+        # A free employee takes the other half: the gap is closed
+        second_part.action_start()
+        second_part.candidate_ids.filtered(
+            lambda candidate: not candidate.is_extra_line
+        )[0].action_accept()
+        self.assertFalse(self._gap(), "Both parts assigned: shift covered")

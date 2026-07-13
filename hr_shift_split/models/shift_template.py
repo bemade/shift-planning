@@ -24,13 +24,6 @@ class HrShiftTemplate(models.Model):
         inverse_name="parent_template_id",
     )
 
-    def _normalized_end(self):
-        """End time on a continuous scale (end past midnight gets +24)."""
-        self.ensure_one()
-        if self.end_time <= self.start_time:
-            return self.end_time + 24
-        return self.end_time
-
     def _split_pairs(self):
         """[(first part, second part), ...] — children pairs that exactly
         partition this template's time window."""

@@ -10,6 +10,6 @@ only one is.
 
 With the replacement cascade module installed, splitting an open slot
 launches one cascade per part, each with its own ordered call list.
-
-Limitation: an employee already assigned that day cannot take a part
-(the planning holds one line per employee per day).
+Employees already working that day are called too (after the free
+ones) when the part doesn't overlap their existing shift: accepting
+gives them an extra line on top of it.

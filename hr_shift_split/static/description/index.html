@@ -384,9 +384,10 @@ counts as one employee covering the parent shift, so no false gap is
 reported when both halves are staffed — and a real gap remains when only
 one is.</p>
 <p>With the replacement cascade module installed, splitting an open slot
-launches one cascade per part, each with its own ordered call list.</p>
-<p>Limitation: an employee already assigned that day cannot take a part
-(the planning holds one line per employee per day).</p>
+launches one cascade per part, each with its own ordered call list.
+Employees already working that day are called too (after the free ones)
+when the part doesn’t overlap their existing shift: accepting gives them
+an extra line on top of it.</p>
 <p><strong>Table of contents</strong></p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
