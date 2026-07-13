@@ -35,8 +35,28 @@ export class ShiftGridAction extends Component {
     // Display helpers
     // ------------------------------------------------------------------
 
-    isLocked(cell) {
-        return cell.state === "holiday" || cell.state === "on_leave";
+    isLocked(line) {
+        return line.state === "holiday" || line.state === "on_leave";
+    }
+
+    cellLines(employee, day) {
+        return employee.cells[day.day_number] || [];
+    }
+
+    hasEditableLine(lines) {
+        return lines.some((line) => !this.isLocked(line));
+    }
+
+    freeLine(lines) {
+        return lines.find((line) => !this.isLocked(line) && !line.template_id);
+    }
+
+    addIconClass(lines) {
+        const classes = ["fa", "fa-plus", "o_hr_shift_grid_add"];
+        if (lines.some((line) => line.template_id)) {
+            classes.push("o_hr_shift_grid_add_more");
+        }
+        return classes.join(" ");
     }
 
     formatHours(hours) {
@@ -52,16 +72,16 @@ export class ShiftGridAction extends Component {
         return sprintf(_t("%(count)s gaps"), {count});
     }
 
-    cellClass(cell, day) {
+    cellClass(lines, day) {
         const classes = ["o_hr_shift_grid_cell"];
         if (day.is_today) {
             classes.push("o_hr_shift_grid_today");
         }
-        if (!cell) {
+        if (!lines.length) {
             classes.push("o_hr_shift_grid_cell_off");
-        } else if (this.isLocked(cell)) {
+        } else if (!this.hasEditableLine(lines)) {
             classes.push("o_hr_shift_grid_cell_locked");
-        } else if (!cell.template_id) {
+        } else if (!lines.some((line) => line.template_id)) {
             classes.push("o_hr_shift_grid_cell_empty");
         }
         return classes.join(" ");
@@ -75,28 +95,62 @@ export class ShiftGridAction extends Component {
         this.state.menu = null;
     }
 
-    onCellClick(ev, employee, day) {
-        ev.stopPropagation();
-        const cell = employee.cells[day.day_number];
-        if (!cell || this.isLocked(cell)) {
-            this.state.menu = null;
-            return;
-        }
+    openMenu(ev, employee, day, menu) {
         const rect = ev.currentTarget.getBoundingClientRect();
         this.state.menu = {
-            lineId: cell.line_id,
-            templateId: cell.template_id,
             employeeName: employee.name,
             dayLabel: `${day.label} ${day.date_label}`,
             x: Math.max(8, Math.min(rect.left, window.innerWidth - MENU_WIDTH - 8)),
             y: rect.bottom + 4,
+            ...menu,
         };
+    }
+
+    onCellClick(ev, employee, day) {
+        ev.stopPropagation();
+        const lines = this.cellLines(employee, day);
+        if (!this.hasEditableLine(lines)) {
+            this.state.menu = null;
+            return;
+        }
+        const free = this.freeLine(lines);
+        if (free) {
+            this.openMenu(ev, employee, day, {
+                lineId: free.line_id,
+                templateId: free.template_id,
+            });
+        } else {
+            // Every line of the day is taken: offer to add a shift.
+            this.openMenu(ev, employee, day, {
+                add: true,
+                employeeId: employee.employee_id,
+                dayNumber: day.day_number,
+                templateId: false,
+            });
+        }
+    }
+
+    onChipClick(ev, employee, day, line) {
+        ev.stopPropagation();
+        this.openMenu(ev, employee, day, {
+            lineId: line.line_id,
+            templateId: line.template_id,
+        });
     }
 
     async pickTemplate(templateId) {
         const menu = this.state.menu;
         this.state.menu = null;
         if (!menu || templateId === menu.templateId) {
+            return;
+        }
+        if (menu.add) {
+            await this.mutate("grid_add", [
+                [this.planningId],
+                menu.employeeId,
+                menu.dayNumber,
+                templateId,
+            ]);
             return;
         }
         await this.mutate("grid_write", [[this.planningId], menu.lineId, templateId]);
@@ -116,8 +170,8 @@ export class ShiftGridAction extends Component {
     // occupied one. Both are a single grid_swap() on the server.
     // ------------------------------------------------------------------
 
-    onDragStart(ev, cell) {
-        ev.dataTransfer.setData("text/plain", String(cell.line_id));
+    onDragStart(ev, line) {
+        ev.dataTransfer.setData("text/plain", String(line.line_id));
         ev.dataTransfer.effectAllowed = "move";
         ev.currentTarget.classList.add("o_hr_shift_grid_dragging");
     }
@@ -126,15 +180,15 @@ export class ShiftGridAction extends Component {
         ev.currentTarget.classList.remove("o_hr_shift_grid_dragging");
     }
 
-    onDragOver(ev, cell) {
-        if (cell && !this.isLocked(cell)) {
+    onDragOver(ev, lines) {
+        if (this.hasEditableLine(lines)) {
             ev.preventDefault();
             ev.dataTransfer.dropEffect = "move";
         }
     }
 
-    onDragEnter(ev, cell) {
-        if (cell && !this.isLocked(cell)) {
+    onDragEnter(ev, lines) {
+        if (this.hasEditableLine(lines)) {
             ev.currentTarget.classList.add("o_hr_shift_grid_drop");
         }
     }
@@ -145,19 +199,23 @@ export class ShiftGridAction extends Component {
         }
     }
 
-    async onDrop(ev, cell) {
+    async onDrop(ev, employee, day) {
         ev.preventDefault();
         ev.currentTarget.classList.remove("o_hr_shift_grid_drop");
         const sourceLineId = parseInt(ev.dataTransfer.getData("text/plain"), 10);
-        if (
-            !sourceLineId ||
-            !cell ||
-            this.isLocked(cell) ||
-            sourceLineId === cell.line_id
-        ) {
+        const lines = this.cellLines(employee, day);
+        // Dropping on a free line moves the shift there; on a full cell,
+        // it swaps with the first shift of the day.
+        const target =
+            this.freeLine(lines) || lines.find((line) => !this.isLocked(line));
+        if (!sourceLineId || !target || sourceLineId === target.line_id) {
             return;
         }
-        await this.mutate("grid_swap", [[this.planningId], sourceLineId, cell.line_id]);
+        await this.mutate("grid_swap", [
+            [this.planningId],
+            sourceLineId,
+            target.line_id,
+        ]);
     }
 
     // ------------------------------------------------------------------

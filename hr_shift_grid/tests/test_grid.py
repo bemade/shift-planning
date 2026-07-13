@@ -65,7 +65,8 @@ class TestShiftGrid(TestHrShiftBase):
             if employee["employee_id"] == self.employee_a.id
         )
         self.assertEqual(set(employee_a_data["cells"]), {"0", "1", "2", "3", "4"})
-        self.assertEqual(employee_a_data["cells"]["0"]["state"], "unassigned")
+        self.assertEqual(len(employee_a_data["cells"]["0"]), 1)
+        self.assertEqual(employee_a_data["cells"]["0"][0]["state"], "unassigned")
         template_codes = {
             template["id"]: template["code"] for template in data["templates"]
         }
@@ -91,9 +92,9 @@ class TestShiftGrid(TestHrShiftBase):
             for employee in group["employees"]
             if employee["employee_id"] == self.employee_a.id
         )
-        self.assertEqual(employee_a_data["cells"]["0"]["state"], "assigned")
+        self.assertEqual(employee_a_data["cells"]["0"][0]["state"], "assigned")
         self.assertEqual(
-            employee_a_data["cells"]["0"]["template_id"], self.template_morning.id
+            employee_a_data["cells"]["0"][0]["template_id"], self.template_morning.id
         )
         self.assertEqual(employee_a_data["hours"], 6.0)  # 8 -> 14
         self.assertEqual(data["day_counts"]["0"], 1)
@@ -170,3 +171,53 @@ class TestShiftGrid(TestHrShiftBase):
         action = self.planning.action_open_grid()
         self.assertEqual(action["tag"], "hr_shift_grid.action")
         self.assertEqual(action["params"]["planning_id"], self.planning.id)
+
+    def test_grid_add_extra_shift(self):
+        """grid_add stacks a second shift in the cell and sums the hours."""
+        line = self._line(self.shift_a, "0")
+        self.planning.grid_write(line.id, self.template_morning.id)
+        data = self.planning.grid_add(
+            self.employee_a.id, "0", self.template_afternoon.id
+        )
+        lines = self._line(self.shift_a, "0")
+        self.assertEqual(len(lines), 2)
+        employee_a_data = next(
+            employee
+            for group in data["groups"]
+            for employee in group["employees"]
+            if employee["employee_id"] == self.employee_a.id
+        )
+        cell = employee_a_data["cells"]["0"]
+        self.assertEqual(len(cell), 2)
+        self.assertEqual(
+            [entry["template_id"] for entry in cell],
+            [self.template_morning.id, self.template_afternoon.id],
+        )
+        self.assertEqual(employee_a_data["hours"], 12.0)  # 6h + 6h
+        self.assertEqual(data["day_counts"]["0"], 2)
+
+    def test_grid_add_overlap_refused(self):
+        """grid_add propagates the server-side overlap error."""
+        line = self._line(self.shift_a, "0")
+        self.planning.grid_write(line.id, self.template_morning.id)
+        overlapping = self.env["hr.shift.template"].create(
+            {
+                "name": "Late morning 10-16",
+                "day_of_week_start": "0",
+                "day_of_week_end": "4",
+                "start_time": 10,
+                "end_time": 16,
+                "tz": "Europe/Brussels",
+            }
+        )
+        with self.assertRaises(UserError), self.env.cr.savepoint():
+            self.planning.grid_add(self.employee_a.id, "0", overlapping.id)
+        self.assertEqual(len(self._line(self.shift_a, "0")), 1)
+
+    def test_grid_add_reuses_free_line(self):
+        """grid_add on a day with a free line doesn't create an extra one."""
+        data = self.planning.grid_add(self.employee_a.id, "0", self.template_morning.id)
+        lines = self._line(self.shift_a, "0")
+        self.assertEqual(len(lines), 1)
+        self.assertEqual(lines.template_id, self.template_morning)
+        self.assertEqual(data["day_counts"]["0"], 1)

@@ -44,6 +44,12 @@ msgstr "1 trou"
 #. module: hr_shift_grid
 #. odoo-javascript
 #: code:addons/hr_shift_grid/static/src/grid/shift_grid.xml:0
+msgid "Add a shift"
+msgstr "Ajouter un quart"
+
+#. module: hr_shift_grid
+#. odoo-javascript
+#: code:addons/hr_shift_grid/static/src/grid/shift_grid.xml:0
 msgid "Assign a shift"
 msgstr "Assigner un quart"
 
@@ -129,6 +135,11 @@ msgstr "Retirer le quart"
 #: code:addons/hr_shift_grid/static/src/grid/shift_grid.esm.js:0
 msgid "The change could not be saved."
 msgstr "Le changement n'a pas pu être enregistré."
+
+#. module: hr_shift_grid
+#: code:addons/hr_shift_grid/models/shift_planning.py:0
+msgid "This employee doesn't belong to this planning."
+msgstr "Cette employée n'appartient pas à cette planification."
 
 #. module: hr_shift_grid
 #: code:addons/hr_shift_grid/models/shift_planning.py:0

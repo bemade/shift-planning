@@ -57,45 +57,56 @@
                                         t-key="day.day_number"
                                     >
                                         <t
-                                            t-set="cell"
-                                            t-value="employee.cells[day.day_number]"
+                                            t-set="lines"
+                                            t-value="cellLines(employee, day)"
                                         />
                                         <td
-                                            t-att-class="cellClass(cell, day)"
+                                            t-att-class="cellClass(lines, day)"
                                             t-on-click="(ev) => this.onCellClick(ev, employee, day)"
-                                            t-on-dragover="(ev) => this.onDragOver(ev, cell)"
-                                            t-on-dragenter="(ev) => this.onDragEnter(ev, cell)"
+                                            t-on-dragover="(ev) => this.onDragOver(ev, lines)"
+                                            t-on-dragenter="(ev) => this.onDragEnter(ev, lines)"
                                             t-on-dragleave="onDragLeave"
-                                            t-on-drop="(ev) => this.onDrop(ev, cell)"
+                                            t-on-drop="(ev) => this.onDrop(ev, employee, day)"
                                         >
-                                            <t t-if="!cell">
+                                            <t t-if="!lines.length">
                                                 <span
                                                     class="o_hr_shift_grid_off text-muted"
                                                 >—</span>
                                             </t>
-                                            <t t-elif="isLocked(cell)">
-                                                <span
-                                                    class="o_hr_shift_grid_chip o_hr_shift_grid_leave badge rounded-pill"
-                                                >Leave</span>
-                                            </t>
-                                            <t t-elif="cell.template_id">
-                                                <span
-                                                    t-attf-class="o_tag o_badge badge rounded-pill o_tag_color_{{ cell.color }} o_hr_shift_grid_chip"
-                                                    draggable="true"
-                                                    t-att-title="day.label"
-                                                    t-on-dragstart="(ev) => this.onDragStart(ev, cell)"
-                                                    t-on-dragend="onDragEnd"
+                                            <div
+                                                t-else=""
+                                                class="o_hr_shift_grid_cell_stack"
+                                            >
+                                                <t
+                                                    t-foreach="lines"
+                                                    t-as="cell"
+                                                    t-key="cell.line_id"
                                                 >
-                                                    <b t-esc="cell.code" />
-                                                </span>
-                                            </t>
-                                            <t t-else="">
+                                                    <t t-if="isLocked(cell)">
+                                                        <span
+                                                            class="o_hr_shift_grid_chip o_hr_shift_grid_leave badge rounded-pill"
+                                                        >Leave</span>
+                                                    </t>
+                                                    <t t-elif="cell.template_id">
+                                                        <span
+                                                            t-attf-class="o_tag o_badge badge rounded-pill o_tag_color_{{ cell.color }} o_hr_shift_grid_chip"
+                                                            draggable="true"
+                                                            t-att-title="day.label"
+                                                            t-on-click="(ev) => this.onChipClick(ev, employee, day, cell)"
+                                                            t-on-dragstart="(ev) => this.onDragStart(ev, cell)"
+                                                            t-on-dragend="onDragEnd"
+                                                        >
+                                                            <b t-esc="cell.code" />
+                                                        </span>
+                                                    </t>
+                                                </t>
                                                 <i
-                                                    class="fa fa-plus o_hr_shift_grid_add"
+                                                    t-if="hasEditableLine(lines)"
+                                                    t-att-class="addIconClass(lines)"
                                                     role="img"
                                                     aria-label="Assign a shift"
                                                 />
-                                            </t>
+                                            </div>
                                         </td>
                                     </t>
                                     <td
@@ -137,6 +148,7 @@
                     <div class="o_hr_shift_grid_menu_header text-muted small">
                         <b t-esc="state.menu.employeeName" />
                         <span t-esc="' — ' + state.menu.dayLabel" />
+                        <div t-if="state.menu.add" class="fst-italic">Add a shift</div>
                     </div>
                     <button
                         t-foreach="state.data.templates"

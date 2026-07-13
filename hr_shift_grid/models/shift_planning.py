@@ -63,15 +63,17 @@ class ShiftPlanning(models.Model):
             )
             cells = {}
             total_hours = 0.0
-            for line in shift.line_ids:
+            for line in shift.line_ids.sorted("id"):
                 template = line.template_id
-                cells[line.day_number] = {
-                    "line_id": line.id,
-                    "template_id": template.id or False,
-                    "code": self._grid_template_code(template),
-                    "color": template.color or 0,
-                    "state": line.state,
-                }
+                cells.setdefault(line.day_number, []).append(
+                    {
+                        "line_id": line.id,
+                        "template_id": template.id or False,
+                        "code": self._grid_template_code(template),
+                        "color": template.color or 0,
+                        "state": line.state,
+                    }
+                )
                 if line.state == "assigned" and template:
                     duration = line.duration_hours
                     if duration < 0:  # shift crossing midnight
@@ -120,6 +122,28 @@ class ShiftPlanning(models.Model):
         if previous != template:
             line.template_id = template
             self._grid_log_change(line, previous, template)
+        return self.grid_data()
+
+    def grid_add(self, employee_id, day_number, template_id):
+        """Assign one more shift to an employee on a given day: reuse a
+        free line of the day when there is one, add an extra line
+        otherwise. Returns a fresh grid_data()."""
+        self.ensure_one()
+        shift = self.shift_ids.filtered(
+            lambda shift: shift.employee_id.id == employee_id
+        )
+        if not shift:
+            raise UserError(
+                self.env._("This employee doesn't belong to this planning.")
+            )
+        template = self.env["hr.shift.template"].browse(template_id)
+        if not template.exists():
+            raise UserError(self.env._("This shift template doesn't exist anymore."))
+        line = shift.line_ids.filtered(
+            lambda line: line.day_number == day_number and line.state == "unassigned"
+        )[:1] or shift.action_add_line(day_number)
+        line.template_id = template
+        self._grid_log_change(line, self.env["hr.shift.template"], template)
         return self.grid_data()
 
     def grid_swap(self, line_id, other_line_id):

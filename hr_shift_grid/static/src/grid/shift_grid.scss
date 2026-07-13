@@ -76,6 +76,24 @@
         cursor: pointer;
         transition: background-color 0.1s ease-in-out;
 
+        .o_hr_shift_grid_cell_stack {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 2px;
+        }
+
+        .o_hr_shift_grid_add_more {
+            opacity: 0;
+            font-size: 0.75em;
+            transition: opacity 0.1s ease-in-out;
+            color: var(--o-main-text-color, #495057);
+        }
+
+        &:hover .o_hr_shift_grid_add_more {
+            opacity: 0.6;
+        }
+
         &.o_hr_shift_grid_cell_empty .o_hr_shift_grid_add {
             opacity: 0;
             transition: opacity 0.1s ease-in-out;
