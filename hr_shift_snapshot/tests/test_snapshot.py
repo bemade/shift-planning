@@ -133,3 +133,16 @@ class TestShiftSnapshot(TransactionCase):
         self.line.template_id = self.template_day
         self.assertEqual(len(self.planning.message_ids), messages_before + 1)
         self.assertIn("Change after publication", self.planning.message_ids[0].body)
+
+    def test_07_extra_line_variance(self):
+        """An extra shift the same day shows as one added variance; the
+        untouched original line reports nothing."""
+        publication = self._publish()
+        extra = self.line.shift_id.action_add_line("0")
+        extra.template_id = self.template_night
+        publication.action_compute_variances()
+        self.assertEqual(len(publication.variance_ids), 1)
+        variance = publication.variance_ids
+        self.assertEqual(variance.employee_id, self.employees[0])
+        self.assertFalse(variance.published_template_id)
+        self.assertEqual(variance.current_template_id, self.template_night)

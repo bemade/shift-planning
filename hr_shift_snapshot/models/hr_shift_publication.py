@@ -1,5 +1,7 @@
 # Copyright 2026 Bemade Inc.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+from itertools import zip_longest
+
 from odoo import api, fields, models
 
 from odoo.addons.hr_shift.models.shift_template import WEEK_DAYS_SELECTION
@@ -52,13 +54,20 @@ class HrShiftPublication(models.Model):
             publication.variance_count = len(publication.variance_ids)
 
     def _current_assignments(self):
-        """{(employee, day_number): template} of the planning right now."""
+        """{(employee, day_number): templates} of the planning right now.
+
+        An employee can hold several shifts the same day, so the value
+        is a recordset of every assigned template on the slot."""
         self.ensure_one()
-        return {
-            (line.employee_id, line.day_number): line.template_id
-            for line in self.planning_id.shift_ids.line_ids
-            if line.template_id
-        }
+        assignments = {}
+        for line in self.planning_id.shift_ids.line_ids:
+            if line.template_id:
+                key = (line.employee_id, line.day_number)
+                assignments[key] = (
+                    assignments.get(key, self.env["hr.shift.template"])
+                    | line.template_id
+                )
+        return assignments
 
     def _detect_cause(self, employee, day_number):
         """Best-effort explanation for a divergence on that slot."""
@@ -99,36 +108,47 @@ class HrShiftPublication(models.Model):
         Variance = self.env["hr.shift.publication.variance"]
         for publication in self:
             publication.variance_ids.unlink()
-            published = {
-                (line.employee_id, line.day_number): line
-                for line in publication.line_ids
-            }
+            published = {}
+            for line in publication.line_ids:
+                published.setdefault((line.employee_id, line.day_number), []).append(
+                    line
+                )
             current = publication._current_assignments()
             values = []
             for key in published.keys() | current.keys():
                 employee, day_number = key
-                snapshot_line = published.get(key)
-                published_template = snapshot_line and snapshot_line.template_id
-                current_template = current.get(key)
-                if (published_template or False) == (current_template or False):
+                # Match published lines with the still-identical current
+                # assignments; what remains on both sides diverged.
+                remaining = list(current.get(key, []))
+                changed_lines = []
+                for snapshot_line in published.get(key, []):
+                    if snapshot_line.template_id in remaining:
+                        remaining.remove(snapshot_line.template_id)
+                    else:
+                        changed_lines.append(snapshot_line)
+                if not changed_lines and not remaining:
                     continue
                 cause, note = publication._detect_cause(employee, day_number)
-                values.append(
-                    {
-                        "publication_id": publication.id,
-                        "employee_id": employee.id,
-                        "day_number": day_number,
-                        "published_template_id": published_template
-                        and published_template.id,
-                        "published_template_name": snapshot_line
-                        and snapshot_line.template_name,
-                        "current_template_id": current_template and current_template.id,
-                        "current_template_name": current_template
-                        and current_template.display_name,
-                        "cause": cause,
-                        "cause_note": note,
-                    }
-                )
+                for snapshot_line, current_template in zip_longest(
+                    changed_lines, remaining
+                ):
+                    values.append(
+                        {
+                            "publication_id": publication.id,
+                            "employee_id": employee.id,
+                            "day_number": day_number,
+                            "published_template_id": snapshot_line
+                            and snapshot_line.template_id.id,
+                            "published_template_name": snapshot_line
+                            and snapshot_line.template_name,
+                            "current_template_id": current_template
+                            and current_template.id,
+                            "current_template_name": current_template
+                            and current_template.display_name,
+                            "cause": cause,
+                            "cause_note": note,
+                        }
+                    )
             Variance.create(values)
         return True
 
