@@ -1,0 +1,157 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_shift_grid
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-13 00:00+0000\n"
+"PO-Revision-Date: 2026-07-13 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_CA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_shift_grid
+#: code:addons/hr_shift_grid/models/shift_planning.py:0
+msgid ""
+"%(employee)s is on leave on %(day)s: this shift can't be changed."
+msgstr ""
+"%(employee)s est en congé %(day)s : ce quart ne peut pas être modifié."
+
+#. module: hr_shift_grid
+#. odoo-javascript
+#: code:addons/hr_shift_grid/static/src/grid/shift_grid.esm.js:0
+msgid "%(count)s gaps"
+msgstr "%(count)s trous"
+
+#. module: hr_shift_grid
+#. odoo-javascript
+#: code:addons/hr_shift_grid/static/src/grid/shift_grid.esm.js:0
+msgid "%(hours)s h"
+msgstr "%(hours)s h"
+
+#. module: hr_shift_grid
+#. odoo-javascript
+#: code:addons/hr_shift_grid/static/src/grid/shift_grid.esm.js:0
+msgid "1 gap"
+msgstr "1 trou"
+
+#. module: hr_shift_grid
+#. odoo-javascript
+#: code:addons/hr_shift_grid/static/src/grid/shift_grid.xml:0
+msgid "Assign a shift"
+msgstr "Assigner un quart"
+
+#. module: hr_shift_grid
+#. odoo-javascript
+#: code:addons/hr_shift_grid/static/src/grid/shift_grid.xml:0
+msgid "Assigned"
+msgstr "Assignées"
+
+#. module: hr_shift_grid
+#. odoo-javascript
+#: code:addons/hr_shift_grid/static/src/grid/shift_grid.esm.js:0
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: hr_shift_grid
+#. odoo-javascript
+#: code:addons/hr_shift_grid/static/src/grid/shift_grid.esm.js:0
+msgid "Continue"
+msgstr "Continuer"
+
+#. module: hr_shift_grid
+#: code:addons/hr_shift_grid/models/shift_planning.py:0
+msgid "Day off"
+msgstr "Repos"
+
+#. module: hr_shift_grid
+#. odoo-javascript
+#: code:addons/hr_shift_grid/static/src/grid/shift_grid.xml:0
+msgid "Employee"
+msgstr "Employée"
+
+#. module: hr_shift_grid
+#: code:addons/hr_shift_grid/models/shift_planning.py:0
+msgid ""
+"Grid change after publication: %(employee)s — %(day)s: %(before)s → "
+"%(after)s"
+msgstr ""
+"Modification de la grille après publication : %(employee)s — %(day)s : "
+"%(before)s → %(after)s"
+
+#. module: hr_shift_grid
+#. odoo-javascript
+#: code:addons/hr_shift_grid/static/src/grid/shift_grid.xml:0
+msgid "Hours"
+msgstr "Heures"
+
+#. module: hr_shift_grid
+#: model_terms:ir.ui.view,arch_db:hr_shift_grid.shift_planning_form
+msgid "Interactive grid"
+msgstr "Grille interactive"
+
+#. module: hr_shift_grid
+#: code:addons/hr_shift_grid/models/shift_planning.py:0
+msgid "Interactive grid — %(planning)s"
+msgstr "Grille interactive — %(planning)s"
+
+#. module: hr_shift_grid
+#. odoo-javascript
+#: code:addons/hr_shift_grid/static/src/grid/shift_grid.xml:0
+msgid "Leave"
+msgstr "Congé"
+
+#. module: hr_shift_grid
+#: code:addons/hr_shift_grid/models/shift_planning.py:0
+msgid "No department"
+msgstr "Sans département"
+
+#. module: hr_shift_grid
+#. odoo-javascript
+#: code:addons/hr_shift_grid/static/src/grid/shift_grid.xml:0
+msgid "Remove"
+msgstr "Retirer"
+
+#. module: hr_shift_grid
+#. odoo-javascript
+#: code:addons/hr_shift_grid/static/src/grid/shift_grid.xml:0
+msgid "Remove the shift"
+msgstr "Retirer le quart"
+
+#. module: hr_shift_grid
+#. odoo-javascript
+#: code:addons/hr_shift_grid/static/src/grid/shift_grid.esm.js:0
+msgid "The change could not be saved."
+msgstr "Le changement n'a pas pu être enregistré."
+
+#. module: hr_shift_grid
+#: code:addons/hr_shift_grid/models/shift_planning.py:0
+msgid "This shift line doesn't belong to this planning."
+msgstr "Cette ligne de quart n'appartient pas à cette planification."
+
+#. module: hr_shift_grid
+#: code:addons/hr_shift_grid/models/shift_planning.py:0
+msgid "This shift template doesn't exist anymore."
+msgstr "Ce gabarit de quart n'existe plus."
+
+#. module: hr_shift_grid
+#. odoo-javascript
+#: code:addons/hr_shift_grid/static/src/grid/shift_grid.esm.js:0
+msgid ""
+"This week was already sent to the employees. The change will be logged in "
+"the chatter. Continue?"
+msgstr ""
+"Cette semaine a déjà été envoyée aux employées. Le changement sera tracé au "
+"chatter. Continuer?"
+
+#. module: hr_shift_grid
+#. odoo-javascript
+#: code:addons/hr_shift_grid/static/src/grid/shift_grid.esm.js:0
+msgid "Week already sent"
+msgstr "Semaine déjà envoyée"

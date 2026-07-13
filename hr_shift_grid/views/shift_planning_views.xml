@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="shift_planning_form" model="ir.ui.view">
+        <field name="model">hr.shift.planning</field>
+        <field name="inherit_id" ref="hr_shift.shift_planning_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='copy_to_planning']" position="before">
+                <button
+                    type="object"
+                    name="action_open_grid"
+                    string="Interactive grid"
+                    class="btn btn-secondary"
+                    icon="fa-th"
+                    invisible="state == 'new' or not shift_ids"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

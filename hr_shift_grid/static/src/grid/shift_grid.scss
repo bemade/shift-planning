@@ -1,0 +1,158 @@
+.o_hr_shift_grid {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--body-bg, #fff);
+
+    .o_hr_shift_grid_scroll {
+        flex: 1 1 auto;
+        overflow: auto;
+        padding: 16px;
+    }
+
+    .o_hr_shift_grid_table {
+        min-width: 940px;
+        border-collapse: separate;
+        border-spacing: 0;
+
+        th,
+        td {
+            vertical-align: middle;
+        }
+
+        thead th {
+            border-bottom: 2px solid var(--border-color, #dee2e6);
+            white-space: nowrap;
+
+            .o_hr_shift_grid_day_name {
+                text-transform: capitalize;
+            }
+
+            .o_hr_shift_grid_day_date {
+                font-weight: normal;
+                font-size: 0.8em;
+            }
+        }
+    }
+
+    .o_hr_shift_grid_employee_col {
+        min-width: 200px;
+    }
+
+    .o_hr_shift_grid_day_col {
+        min-width: 92px;
+    }
+
+    .o_hr_shift_grid_hours_col,
+    .o_hr_shift_grid_hours {
+        min-width: 72px;
+        white-space: nowrap;
+    }
+
+    .o_hr_shift_grid_group td {
+        background-color: var(--o-view-background-color, #f8f9fa);
+        background-color: rgba(0, 0, 0, 0.035);
+        font-weight: 600;
+        font-size: 0.85em;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        padding: 6px 8px;
+    }
+
+    .o_hr_shift_grid_employee {
+        white-space: nowrap;
+
+        .o_hr_shift_grid_avatar {
+            width: 24px;
+            height: 24px;
+            object-fit: cover;
+            margin-right: 8px;
+        }
+    }
+
+    .o_hr_shift_grid_cell {
+        height: 44px;
+        padding: 4px;
+        text-align: center;
+        cursor: pointer;
+        transition: background-color 0.1s ease-in-out;
+
+        &.o_hr_shift_grid_cell_empty .o_hr_shift_grid_add {
+            opacity: 0;
+            transition: opacity 0.1s ease-in-out;
+            color: var(--o-main-text-color, #495057);
+        }
+
+        &.o_hr_shift_grid_cell_empty:hover {
+            background-color: rgba(0, 0, 0, 0.04);
+
+            .o_hr_shift_grid_add {
+                opacity: 0.6;
+            }
+        }
+
+        &.o_hr_shift_grid_cell_off,
+        &.o_hr_shift_grid_cell_locked {
+            cursor: default;
+        }
+
+        &.o_hr_shift_grid_drop {
+            outline: 2px dashed var(--primary, #714b67);
+            outline-offset: -3px;
+            background-color: rgba(113, 75, 103, 0.06);
+        }
+    }
+
+    .o_hr_shift_grid_today {
+        background-color: rgba(113, 75, 103, 0.05);
+    }
+
+    .o_hr_shift_grid_chip {
+        display: block;
+        width: 100%;
+        padding: 6px 8px;
+        font-size: 0.85em;
+        cursor: grab;
+
+        &.o_hr_shift_grid_dragging {
+            opacity: 0.4;
+        }
+
+        &.o_hr_shift_grid_leave {
+            background-color: rgba(0, 0, 0, 0.08);
+            color: var(--o-main-text-color, #495057);
+            cursor: default;
+            font-weight: normal;
+            font-style: italic;
+        }
+    }
+
+    .o_hr_shift_grid_foot td {
+        border-top: 2px solid var(--border-color, #dee2e6);
+        white-space: nowrap;
+    }
+
+    .o_hr_shift_grid_menu {
+        position: fixed;
+        z-index: 1050;
+        width: 280px;
+        max-height: 60vh;
+        overflow: auto;
+        padding: 4px 0;
+        border: 1px solid var(--border-color, #dee2e6);
+        background-color: var(--body-bg, #fff);
+
+        .o_hr_shift_grid_menu_header {
+            padding: 8px 12px 4px;
+        }
+
+        .o_hr_shift_grid_menu_item {
+            border: 0;
+            border-radius: 0;
+            padding: 6px 12px;
+
+            &:hover:not(:disabled) {
+                background-color: rgba(0, 0, 0, 0.05);
+            }
+        }
+    }
+}

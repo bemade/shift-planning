@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t t-name="hr_shift_grid.ShiftGridAction">
+        <div class="o_hr_shift_grid o_action h-100" t-on-click="onRootClick">
+            <t t-if="state.data">
+                <div class="o_hr_shift_grid_scroll">
+                    <table class="table table-sm o_hr_shift_grid_table">
+                        <thead>
+                            <tr>
+                                <th class="o_hr_shift_grid_employee_col">Employee</th>
+                                <th
+                                    t-foreach="state.data.days"
+                                    t-as="day"
+                                    t-key="day.day_number"
+                                    t-attf-class="o_hr_shift_grid_day_col text-center {{ day.is_today ? 'o_hr_shift_grid_today' : '' }}"
+                                >
+                                    <div
+                                        class="o_hr_shift_grid_day_name"
+                                        t-esc="day.label"
+                                    />
+                                    <div
+                                        class="o_hr_shift_grid_day_date text-muted"
+                                        t-esc="day.date_label"
+                                    />
+                                </th>
+                                <th
+                                    class="o_hr_shift_grid_hours_col text-end"
+                                >Hours</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t
+                                t-foreach="state.data.groups"
+                                t-as="group"
+                                t-key="group.id"
+                            >
+                                <tr class="o_hr_shift_grid_group">
+                                    <td colspan="9" t-esc="group.name" />
+                                </tr>
+                                <tr
+                                    t-foreach="group.employees"
+                                    t-as="employee"
+                                    t-key="employee.employee_id"
+                                >
+                                    <td class="o_hr_shift_grid_employee">
+                                        <img
+                                            class="o_hr_shift_grid_avatar rounded-circle"
+                                            t-attf-src="/web/image/hr.employee/{{ employee.employee_id }}/avatar_128"
+                                            alt=""
+                                        />
+                                        <span t-esc="employee.name" />
+                                    </td>
+                                    <t
+                                        t-foreach="state.data.days"
+                                        t-as="day"
+                                        t-key="day.day_number"
+                                    >
+                                        <t
+                                            t-set="cell"
+                                            t-value="employee.cells[day.day_number]"
+                                        />
+                                        <td
+                                            t-att-class="cellClass(cell, day)"
+                                            t-on-click="(ev) => this.onCellClick(ev, employee, day)"
+                                            t-on-dragover="(ev) => this.onDragOver(ev, cell)"
+                                            t-on-dragenter="(ev) => this.onDragEnter(ev, cell)"
+                                            t-on-dragleave="onDragLeave"
+                                            t-on-drop="(ev) => this.onDrop(ev, cell)"
+                                        >
+                                            <t t-if="!cell">
+                                                <span
+                                                    class="o_hr_shift_grid_off text-muted"
+                                                >—</span>
+                                            </t>
+                                            <t t-elif="isLocked(cell)">
+                                                <span
+                                                    class="o_hr_shift_grid_chip o_hr_shift_grid_leave badge rounded-pill"
+                                                >Leave</span>
+                                            </t>
+                                            <t t-elif="cell.template_id">
+                                                <span
+                                                    t-attf-class="o_tag o_badge badge rounded-pill o_tag_color_{{ cell.color }} o_hr_shift_grid_chip"
+                                                    draggable="true"
+                                                    t-att-title="day.label"
+                                                    t-on-dragstart="(ev) => this.onDragStart(ev, cell)"
+                                                    t-on-dragend="onDragEnd"
+                                                >
+                                                    <b t-esc="cell.code" />
+                                                </span>
+                                            </t>
+                                            <t t-else="">
+                                                <i
+                                                    class="fa fa-plus o_hr_shift_grid_add"
+                                                    role="img"
+                                                    aria-label="Assign a shift"
+                                                />
+                                            </t>
+                                        </td>
+                                    </t>
+                                    <td
+                                        class="o_hr_shift_grid_hours text-end fw-bold"
+                                        t-esc="formatHours(employee.hours)"
+                                    />
+                                </tr>
+                            </t>
+                        </tbody>
+                        <tfoot>
+                            <tr class="o_hr_shift_grid_foot">
+                                <td class="text-muted">Assigned</td>
+                                <td
+                                    t-foreach="state.data.days"
+                                    t-as="day"
+                                    t-key="day.day_number"
+                                    t-attf-class="text-center {{ day.is_today ? 'o_hr_shift_grid_today' : '' }}"
+                                >
+                                    <span
+                                        t-esc="state.data.day_counts[day.day_number] || 0"
+                                    />
+                                    <span
+                                        t-if="state.data.gaps[day.day_number]"
+                                        class="badge rounded-pill text-bg-danger ms-1"
+                                        t-esc="gapLabel(state.data.gaps[day.day_number])"
+                                    />
+                                </td>
+                                <td />
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div
+                    t-if="state.menu"
+                    class="o_hr_shift_grid_menu shadow rounded bg-view"
+                    t-attf-style="left: {{ state.menu.x }}px; top: {{ state.menu.y }}px;"
+                    t-on-click.stop=""
+                >
+                    <div class="o_hr_shift_grid_menu_header text-muted small">
+                        <b t-esc="state.menu.employeeName" />
+                        <span t-esc="' — ' + state.menu.dayLabel" />
+                    </div>
+                    <button
+                        t-foreach="state.data.templates"
+                        t-as="template"
+                        t-key="template.id"
+                        class="o_hr_shift_grid_menu_item btn d-flex align-items-center w-100"
+                        t-att-disabled="template.id === state.menu.templateId ? 'disabled' : undefined"
+                        t-on-click="() => this.pickTemplate(template.id)"
+                    >
+                        <span
+                            t-attf-class="o_tag o_badge badge rounded-pill o_tag_color_{{ template.color }}"
+                        >
+                            <b t-esc="template.code" />
+                        </span>
+                        <span
+                            class="ms-2 flex-grow-1 text-start"
+                            t-esc="template.name"
+                        />
+                        <span class="text-muted small ms-2" t-esc="template.hours" />
+                    </button>
+                    <t t-if="state.menu.templateId">
+                        <div class="dropdown-divider" />
+                        <button
+                            class="o_hr_shift_grid_menu_item btn d-flex align-items-center w-100 text-danger"
+                            t-on-click="removeShift"
+                        >
+                            <i
+                            class="fa fa-times me-2"
+                            role="img"
+                            aria-label="Remove"
+                        />
+                            Remove the shift
+                        </button>
+                    </t>
+                </div>
+            </t>
+        </div>
+    </t>
+
+</templates>
