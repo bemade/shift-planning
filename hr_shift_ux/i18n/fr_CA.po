@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-13 00:00+0000\n"
-"PO-Revision-Date: 2026-07-13 00:00+0000\n"
+"POT-Creation-Date: 2026-07-13 18:02+0000\n"
+"PO-Revision-Date: 2026-07-13 18:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_CA\n"
@@ -37,9 +37,32 @@ msgid "4. Send schedules to employees"
 msgstr "4. Envoyer les horaires aux employées"
 
 #. module: hr_shift_ux
-#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning__state__assignment
-msgid "Assignment"
-msgstr "Assignation"
+#: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_kanban
+msgid ""
+"<i class=\"fa fa-envelope me-1\" role=\"img\" title=\"Schedules sent\"/>\n"
+"                        Sent"
+msgstr ""
+"<i class=\"fa fa-envelope me-1\" role=\"img\" title=\"Horaires envoyés\"/>\n"
+"                        Envoyé le"
+
+#. module: hr_shift_ux
+#: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_form
+msgid ""
+"<i class=\"fa fa-envelope me-1\" role=\"img\" title=\"Schedules sent\"/> "
+"Schedules sent to the employees on"
+msgstr ""
+"<i class=\"fa fa-envelope me-1\" role=\"img\" title=\"Horaires envoyés\"/> "
+"Horaires envoyés aux employées le"
+
+#. module: hr_shift_ux
+#: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_form
+#: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_kanban
+msgid ""
+"<i class=\"fa fa-exclamation-triangle me-1\" role=\"img\" title=\"Coverage "
+"gaps\"/>"
+msgstr ""
+"<i class=\"fa fa-exclamation-triangle me-1\" role=\"img\" title=\"Trous de "
+"couverture\"/>"
 
 #. module: hr_shift_ux
 #: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning__line_assigned_count
@@ -52,31 +75,35 @@ msgid "Configuration"
 msgstr "Configuration"
 
 #. module: hr_shift_ux
-#: model:ir.ui.menu,name:hr_shift_coverage.hr_shift_coverage_rule_menu
-msgid "Coverage Rules"
-msgstr "Règles de couverture"
+#: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_form
+msgid "Copy to a new week"
+msgstr "Copier vers une nouvelle semaine"
+
+#. module: hr_shift_ux
+#: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_kanban
+msgid "Coverage complete"
+msgstr "Couverture complète"
 
 #. module: hr_shift_ux
 #: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_form
-#: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_kanban
 msgid "Coverage gaps"
 msgstr "Trous de couverture"
 
 #. module: hr_shift_ux
 #: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_form
-msgid ""
-"Create the planning of the week, then follow the numbered buttons on its "
-"form: create the shifts, auto-assign the employees, check the coverage and "
-"send the schedules."
-msgstr ""
-"Créez la planification de la semaine, puis suivez les boutons numérotés de "
-"sa fiche : créer les quarts, assigner automatiquement les employées, "
-"vérifier la couverture et envoyer les horaires."
+msgid "Day by day"
+msgstr "Jour par jour"
 
 #. module: hr_shift_ux
 #: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_form
-msgid "Day by day"
-msgstr "Jour par jour"
+msgid "Day view"
+msgstr "Vue par jour"
+
+#. module: hr_shift_ux
+#. odoo-python
+#: code:addons/hr_shift_ux/models/shift_planning.py:0
+msgid "Day view — %(planning)s"
+msgstr "Vue par jour — %(planning)s"
 
 #. module: hr_shift_ux
 #: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning_shift__department_id
@@ -85,16 +112,37 @@ msgid "Department"
 msgstr "Maison / département"
 
 #. module: hr_shift_ux
+#: model:ir.model.fields,help:hr_shift_ux.field_hr_shift_planning_shift__department_id
+msgid "Department (house/residence) of the employee."
+msgstr "Maison (résidence) ou département de l'employée."
+
+#. module: hr_shift_ux
+#: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning__display_name
+#: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning_shift__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: hr_shift_ux
 #: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_form
 msgid "Employees of the week"
 msgstr "Employées de la semaine"
 
 #. module: hr_shift_ux
 #: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_form
-msgid ""
-"Every employee will receive their week schedule by email. Continue?"
+msgid "Every employee will receive their week schedule by email. Continue?"
 msgstr ""
 "Chaque employée recevra son horaire de la semaine par courriel. Continuer?"
+
+#. module: hr_shift_ux
+#: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning_shift__day_code_4
+msgid "Fri"
+msgstr "Ven"
+
+#. module: hr_shift_ux
+#: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning__id
+#: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning_shift__id
+msgid "ID"
+msgstr "Identifiant"
 
 #. module: hr_shift_ux
 #: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_form
@@ -102,19 +150,25 @@ msgid "Launch cascade"
 msgstr "Lancer la cascade"
 
 #. module: hr_shift_ux
-#: model:ir.ui.menu,name:hr_shift.my_shifts_menu
-msgid "My shifts"
-msgstr "Mes quarts"
+#. odoo-python
+#: code:addons/hr_shift_ux/models/shift_planning.py:0
+msgid "Leave"
+msgstr "Congé"
 
 #. module: hr_shift_ux
-#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning__state__new
-msgid "New"
-msgstr "Nouvelle"
+#: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning_shift__day_code_0
+msgid "Mon"
+msgstr "Lun"
 
 #. module: hr_shift_ux
-#: model_terms:ir.actions.act_window,help:hr_shift.shift_planning_shift_action
-msgid "No shift for this week yet"
-msgstr "Aucun quart pour cette semaine"
+#: model:ir.model.fields,help:hr_shift_ux.field_hr_shift_planning__line_unassigned_count
+msgid "Number of day shifts still without an employee over the week."
+msgstr "Nombre de quarts de la semaine encore sans employée."
+
+#. module: hr_shift_ux
+#: model:ir.model.fields,help:hr_shift_ux.field_hr_shift_planning__line_assigned_count
+msgid "Number of day shifts with an employee assigned over the week."
+msgstr "Nombre de quarts de la semaine avec une employée assignée."
 
 #. module: hr_shift_ux
 #: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning__line_unassigned_count
@@ -122,34 +176,9 @@ msgid "Open day shifts"
 msgstr "Quarts à combler"
 
 #. module: hr_shift_ux
-#: model_terms:ir.actions.act_window,help:hr_shift.shift_planning_action
-msgid "Plan a new week"
-msgstr "Planifier une nouvelle semaine"
-
-#. module: hr_shift_ux
-#: model:ir.model.fields.selection,name:hr_shift.selection__hr_shift_planning__state__planned
-msgid "Planned"
-msgstr "Planifiée"
-
-#. module: hr_shift_ux
-#: model:ir.ui.menu,name:hr_shift.shift_planning_menu
-msgid "Planning"
-msgstr "Planification"
-
-#. module: hr_shift_ux
-#: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_kanban
-msgid "Schedules sent"
-msgstr "Horaires envoyés"
-
-#. module: hr_shift_ux
-#: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_form
-msgid "Schedules sent to the employees on"
-msgstr "Horaires envoyés aux employées le"
-
-#. module: hr_shift_ux
-#: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_kanban
-msgid "Sent"
-msgstr "Envoyé le"
+#: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning_shift__day_code_5
+msgid "Sat"
+msgstr "Sam"
 
 #. module: hr_shift_ux
 #: model_terms:ir.ui.view,arch_db:hr_shift_ux.hr_shift_coverage_gap_tree
@@ -158,14 +187,14 @@ msgid "Shift"
 msgstr "Quart"
 
 #. module: hr_shift_ux
-#: model:ir.ui.menu,name:hr_shift.shift_template_menu
-msgid "Shift templates"
-msgstr "Gabarits de quarts"
+#: model:ir.model,name:hr_shift_ux.model_hr_shift_planning_shift
+msgid "Shift of the week for a given employee"
+msgstr "Quart de la semaine d'une employée"
 
 #. module: hr_shift_ux
-#: model:ir.ui.menu,name:hr_shift.shift_planning_root
-msgid "Shifts"
-msgstr "Quarts"
+#: model:ir.model,name:hr_shift_ux.model_hr_shift_planning
+msgid "Shift plannings"
+msgstr "Planifications de quarts"
 
 #. module: hr_shift_ux
 #: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_form
@@ -175,22 +204,54 @@ msgstr "Diviser en deux"
 #. module: hr_shift_ux
 #: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_form
 msgid ""
-"Start by creating the shifts of the week with the button above: one card is"
-" created for every employee taking part in the planning."
+"Start by creating the shifts of the week with the button above: one card is "
+"created for every employee taking part in the planning."
 msgstr ""
 "Commencez par créer les quarts de la semaine avec le bouton ci-dessus : une "
 "carte sera créée pour chaque employée participant à la planification."
 
 #. module: hr_shift_ux
-#: model:ir.ui.menu,name:hr_shift_timeline.shift_planning_timeline_menu
-msgid "Timeline"
-msgstr "Ligne du temps"
+#: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning_shift__day_code_6
+msgid "Sun"
+msgstr "Dim"
+
+#. module: hr_shift_ux
+#: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_form
+msgid ""
+"The shifts of the week are created but nobody is assigned yet. Launch the "
+"automatic assignment or assign the employees below, then check the coverage."
+" Days without a shift are simply the employees' days off."
+msgstr ""
+"Les quarts de la semaine sont créés mais personne n'est encore assigné. "
+"Lancez l'assignation automatique ou assignez les employées ci-dessous, puis "
+"vérifiez la couverture. Les journées sans quart sont simplement les congés "
+"des employées."
+
+#. module: hr_shift_ux
+#: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning_shift__day_code_3
+msgid "Thu"
+msgstr "Jeu"
 
 #. module: hr_shift_ux
 #: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_form
 #: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_shift_tree
 msgid "Total planned"
 msgstr "Total planifié"
+
+#. module: hr_shift_ux
+#: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning_shift__day_code_1
+msgid "Tue"
+msgstr "Mar"
+
+#. module: hr_shift_ux
+#: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning_shift__day_code_2
+msgid "Wed"
+msgstr "Mer"
+
+#. module: hr_shift_ux
+#: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_form
+msgid "Weekly hours"
+msgstr "Heures de la semaine"
 
 #. module: hr_shift_ux
 #: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_form
@@ -200,19 +261,9 @@ msgid "Weekly shift"
 msgstr "Quart hebdomadaire"
 
 #. module: hr_shift_ux
-#: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_form
-msgid "Weekly hours"
-msgstr "Heures de la semaine"
-
-#. module: hr_shift_ux
 #: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_shift_search
 msgid "Without weekly shift"
 msgstr "Sans quart hebdomadaire"
-
-#. module: hr_shift_ux
-#: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_form
-msgid "Copy to a new week"
-msgstr "Copier vers une nouvelle semaine"
 
 #. module: hr_shift_ux
 #: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_kanban
@@ -235,91 +286,6 @@ msgid "day shifts assigned"
 msgstr "quarts assignés"
 
 #. module: hr_shift_ux
-#: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_form
-msgid ""
-"day shifts still have nobody assigned. Assign employees below or "
-"auto-assign them, then check the coverage."
-msgstr ""
-"quarts n'ont encore personne d'assigné. Assignez les employées ci-dessous "
-"ou lancez l'assignation automatique, puis vérifiez la couverture."
-
-#. module: hr_shift_ux
-#: model_terms:ir.actions.act_window,help:hr_shift.shift_planning_shift_action
-msgid ""
-"Go back to the planning and press \"1. Create the week shifts\": one line "
-"per employee will show up here."
-msgstr ""
-"Retournez à la planification et appuyez sur « 1. Créer les quarts de la "
-"semaine » : une ligne par employée apparaîtra ici."
-
-#. module: hr_shift_ux
 #: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_kanban
 msgid "day shifts to assign"
 msgstr "quarts à combler"
-
-#. module: hr_shift_ux
-#: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_kanban
-msgid "Coverage complete"
-msgstr "Couverture complète"
-
-#. module: hr_shift_ux
-#: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_form
-msgid ""
-"The shifts of the week are created but nobody is assigned yet. Launch the "
-"automatic assignment or assign the employees below, then check the "
-"coverage. Days without a shift are simply the employees' days off."
-msgstr ""
-"Les quarts de la semaine sont créés mais personne n'est encore assigné. "
-"Lancez l'assignation automatique ou assignez les employées ci-dessous, puis "
-"vérifiez la couverture. Les journées sans quart sont simplement les congés "
-"des employées."
-
-#. module: hr_shift_ux
-#: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning_shift__day_code_0
-msgid "Mon"
-msgstr "Lun"
-
-#. module: hr_shift_ux
-#: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning_shift__day_code_1
-msgid "Tue"
-msgstr "Mar"
-
-#. module: hr_shift_ux
-#: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning_shift__day_code_2
-msgid "Wed"
-msgstr "Mer"
-
-#. module: hr_shift_ux
-#: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning_shift__day_code_3
-msgid "Thu"
-msgstr "Jeu"
-
-#. module: hr_shift_ux
-#: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning_shift__day_code_4
-msgid "Fri"
-msgstr "Ven"
-
-#. module: hr_shift_ux
-#: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning_shift__day_code_5
-msgid "Sat"
-msgstr "Sam"
-
-#. module: hr_shift_ux
-#: model:ir.model.fields,field_description:hr_shift_ux.field_hr_shift_planning_shift__day_code_6
-msgid "Sun"
-msgstr "Dim"
-
-#. module: hr_shift_ux
-#: code:addons/hr_shift_ux/models/shift_planning.py:0
-msgid "Leave"
-msgstr "Congé"
-
-#. module: hr_shift_ux
-#: code:addons/hr_shift_ux/models/shift_planning.py:0
-msgid "Day view — %(planning)s"
-msgstr "Vue par jour — %(planning)s"
-
-#. module: hr_shift_ux
-#: model_terms:ir.ui.view,arch_db:hr_shift_ux.shift_planning_form
-msgid "Day view"
-msgstr "Vue par jour"
