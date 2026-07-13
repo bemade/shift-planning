@@ -191,14 +191,14 @@ class HrShiftSwap(models.Model):
                         employee=self.target_employee_id.display_name,
                     )
                 )
-            conflicting = assigned.filtered(
-                lambda line: line.template_id._overlaps(template)
+            conflicting = assigned[0].shift_id._overlapping_lines(
+                template, self.line_id.day_number
             )
             if conflicting:
                 raise UserError(
                     self.env._(
-                        "%(employee)s is already assigned to %(existing)s on "
-                        "that day, which overlaps %(new)s.",
+                        "%(employee)s is already assigned to %(existing)s, "
+                        "which overlaps %(new)s.",
                         employee=self.target_employee_id.display_name,
                         existing=conflicting[0].template_id.display_name,
                         new=template.display_name,

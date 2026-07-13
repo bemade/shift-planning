@@ -250,3 +250,53 @@ class TestHrShiftMultiLine(TestHrShiftBase):
         another = self.shift_a.action_add_line("0")
         with self.assertRaises(UserError), self.env.cr.savepoint():
             another.template_id = late_evening  # 20-23 overlaps 22-30
+
+    def test_overlap_across_consecutive_days(self):
+        """The midnight tail of a shift conflicts with the next day's
+        early shift, but not with a later one."""
+        template_evening = self.env["hr.shift.template"].create(
+            {
+                "name": "Evening 16-0h15",
+                "day_of_week_start": "0",
+                "day_of_week_end": "6",
+                "start_time": 16,
+                "end_time": 0.25,
+                "tz": "Europe/Brussels",
+            }
+        )
+        template_night = self.env["hr.shift.template"].create(
+            {
+                "name": "Night 0-7h30",
+                "day_of_week_start": "0",
+                "day_of_week_end": "6",
+                "start_time": 0,
+                "end_time": 7.5,
+                "tz": "Europe/Brussels",
+            }
+        )
+        template_late_night = self.env["hr.shift.template"].create(
+            {
+                "name": "Night part 4-7h30",
+                "day_of_week_start": "0",
+                "day_of_week_end": "6",
+                "start_time": 4,
+                "end_time": 7.5,
+                "tz": "Europe/Brussels",
+            }
+        )
+        monday = self._lines("0")
+        monday.template_id = template_evening  # ends Tuesday 00h15
+        tuesday = self._lines("1")
+        with self.assertRaises(UserError) as capture, self.env.cr.savepoint():
+            tuesday.template_id = template_night  # starts Tuesday 00h00
+        self.assertIn(template_evening.display_name, str(capture.exception))
+        # A later shift the next day doesn't conflict with the tail
+        tuesday.template_id = template_late_night
+        self.assertEqual(tuesday.state, "assigned")
+        # And the guard works in both directions: assigning the evening
+        # after the night is refused the same way
+        monday.template_id = False
+        tuesday.template_id = False
+        tuesday.template_id = template_night
+        with self.assertRaises(UserError), self.env.cr.savepoint():
+            monday.template_id = template_evening

@@ -113,21 +113,25 @@ class ShiftPlanning(models.Model):
             plan.issued_shifts_count = len(plan.issued_shift_ids)
 
     def _compute_days_data(self):
-        """Used in the Kanban view"""
-        self.days_data = {}
+        """Used in the Kanban view. The days are ordered after the user's
+        first day of week (res.lang week_start), like every calendar."""
+        self.days_data = []
+        lang = self.env["res.lang"]._lang_get(self.env.user.lang or "en_US")
+        first_day = (int(lang.week_start or "1") - 1) % 7
         for plan in self.filtered(lambda x: x.start_date and x.end_date):
             dates = self.env["hr.shift.template"]._explode_date_range(
                 plan.start_date, plan.end_date
             )
-            plan.days_data = {
-                date["weekday"]: {
+            dates.sort(key=lambda date: (date["weekday"] - first_day) % 7)
+            plan.days_data = [
+                {
                     "weekday": dict(WEEK_DAYS_SELECTION).get(str(date["weekday"])),
                     "weekday_number": str(date["weekday"]),
                     "plan": plan.id,
                     "day": date["date"].day,
                 }
                 for date in dates
-            }
+            ]
 
     def generate_shifts(self):
         self.ensure_one()
@@ -311,6 +315,24 @@ class ShiftPlanningShift(models.Model):
             }
         )
 
+    def _overlapping_lines(self, template, day_number, exclude_line=None):
+        """Assigned lines of this weekly shift whose time window strictly
+        intersects the given template placed on the given day. Adjacent
+        days are compared too: a shift crossing midnight runs into the
+        next day. Merely touching windows don't overlap."""
+        self.ensure_one()
+        day = int(day_number)
+        start = day * 24 + template.start_time
+        end = day * 24 + template._normalized_end()
+        return self.line_ids.filtered(
+            lambda line: (exclude_line is None or line != exclude_line)
+            and line.state == "assigned"
+            and line.template_id
+            and abs(int(line.day_number) - day) <= 1
+            and int(line.day_number) * 24 + line.template_id.start_time < end
+            and start < int(line.day_number) * 24 + line.template_id._normalized_end()
+        )
+
     def action_toggle_reviewed(self):
         self.reviewed = not self.reviewed
 
@@ -392,25 +414,26 @@ class ShiftPlanningLine(models.Model):
 
     @api.constrains("template_id")
     def _check_day_overlap(self):
-        """An employee can work several shifts the same day, but their
-        time windows can't overlap (merely consecutive shifts are fine)."""
+        """An employee can work several shifts, but their time windows
+        can't overlap — including across midnight, where the tail of a
+        shift runs into the next day (merely consecutive shifts are
+        fine)."""
         for line in self.filtered(lambda x: x.template_id and x.state == "assigned"):
-            conflicting = line.shift_id.line_ids.filtered(
-                lambda other, line=line: other != line
-                and other.day_number == line.day_number
-                and other.state == "assigned"
-                and other.template_id
-                and other.template_id._overlaps(line.template_id)
+            conflicting = line.shift_id._overlapping_lines(
+                line.template_id, line.day_number, exclude_line=line
             )
             if conflicting:
                 raise UserError(
                     self.env._(
                         "%(employee)s can't take %(new)s on %(day)s: it "
-                        "overlaps %(existing)s already assigned that day.",
+                        "overlaps %(existing)s assigned on %(other_day)s.",
                         employee=line.employee_id.display_name,
                         new=line.template_id.display_name,
                         day=self.env._(dict(WEEK_DAYS_SELECTION).get(line.day_number)),
                         existing=conflicting[0].template_id.display_name,
+                        other_day=self.env._(
+                            dict(WEEK_DAYS_SELECTION).get(conflicting[0].day_number)
+                        ),
                     )
                 )
 

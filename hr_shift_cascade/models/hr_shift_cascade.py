@@ -104,7 +104,7 @@ class HrShiftCascade(models.Model):
                 # No shift that day, a free line (regular candidate
                 # already), or an on-leave/holiday line.
                 continue
-            if any(line.template_id._overlaps(self.template_id) for line in assigned):
+            if shift._overlapping_lines(self.template_id, self.day_number):
                 continue
             employees |= employee
         return employees
