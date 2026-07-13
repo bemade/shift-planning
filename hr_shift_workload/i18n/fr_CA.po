@@ -1,0 +1,90 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_shift_workload
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-13 18:02+0000\n"
+"PO-Revision-Date: 2026-07-13 18:02+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_CA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_shift_workload
+#: model:ir.model.fields,field_description:hr_shift_workload.field_hr_shift_planning_shift__allocated_hours
+msgid "Allocated Hours"
+msgstr "Heures allouées"
+
+#. module: hr_shift_workload
+#: model:ir.model.fields,field_description:hr_shift_workload.field_hr_shift_planning__display_name
+#: model:ir.model.fields,field_description:hr_shift_workload.field_hr_shift_planning_shift__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: hr_shift_workload
+#: model:ir.model.fields,help:hr_shift_workload.field_hr_shift_planning_shift__planned_hours
+msgid "Hours assigned to this employee over the planning week."
+msgstr "Heures assignées à cette employée sur la semaine de planification."
+
+#. module: hr_shift_workload
+#: model:ir.model.fields,field_description:hr_shift_workload.field_hr_shift_planning__id
+#: model:ir.model.fields,field_description:hr_shift_workload.field_hr_shift_planning_shift__id
+msgid "ID"
+msgstr "Identifiant"
+
+#. module: hr_shift_workload
+#: model:ir.model.fields,field_description:hr_shift_workload.field_hr_shift_planning_shift__overtime
+msgid "Overtime"
+msgstr "Heures supplémentaires"
+
+#. module: hr_shift_workload
+#: model:ir.model.fields,field_description:hr_shift_workload.field_hr_shift_planning__overtime_count
+msgid "Overtime Count"
+msgstr "Nombre d'employées en heures supplémentaires"
+
+#. module: hr_shift_workload
+#: model:ir.model.fields,field_description:hr_shift_workload.field_hr_shift_planning_shift__planned_hours
+msgid "Planned Hours"
+msgstr "Heures planifiées"
+
+#. module: hr_shift_workload
+#: model:ir.model.fields,help:hr_shift_workload.field_hr_shift_planning_shift__overtime
+msgid "Planned hours exceed the employee's weekly schedule."
+msgstr "Les heures planifiées dépassent l'horaire hebdomadaire de l'employée."
+
+#. module: hr_shift_workload
+#: model:ir.model,name:hr_shift_workload.model_hr_shift_planning_shift
+msgid "Shift of the week for a given employee"
+msgstr "Quart de la semaine d'une employée"
+
+#. module: hr_shift_workload
+#: model:ir.model,name:hr_shift_workload.model_hr_shift_planning
+msgid "Shift plannings"
+msgstr "Planifications de quarts"
+
+#. module: hr_shift_workload
+#: model_terms:ir.ui.view,arch_db:hr_shift_workload.shift_workload_tree
+msgid "Total planned"
+msgstr "Total planifié"
+
+#. module: hr_shift_workload
+#: model:ir.model.fields,help:hr_shift_workload.field_hr_shift_planning_shift__allocated_hours
+msgid "Weekly hours of the employee's working schedule."
+msgstr "Heures hebdomadaires de l'horaire de travail de l'employée."
+
+#. module: hr_shift_workload
+#: model_terms:ir.ui.view,arch_db:hr_shift_workload.shift_planning_form
+msgid "Workload"
+msgstr "Charge de travail"
+
+#. module: hr_shift_workload
+#. odoo-python
+#: code:addons/hr_shift_workload/models/shift_planning.py:0
+msgid "Workload for %(planning)s"
+msgstr "Charge de travail pour %(planning)s"
