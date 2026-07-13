@@ -1,0 +1,268 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_shift_cascade_sms
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-13 18:02+0000\n"
+"PO-Revision-Date: 2026-07-13 18:02+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_CA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_shift_cascade_sms
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade_sms.offer_page
+msgid "A colleague accepted before you. Thanks anyway!"
+msgstr "Une collègue a accepté avant vous. Merci quand même!"
+
+#. module: hr_shift_cascade_sms
+#: model:ir.model.fields,field_description:hr_shift_cascade_sms.field_hr_shift_cascade_candidate__access_token
+msgid "Access Token"
+msgstr "Jeton d'accès"
+
+#. module: hr_shift_cascade_sms
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade_sms.offer_page
+msgid "Already answered"
+msgstr "Déjà répondu"
+
+#. module: hr_shift_cascade_sms
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade_sms.offer_page
+msgid "Answer recorded"
+msgstr "Réponse enregistrée"
+
+#. module: hr_shift_cascade_sms
+#: model:ir.model,name:hr_shift_cascade_sms.model_res_config_settings
+msgid "Config Settings"
+msgstr "Paramètres de configuration"
+
+#. module: hr_shift_cascade_sms
+#: model:ir.model.fields,field_description:hr_shift_cascade_sms.field_hr_shift_cascade__display_name
+#: model:ir.model.fields,field_description:hr_shift_cascade_sms.field_hr_shift_cascade_candidate__display_name
+#: model:ir.model.fields,field_description:hr_shift_cascade_sms.field_hr_shift_sms_gateway__display_name
+#: model:ir.model.fields,field_description:hr_shift_cascade_sms.field_res_config_settings__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: hr_shift_cascade_sms
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade_sms.offer_page
+msgid "Do you take this shift?"
+msgstr "Prenez-vous ce quart?"
+
+#. module: hr_shift_cascade_sms
+#: model:ir.model.fields,field_description:hr_shift_cascade_sms.field_res_config_settings__hr_shift_cascade_sms_enabled_by_default
+msgid "Enable SMS on New Cascades"
+msgstr "Activer les SMS sur les nouvelles cascades"
+
+#. module: hr_shift_cascade_sms
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade_sms.res_config_settings_view_form
+msgid "Enable by Default"
+msgstr "Activer par défaut"
+
+#. module: hr_shift_cascade_sms
+#: model:ir.model.fields.selection,name:hr_shift_cascade_sms.selection__res_config_settings__hr_shift_cascade_sms_gateway_method__get
+msgid "GET"
+msgstr "GET"
+
+#. module: hr_shift_cascade_sms
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade_sms.res_config_settings_view_form
+msgid "HTTP gateway used to send cascade offers by SMS"
+msgstr "Passerelle HTTP utilisée pour envoyer les offres de cascade par SMS"
+
+#. module: hr_shift_cascade_sms
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade_sms.offer_page
+msgid "I take it"
+msgstr "Je le prends"
+
+#. module: hr_shift_cascade_sms
+#: model:ir.model.fields,field_description:hr_shift_cascade_sms.field_hr_shift_cascade__id
+#: model:ir.model.fields,field_description:hr_shift_cascade_sms.field_hr_shift_cascade_candidate__id
+#: model:ir.model.fields,field_description:hr_shift_cascade_sms.field_hr_shift_sms_gateway__id
+#: model:ir.model.fields,field_description:hr_shift_cascade_sms.field_res_config_settings__id
+msgid "ID"
+msgstr "Identifiant"
+
+#. module: hr_shift_cascade_sms
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade_sms.offer_page
+msgid "Invalid link"
+msgstr "Lien invalide"
+
+#. module: hr_shift_cascade_sms
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade_sms.res_config_settings_view_form
+msgid "New cascades are created with SMS offers enabled"
+msgstr "Les nouvelles cascades sont créées avec les offres SMS activées"
+
+#. module: hr_shift_cascade_sms
+#. odoo-python
+#: code:addons/hr_shift_cascade_sms/models/hr_shift_cascade.py:0
+msgid "No phone number on the employee."
+msgstr "Aucun numéro de téléphone pour l'employée."
+
+#. module: hr_shift_cascade_sms
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade_sms.offer_page
+msgid "Not available"
+msgstr "Pas disponible"
+
+#. module: hr_shift_cascade_sms
+#: model:ir.model.fields,help:hr_shift_cascade_sms.field_hr_shift_cascade__sms_blast_size
+msgid ""
+"Number of candidates contacted at the same time. The first one to accept "
+"gets the shift."
+msgstr ""
+"Nombre de candidates contactées en même temps. La première qui accepte "
+"obtient le quart."
+
+#. module: hr_shift_cascade_sms
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade_sms.offer_page
+msgid "Offer closed"
+msgstr "Offre fermée"
+
+#. module: hr_shift_cascade_sms
+#: model:ir.model.fields.selection,name:hr_shift_cascade_sms.selection__res_config_settings__hr_shift_cascade_sms_gateway_method__post
+msgid "POST"
+msgstr "POST"
+
+#. module: hr_shift_cascade_sms
+#. odoo-python
+#: code:addons/hr_shift_cascade_sms/models/hr_shift_cascade.py:0
+msgid "Replacement shift available: %(shift)s. Answer here: %(url)s"
+msgstr "Quart de remplacement disponible : %(shift)s. Répondez ici : %(url)s"
+
+#. module: hr_shift_cascade_sms
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade_sms.res_config_settings_view_form
+msgid "SMS Gateway"
+msgstr "Passerelle SMS"
+
+#. module: hr_shift_cascade_sms
+#: model:ir.model.fields,field_description:hr_shift_cascade_sms.field_res_config_settings__hr_shift_cascade_sms_gateway_method
+msgid "SMS Gateway Method"
+msgstr "Méthode de la passerelle SMS"
+
+#. module: hr_shift_cascade_sms
+#: model:ir.model.fields,field_description:hr_shift_cascade_sms.field_res_config_settings__hr_shift_cascade_sms_gateway_url
+msgid "SMS Gateway URL"
+msgstr "URL de la passerelle SMS"
+
+#. module: hr_shift_cascade_sms
+#: model:ir.model.fields,field_description:hr_shift_cascade_sms.field_hr_shift_cascade__sms_timeout_minutes
+msgid "SMS Timeout (minutes)"
+msgstr "Délai d'expiration SMS (minutes)"
+
+#. module: hr_shift_cascade_sms
+#. odoo-python
+#: code:addons/hr_shift_cascade_sms/models/hr_shift_cascade.py:0
+msgid "SMS delivery failed."
+msgstr "L'envoi du SMS a échoué."
+
+#. module: hr_shift_cascade_sms
+#. odoo-python
+#: code:addons/hr_shift_cascade_sms/models/hr_shift_cascade.py:0
+msgid "SMS offer expired without an answer."
+msgstr "L'offre SMS a expiré sans réponse."
+
+#. module: hr_shift_cascade_sms
+#: model:ir.model.fields,field_description:hr_shift_cascade_sms.field_hr_shift_cascade__sms_enabled
+msgid "Send SMS Offers"
+msgstr "Envoyer les offres par SMS"
+
+#. module: hr_shift_cascade_sms
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade_sms.res_config_settings_view_form
+msgid "Shift Cascade SMS"
+msgstr "SMS de cascade de quarts"
+
+#. module: hr_shift_cascade_sms
+#: model:ir.model,name:hr_shift_cascade_sms.model_hr_shift_sms_gateway
+msgid "Shift Cascade SMS Gateway"
+msgstr "Passerelle SMS de cascade de quarts"
+
+#. module: hr_shift_cascade_sms
+#: model:ir.actions.server,name:hr_shift_cascade_sms.ir_cron_process_sms_ir_actions_server
+msgid "Shift Cascade: process SMS offers"
+msgstr "Cascade de quarts : traiter les offres SMS"
+
+#. module: hr_shift_cascade_sms
+#: model:ir.model,name:hr_shift_cascade_sms.model_hr_shift_cascade
+msgid "Shift Replacement Cascade"
+msgstr "Cascade de remplacement de quart"
+
+#. module: hr_shift_cascade_sms
+#: model:ir.model,name:hr_shift_cascade_sms.model_hr_shift_cascade_candidate
+msgid "Shift Replacement Cascade Candidate"
+msgstr "Candidate de cascade de remplacement de quart"
+
+#. module: hr_shift_cascade_sms
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade_sms.offer_page
+msgid "Shift already filled"
+msgstr "Quart déjà comblé"
+
+#. module: hr_shift_cascade_sms
+#: model:ir.model.fields,field_description:hr_shift_cascade_sms.field_hr_shift_cascade__sms_blast_size
+msgid "Simultaneous SMS Offers"
+msgstr "Offres SMS simultanées"
+
+#. module: hr_shift_cascade_sms
+#: model:ir.model.fields,field_description:hr_shift_cascade_sms.field_hr_shift_cascade_candidate__sms_sent_on
+msgid "Sms Sent On"
+msgstr "SMS envoyé le"
+
+#. module: hr_shift_cascade_sms
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade_sms.offer_page
+msgid "Thanks for answering."
+msgstr "Merci d'avoir répondu."
+
+#. module: hr_shift_cascade_sms
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade_sms.offer_page
+msgid "This link is not valid."
+msgstr "Ce lien n'est pas valide."
+
+#. module: hr_shift_cascade_sms
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade_sms.offer_page
+msgid "This offer is no longer active."
+msgstr "Cette offre n'est plus active."
+
+#. module: hr_shift_cascade_sms
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade_sms.offer_page
+msgid "This offer was already confirmed."
+msgstr "Cette offre a déjà été confirmée."
+
+#. module: hr_shift_cascade_sms
+#: model:ir.model.fields,help:hr_shift_cascade_sms.field_res_config_settings__hr_shift_cascade_sms_gateway_url
+msgid ""
+"URL template with {to} and {message} placeholders, e.g. "
+"https://provider.example.com/send?dst={to}&text={message}"
+msgstr ""
+"Gabarit d'URL avec les espaces réservés {to} et {message}, p. ex. "
+"https://provider.example.com/send?dst={to}&text={message}"
+
+#. module: hr_shift_cascade_sms
+#: model:ir.model.fields,help:hr_shift_cascade_sms.field_hr_shift_cascade__sms_timeout_minutes
+msgid ""
+"Without an answer after this delay, the offer expires and the next candidate"
+" is contacted."
+msgstr ""
+"Sans réponse après ce délai, l'offre expire et la candidate suivante est "
+"contactée."
+
+#. module: hr_shift_cascade_sms
+#: model:ir.model.fields,field_description:hr_shift_cascade_sms.field_hr_shift_cascade_candidate__mobile_phone
+msgid "Work Mobile"
+msgstr "Cellulaire professionnel"
+
+#. module: hr_shift_cascade_sms
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade_sms.offer_page
+msgid ""
+"is yours.\n"
+"                        Thank you!"
+msgstr ""
+"est à vous.\n"
+"                        Merci!"
+
+#. module: hr_shift_cascade_sms
+#: model_terms:ir.ui.view,arch_db:hr_shift_cascade_sms.offer_page
+msgid "✅ Shift confirmed"
+msgstr "✅ Quart confirmé"
