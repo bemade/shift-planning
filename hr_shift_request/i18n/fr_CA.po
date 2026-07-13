@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-13 00:00+0000\n"
-"PO-Revision-Date: 2026-07-13 00:00+0000\n"
+"POT-Creation-Date: 2026-07-13 18:02+0000\n"
+"PO-Revision-Date: 2026-07-13 18:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_CA\n"
@@ -17,15 +17,638 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: hr_shift_request
-#: code:addons/hr_shift_request/models/hr_shift_swap.py:0
-msgid ""
-"%(employee)s is already assigned to %(existing)s on that day, which "
-"overlaps %(new)s."
-msgstr ""
-"%(employee)s est déjà assignée à %(existing)s ce jour-là, qui chevauche "
-"%(new)s."
+#. odoo-python
+#: code:addons/hr_shift_request/models/hr_shift_claim.py:0
+msgid "%(employee)s claims the shift %(shift)s."
+msgstr "%(employee)s réclame le quart %(shift)s."
 
 #. module: hr_shift_request
+#. odoo-python
+#: code:addons/hr_shift_request/models/hr_shift_swap.py:0
+msgid "%(employee)s has no generated shift on that day in this planning."
+msgstr ""
+"%(employee)s n'a aucun quart généré ce jour-là dans cette planification."
+
+#. module: hr_shift_request
+#. odoo-python
+#: code:addons/hr_shift_request/models/hr_shift_claim.py:0
+msgid ""
+"%(employee)s has no generated shift on that day in this planning. Generate "
+"the planning shifts first."
+msgstr ""
+"%(employee)s n'a aucun quart généré ce jour-là dans cette planification. "
+"Générez d'abord les quarts de la planification."
+
+#. module: hr_shift_request
+#. odoo-python
+#: code:addons/hr_shift_request/models/hr_shift_swap.py:0
+msgid ""
+"%(employee)s is already assigned to %(existing)s, which overlaps %(new)s."
+msgstr "%(employee)s est déjà assignée à %(existing)s, qui chevauche %(new)s."
+
+#. module: hr_shift_request
+#. odoo-python
+#: code:addons/hr_shift_request/models/hr_shift_claim.py:0
+msgid "%(employee)s is already assigned to %(template)s on that day."
+msgstr "%(employee)s est déjà assignée à %(template)s ce jour-là."
+
+#. module: hr_shift_request
+#. odoo-python
 #: code:addons/hr_shift_request/models/hr_shift_swap.py:0
 msgid "%(employee)s is not available on that day."
 msgstr "%(employee)s n'est pas disponible ce jour-là."
+
+#. module: hr_shift_request
+#. odoo-python
+#: code:addons/hr_shift_request/models/hr_shift_swap.py:0
+msgid "%(employee)s proposes a shift swap to %(target)s."
+msgstr "%(employee)s propose un échange de quart à %(target)s."
+
+#. module: hr_shift_request
+#: model_terms:ir.ui.view,arch_db:hr_shift_request.hr_shift_swap_form
+msgid "Accept"
+msgstr "Accepter"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_claim__message_needaction
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_swap__message_needaction
+msgid "Action Needed"
+msgstr "Nécessite une action"
+
+#. module: hr_shift_request
+#. odoo-python
+#: code:addons/hr_shift_request/models/hr_shift_availability.py:0
+msgid "Any"
+msgstr "Peu importe"
+
+#. module: hr_shift_request
+#: model_terms:ir.ui.view,arch_db:hr_shift_request.hr_shift_availability_tree
+msgid "Any day"
+msgstr "N'importe quel jour"
+
+#. module: hr_shift_request
+#: model_terms:ir.ui.view,arch_db:hr_shift_request.hr_shift_availability_tree
+msgid "Any shift"
+msgstr "N'importe quel quart"
+
+#. module: hr_shift_request
+#: model_terms:ir.ui.view,arch_db:hr_shift_request.hr_shift_claim_form
+#: model_terms:ir.ui.view,arch_db:hr_shift_request.hr_shift_swap_form
+msgid "Approve"
+msgstr "Approuver"
+
+#. module: hr_shift_request
+#: model:ir.model.fields.selection,name:hr_shift_request.selection__hr_shift_claim__state__approved
+#: model:ir.model.fields.selection,name:hr_shift_request.selection__hr_shift_swap__state__approved
+msgid "Approved"
+msgstr "Approuvé"
+
+#. module: hr_shift_request
+#. odoo-python
+#: code:addons/hr_shift_request/models/hr_shift_swap.py:0
+msgid "Approved automatically: the shift starts in less than %(hours)s hours."
+msgstr ""
+"Approuvé automatiquement : le quart commence dans moins de %(hours)s heures."
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_claim__message_attachment_count
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_swap__message_attachment_count
+msgid "Attachment Count"
+msgstr "Nombre de pièces jointes"
+
+#. module: hr_shift_request
+#: model:ir.actions.act_window,name:hr_shift_request.hr_shift_availability_action_all
+#: model:ir.ui.menu,name:hr_shift_request.hr_shift_availability_menu_all
+msgid "Availabilities"
+msgstr "Disponibilités"
+
+#. module: hr_shift_request
+#: model_terms:ir.ui.view,arch_db:hr_shift_request.hr_shift_claim_form
+#: model_terms:ir.ui.view,arch_db:hr_shift_request.hr_shift_swap_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: hr_shift_request
+#: model:ir.model.fields.selection,name:hr_shift_request.selection__hr_shift_claim__state__cancelled
+#: model:ir.model.fields.selection,name:hr_shift_request.selection__hr_shift_swap__state__cancelled
+msgid "Cancelled"
+msgstr "Annulé"
+
+#. module: hr_shift_request
+#: model_terms:ir.ui.view,arch_db:hr_shift_request.hr_shift_coverage_gap_tree
+msgid "Claim"
+msgstr "Réclamer"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_swap__target_employee_id
+msgid "Colleague"
+msgstr "Collègue"
+
+#. module: hr_shift_request
+#: model:ir.model,name:hr_shift_request.model_res_company
+msgid "Companies"
+msgstr "Sociétés"
+
+#. module: hr_shift_request
+#: model:ir.model,name:hr_shift_request.model_res_config_settings
+msgid "Config Settings"
+msgstr "Paramètres de configuration"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_availability__create_uid
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_claim__create_uid
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_swap__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_availability__create_date
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_claim__create_date
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_swap__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_availability__day_number
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_claim__day_number
+msgid "Day Number"
+msgstr "Numéro du jour"
+
+#. module: hr_shift_request
+#: model_terms:ir.actions.act_window,help:hr_shift_request.hr_shift_availability_action_my
+msgid "Declare when you are available for extra shifts"
+msgstr "Déclarez vos disponibilités pour des quarts supplémentaires"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_availability__display_name
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_claim__display_name
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_coverage_gap__display_name
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_swap__display_name
+#: model:ir.model.fields,field_description:hr_shift_request.field_res_company__display_name
+#: model:ir.model.fields,field_description:hr_shift_request.field_res_config_settings__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_availability__employee_id
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_claim__employee_id
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_swap__employee_id
+#: model_terms:ir.ui.view,arch_db:hr_shift_request.hr_shift_availability_search
+msgid "Employee"
+msgstr "Employée"
+
+#. module: hr_shift_request
+#: model_terms:ir.actions.act_window,help:hr_shift_request.hr_shift_claim_action
+msgid ""
+"Employees claim open shifts from the coverage gaps of a\n"
+"                planning; shift managers approve them here."
+msgstr ""
+"Les employées réclament les quarts à combler depuis les trous de\n"
+"                couverture d'une planification; les gestionnaires des "
+"quarts les approuvent ici."
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_claim__message_follower_ids
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_swap__message_follower_ids
+msgid "Followers"
+msgstr "Abonnés"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_claim__message_partner_ids
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_swap__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Abonnés (partenaires)"
+
+#. module: hr_shift_request
+#: model:ir.model.fields.selection,name:hr_shift_request.selection__hr_shift_availability__day_number__4
+#: model:ir.model.fields.selection,name:hr_shift_request.selection__hr_shift_claim__day_number__4
+msgid "Friday"
+msgstr "Vendredi"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_claim__has_message
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_swap__has_message
+msgid "Has Message"
+msgstr "A un message"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_availability__id
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_claim__id
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_coverage_gap__id
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_swap__id
+#: model:ir.model.fields,field_description:hr_shift_request.field_res_company__id
+#: model:ir.model.fields,field_description:hr_shift_request.field_res_config_settings__id
+msgid "ID"
+msgstr "Identifiant"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,help:hr_shift_request.field_hr_shift_claim__message_needaction
+#: model:ir.model.fields,help:hr_shift_request.field_hr_shift_swap__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si coché, de nouveaux messages requièrent votre attention."
+
+#. module: hr_shift_request
+#: model:ir.model.fields,help:hr_shift_request.field_hr_shift_claim__message_has_error
+#: model:ir.model.fields,help:hr_shift_request.field_hr_shift_claim__message_has_sms_error
+#: model:ir.model.fields,help:hr_shift_request.field_hr_shift_swap__message_has_error
+#: model:ir.model.fields,help:hr_shift_request.field_hr_shift_swap__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si coché, certains messages présentent une erreur de livraison."
+
+#. module: hr_shift_request
+#: model_terms:ir.ui.view,arch_db:hr_shift_request.hr_shift_swap_form
+msgid "In Exchange"
+msgstr "En échange"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_claim__message_is_follower
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_swap__message_is_follower
+msgid "Is Follower"
+msgstr "Est abonné"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_availability__write_uid
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_claim__write_uid
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_swap__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_availability__write_date
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_claim__write_date
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_swap__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,help:hr_shift_request.field_hr_shift_swap__target_line_id
+msgid "Leave empty to simply hand the shift over to the colleague."
+msgstr "Laissez vide pour simplement céder le quart à la collègue."
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_claim__line_id
+msgid "Line"
+msgstr "Ligne"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_claim__message_has_error
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_swap__message_has_error
+msgid "Message Delivery error"
+msgstr "Erreur de livraison du message"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_claim__message_ids
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_swap__message_ids
+msgid "Messages"
+msgstr "Messages"
+
+#. module: hr_shift_request
+#: model:ir.model.fields.selection,name:hr_shift_request.selection__hr_shift_availability__day_number__0
+#: model:ir.model.fields.selection,name:hr_shift_request.selection__hr_shift_claim__day_number__0
+msgid "Monday"
+msgstr "Lundi"
+
+#. module: hr_shift_request
+#: model:ir.actions.act_window,name:hr_shift_request.hr_shift_availability_action_my
+#: model:ir.ui.menu,name:hr_shift_request.hr_shift_availability_menu_my
+msgid "My Availabilities"
+msgstr "Mes disponibilités"
+
+#. module: hr_shift_request
+#: model_terms:ir.actions.act_window,help:hr_shift_request.hr_shift_claim_action
+msgid "No open shift claim yet"
+msgstr "Aucune réclamation de quart pour l'instant"
+
+#. module: hr_shift_request
+#: model_terms:ir.actions.act_window,help:hr_shift_request.hr_shift_swap_action
+msgid "No shift swap requested yet"
+msgstr "Aucun échange de quart demandé pour l'instant"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_availability__note
+msgid "Note"
+msgstr "Note"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_claim__message_needaction_counter
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_swap__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Nombre d'actions"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_claim__message_has_error_counter
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_swap__message_has_error_counter
+msgid "Number of errors"
+msgstr "Nombre d'erreurs"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,help:hr_shift_request.field_hr_shift_claim__message_needaction_counter
+#: model:ir.model.fields,help:hr_shift_request.field_hr_shift_swap__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Nombre de messages requérant une action"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,help:hr_shift_request.field_hr_shift_claim__message_has_error_counter
+#: model:ir.model.fields,help:hr_shift_request.field_hr_shift_swap__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Nombre de messages avec erreur de livraison"
+
+#. module: hr_shift_request
+#: model_terms:ir.ui.view,arch_db:hr_shift_request.hr_shift_swap_form
+msgid "Offer"
+msgstr "Offre"
+
+#. module: hr_shift_request
+#: model_terms:ir.actions.act_window,help:hr_shift_request.hr_shift_swap_action
+msgid ""
+"Offer one of your shifts to a colleague — either as a\n"
+"                hand-over or in exchange for one of theirs. The colleague\n"
+"                accepts, then a shift manager approves."
+msgstr ""
+"Offrez un de vos quarts à une collègue — en simple cession ou en\n"
+"                échange d'un des siens. La collègue accepte, puis une\n"
+"                gestionnaire des quarts approuve."
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_swap__line_id
+msgid "Offered Shift"
+msgstr "Quart offert"
+
+#. module: hr_shift_request
+#. odoo-python
+#: code:addons/hr_shift_request/models/hr_shift_swap.py:0
+msgid "Only pending swaps can be cancelled."
+msgstr "Seuls les échanges en attente peuvent être annulés."
+
+#. module: hr_shift_request
+#. odoo-python
+#: code:addons/hr_shift_request/models/hr_shift_claim.py:0
+msgid "Only shift managers can approve or refuse claims."
+msgstr ""
+"Seules les gestionnaires des quarts peuvent approuver ou refuser les "
+"réclamations."
+
+#. module: hr_shift_request
+#. odoo-python
+#: code:addons/hr_shift_request/models/hr_shift_swap.py:0
+msgid "Only shift managers can approve swaps."
+msgstr "Seules les gestionnaires des quarts peuvent approuver les échanges."
+
+#. module: hr_shift_request
+#. odoo-python
+#: code:addons/hr_shift_request/models/hr_shift_claim.py:0
+msgid "Only submitted claims can be approved."
+msgstr "Seules les réclamations soumises peuvent être approuvées."
+
+#. module: hr_shift_request
+#. odoo-python
+#: code:addons/hr_shift_request/models/hr_shift_claim.py:0
+msgid "Only submitted claims can be cancelled."
+msgstr "Seules les réclamations soumises peuvent être annulées."
+
+#. module: hr_shift_request
+#. odoo-python
+#: code:addons/hr_shift_request/models/hr_shift_swap.py:0
+msgid "Only submitted swaps can be accepted."
+msgstr "Seuls les échanges soumis peuvent être acceptés."
+
+#. module: hr_shift_request
+#. odoo-python
+#: code:addons/hr_shift_request/models/hr_shift_swap.py:0
+msgid "Only the requested colleague can accept a swap."
+msgstr "Seule la collègue sollicitée peut accepter un échange."
+
+#. module: hr_shift_request
+#. odoo-python
+#: code:addons/hr_shift_request/models/hr_shift_swap.py:0
+msgid "Only the requested colleague or a shift manager can refuse a swap."
+msgstr ""
+"Seule la collègue sollicitée ou une gestionnaire des quarts peut refuser un "
+"échange."
+
+#. module: hr_shift_request
+#: model:ir.model,name:hr_shift_request.model_hr_shift_claim
+msgid "Open Shift Claim"
+msgstr "Réclamation de quart à combler"
+
+#. module: hr_shift_request
+#: model:ir.actions.act_window,name:hr_shift_request.hr_shift_claim_action
+#: model:ir.ui.menu,name:hr_shift_request.hr_shift_claim_menu
+msgid "Open Shift Claims"
+msgstr "Réclamations de quarts à combler"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_claim__planning_id
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_swap__planning_id
+#: model_terms:ir.ui.view,arch_db:hr_shift_request.hr_shift_claim_search
+msgid "Planning"
+msgstr "Planification"
+
+#. module: hr_shift_request
+#: model_terms:ir.ui.view,arch_db:hr_shift_request.hr_shift_claim_form
+#: model_terms:ir.ui.view,arch_db:hr_shift_request.hr_shift_swap_form
+msgid "Refuse"
+msgstr "Refuser"
+
+#. module: hr_shift_request
+#: model:ir.model.fields.selection,name:hr_shift_request.selection__hr_shift_claim__state__refused
+#: model:ir.model.fields.selection,name:hr_shift_request.selection__hr_shift_swap__state__refused
+msgid "Refused"
+msgstr "Refusé"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_claim__message_has_sms_error
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_swap__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Erreur de livraison SMS"
+
+#. module: hr_shift_request
+#: model:ir.model.fields.selection,name:hr_shift_request.selection__hr_shift_availability__day_number__5
+#: model:ir.model.fields.selection,name:hr_shift_request.selection__hr_shift_claim__day_number__5
+msgid "Saturday"
+msgstr "Samedi"
+
+#. module: hr_shift_request
+#: model:ir.model,name:hr_shift_request.model_hr_shift_availability
+msgid "Shift Availability"
+msgstr "Disponibilité de quart"
+
+#. module: hr_shift_request
+#: model:ir.model,name:hr_shift_request.model_hr_shift_coverage_gap
+msgid "Shift Coverage Gap"
+msgstr "Trou de couverture de quart"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_swap__target_line_id
+msgid "Shift Requested in Exchange"
+msgstr "Quart demandé en échange"
+
+#. module: hr_shift_request
+#: model_terms:ir.ui.view,arch_db:hr_shift_request.res_config_settings_view_form
+msgid "Shift Requests"
+msgstr "Demandes de quarts"
+
+#. module: hr_shift_request
+#: model:ir.model,name:hr_shift_request.model_hr_shift_swap
+msgid "Shift Swap Request"
+msgstr "Demande d'échange de quart"
+
+#. module: hr_shift_request
+#: model:ir.actions.act_window,name:hr_shift_request.hr_shift_swap_action
+#: model:ir.ui.menu,name:hr_shift_request.hr_shift_swap_menu
+msgid "Shift Swaps"
+msgstr "Échanges de quarts"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,help:hr_shift_request.field_hr_shift_claim__line_id
+msgid "Shift line assigned when the claim is approved."
+msgstr "Ligne de quart assignée lorsque la réclamation est approuvée."
+
+#. module: hr_shift_request
+#: model:ir.model.fields,help:hr_shift_request.field_hr_shift_availability__template_id
+msgid "Shift the employee is available for. Leave empty for any shift."
+msgstr ""
+"Quart pour lequel l'employée est disponible. Laissez vide pour n'importe "
+"quel quart."
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_claim__state
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_swap__state
+msgid "State"
+msgstr "État"
+
+#. module: hr_shift_request
+#: model_terms:ir.ui.view,arch_db:hr_shift_request.hr_shift_claim_search
+#: model_terms:ir.ui.view,arch_db:hr_shift_request.hr_shift_swap_search
+msgid "Status"
+msgstr "Statut"
+
+#. module: hr_shift_request
+#: model:ir.model.fields.selection,name:hr_shift_request.selection__hr_shift_claim__state__submitted
+msgid "Submitted"
+msgstr "Soumise"
+
+#. module: hr_shift_request
+#: model:ir.model.fields.selection,name:hr_shift_request.selection__hr_shift_availability__day_number__6
+#: model:ir.model.fields.selection,name:hr_shift_request.selection__hr_shift_claim__day_number__6
+msgid "Sunday"
+msgstr "Dimanche"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_res_company__swap_auto_approve_hours
+#: model:ir.model.fields,field_description:hr_shift_request.field_res_config_settings__swap_auto_approve_hours
+msgid "Swap Auto-Approval Window (Hours)"
+msgstr "Fenêtre d'approbation automatique des échanges (heures)"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_availability__template_id
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_claim__template_id
+#: model_terms:ir.ui.view,arch_db:hr_shift_request.hr_shift_availability_search
+msgid "Template"
+msgstr "Gabarit"
+
+#. module: hr_shift_request
+#. odoo-python
+#: code:addons/hr_shift_request/models/hr_shift_swap.py:0
+msgid "The colleague must accept the swap before the manager approves it."
+msgstr ""
+"La collègue doit accepter l'échange avant que la gestionnaire ne l'approuve."
+
+#. module: hr_shift_request
+#: model:ir.model.constraint,message:hr_shift_request.constraint_hr_shift_availability_employee_template_day_uniq
+msgid "This availability is already declared."
+msgstr "Cette disponibilité est déjà déclarée."
+
+#. module: hr_shift_request
+#: model:ir.model.fields.selection,name:hr_shift_request.selection__hr_shift_availability__day_number__3
+#: model:ir.model.fields.selection,name:hr_shift_request.selection__hr_shift_claim__day_number__3
+msgid "Thursday"
+msgstr "Jeudi"
+
+#. module: hr_shift_request
+#: model_terms:ir.ui.view,arch_db:hr_shift_request.hr_shift_claim_search
+#: model_terms:ir.ui.view,arch_db:hr_shift_request.hr_shift_swap_search
+msgid "To Approve"
+msgstr "À approuver"
+
+#. module: hr_shift_request
+#: model:ir.model.fields.selection,name:hr_shift_request.selection__hr_shift_availability__day_number__1
+#: model:ir.model.fields.selection,name:hr_shift_request.selection__hr_shift_claim__day_number__1
+msgid "Tuesday"
+msgstr "Mardi"
+
+#. module: hr_shift_request
+#: model_terms:ir.ui.view,arch_db:hr_shift_request.res_config_settings_view_form
+msgid "Urgent Swap Auto-Approval"
+msgstr "Approbation automatique des échanges urgents"
+
+#. module: hr_shift_request
+#: model:ir.model.fields.selection,name:hr_shift_request.selection__hr_shift_swap__state__submitted
+msgid "Waiting for Colleague"
+msgstr "En attente de la collègue"
+
+#. module: hr_shift_request
+#: model:ir.model.fields.selection,name:hr_shift_request.selection__hr_shift_swap__state__accepted
+msgid "Waiting for Manager"
+msgstr "En attente de la gestionnaire"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_claim__website_message_ids
+#: model:ir.model.fields,field_description:hr_shift_request.field_hr_shift_swap__website_message_ids
+msgid "Website Messages"
+msgstr "Messages du site web"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,help:hr_shift_request.field_hr_shift_claim__website_message_ids
+#: model:ir.model.fields,help:hr_shift_request.field_hr_shift_swap__website_message_ids
+msgid "Website communication history"
+msgstr "Historique des communications du site web"
+
+#. module: hr_shift_request
+#: model:ir.model.fields.selection,name:hr_shift_request.selection__hr_shift_availability__day_number__2
+#: model:ir.model.fields.selection,name:hr_shift_request.selection__hr_shift_claim__day_number__2
+msgid "Wednesday"
+msgstr "Mercredi"
+
+#. module: hr_shift_request
+#: model:ir.model.fields,help:hr_shift_request.field_hr_shift_availability__day_number
+msgid "Week day the employee is available on. Leave empty for any day."
+msgstr ""
+"Jour de la semaine où l'employée est disponible. Laissez vide pour "
+"n'importe quel jour."
+
+#. module: hr_shift_request
+#: model_terms:ir.ui.view,arch_db:hr_shift_request.res_config_settings_view_form
+msgid ""
+"When the offered shift starts within this many                         "
+"hours, a swap accepted by the colleague is applied                         "
+"immediately without waiting for the manager's                         "
+"approval. Set to 0 to always require it."
+msgstr ""
+"Lorsque le quart offert commence dans ce nombre d'heures, un échange "
+"accepté par la collègue est appliqué immédiatement, sans attendre "
+"l'approbation de la gestionnaire. Mettez 0 pour toujours l'exiger."
+
+#. module: hr_shift_request
+#: model:ir.model.fields,help:hr_shift_request.field_res_company__swap_auto_approve_hours
+#: model:ir.model.fields,help:hr_shift_request.field_res_config_settings__swap_auto_approve_hours
+msgid ""
+"When the offered shift starts within this many hours, a swap accepted by the"
+" colleague is applied immediately without waiting for the manager's approval"
+" — an urgent slot must not stay empty for lack of a confirmation. Set to 0 "
+"to always require the manager's approval."
+msgstr ""
+"Lorsque le quart offert commence dans ce nombre d'heures, un échange "
+"accepté par la collègue est appliqué immédiatement sans attendre "
+"l'approbation de la gestionnaire — un créneau urgent ne doit pas rester "
+"vide faute de confirmation. Mettez 0 pour toujours exiger l'approbation de "
+"la gestionnaire."
+
+#. module: hr_shift_request
+#: model_terms:ir.actions.act_window,help:hr_shift_request.hr_shift_availability_action_my
+msgid ""
+"Your manager sees these availabilities when filling\n"
+"                open shifts."
+msgstr ""
+"Votre gestionnaire voit ces disponibilités au moment de combler\n"
+"                les quarts à pourvoir."
