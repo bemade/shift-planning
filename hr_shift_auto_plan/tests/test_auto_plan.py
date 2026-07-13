@@ -106,3 +106,85 @@ class TestAutoPlan(TransactionCase):
         self.planning.action_auto_plan()
         self.assertEqual(len(self._assigned_days(self.employees[1])), 5)
         self.assertEqual(len(self._assigned_days(self.employees[0])), 2)
+
+    def test_06_auto_plan_avoids_overtime(self):
+        """A candidate at their contract hours loses to a lighter one."""
+        # Contract of 16h/week: two attendances of 8h
+        small = self.env["resource.calendar"].create(
+            {
+                "name": "Part time 16h",
+                "tz": "UTC",
+                "attendance_ids": [
+                    (5, 0, 0),
+                    (
+                        0,
+                        0,
+                        {
+                            "name": "Mon",
+                            "dayofweek": "0",
+                            "hour_from": 8,
+                            "hour_to": 16,
+                        },
+                    ),
+                    (
+                        0,
+                        0,
+                        {
+                            "name": "Tue",
+                            "dayofweek": "1",
+                            "hour_from": 8,
+                            "hour_to": 16,
+                        },
+                    ),
+                ],
+            }
+        )
+        self.employees[0].resource_calendar_id = small
+        self.planning.action_auto_plan()
+        days_first = len(self._assigned_days(self.employees[0]))
+        # 8h nights: at most 2 fit in a 16h contract
+        self.assertLessEqual(
+            days_first, 2, "The planner must stop at the contract hours"
+        )
+        self.assertEqual(
+            self.planning.coverage_gap_ids.ids,
+            [],
+            "The other employee absorbs the remaining nights",
+        )
+
+    def test_07_overload_is_last_resort_and_logged(self):
+        """With nobody light enough, the slot is still filled and logged."""
+        small = self.env["resource.calendar"].create(
+            {
+                "name": "Part time 8h",
+                "tz": "UTC",
+                "attendance_ids": [
+                    (5, 0, 0),
+                    (
+                        0,
+                        0,
+                        {
+                            "name": "Mon",
+                            "dayofweek": "0",
+                            "hour_from": 8,
+                            "hour_to": 16,
+                        },
+                    ),
+                ],
+            }
+        )
+        self.employees.resource_calendar_id = small
+        action = self.planning.action_auto_plan()
+        self.assertEqual(
+            self.planning.coverage_gap_ids.ids,
+            [],
+            "Coverage still comes first: every night is filled",
+        )
+        self.assertIn("exceed contract hours", action["params"]["message"])
+        overload_logs = self.env["mail.message"].search(
+            [
+                ("model", "=", "hr.shift.cascade"),
+                ("body", "like", "beyond their contract hours"),
+            ]
+        )
+        self.assertTrue(overload_logs, "Each overload is logged on its cascade")

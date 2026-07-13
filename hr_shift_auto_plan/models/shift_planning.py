@@ -15,22 +15,31 @@ class ShiftPlanning(models.Model):
         """Pick the candidate for one slot, preferring weekly continuity.
 
         Order of preference:
-        1. Candidates already assigned to the same template this week
-           (most days first), while they stay under MAX_CONTINUITY_DAYS —
-           schedule stability matters in residential care, for the
-           employees and the residents alike;
-        2. Otherwise the cascade order (fewest hours, then fairness
+        1. Candidates whose week stays within their contract hours after
+           taking this shift — overtime should never come from the
+           automatic planner. Overloading is only a last resort;
+        2. Among them, candidates already assigned to the same template
+           this week (most days first), while they stay under
+           MAX_CONTINUITY_DAYS — schedule stability matters in
+           residential care, for the employees and the residents alike;
+        3. Otherwise the cascade order (fewest hours, then fairness
            rotation), skipping employees already at MAX_CONTINUITY_DAYS
            when someone lighter is available.
+
+        Returns a (candidate, overloaded) tuple; ``candidate`` is empty
+        when nobody is eligible.
         """
         candidates = cascade.candidate_ids.filtered(
             lambda candidate: candidate.state == "pending"
         )
         if not candidates:
-            return candidates
+            return candidates, False
         assigned_lines = self.shift_ids.line_ids.filtered(
             lambda line: line.state == "assigned"
         )
+        duration = cascade.template_id.end_time - cascade.template_id.start_time
+        if duration <= 0:
+            duration += 24
         scored = []
         for sequence, candidate in enumerate(candidates):
             employee_lines = assigned_lines.filtered(
@@ -44,15 +53,24 @@ class ShiftPlanning(models.Model):
                 )
             )
             total_days = len(employee_lines)
-            scored.append((candidate, same_template, total_days, sequence))
-        under_cap = [entry for entry in scored if entry[2] < MAX_CONTINUITY_DAYS]
-        pool = under_cap or scored
+            shift = candidate.line_id.shift_id
+            fits_hours = (
+                not shift.allocated_hours
+                or shift.planned_hours + duration <= shift.allocated_hours + 1e-6
+            )
+            scored.append((candidate, same_template, total_days, sequence, fits_hours))
+        within_hours = [entry for entry in scored if entry[4]]
+        base_pool = within_hours or scored
+        under_cap = [entry for entry in base_pool if entry[2] < MAX_CONTINUITY_DAYS]
+        pool = under_cap or base_pool
         continuity = [entry for entry in pool if entry[1] > 0]
         if continuity:
             continuity.sort(key=lambda entry: (-entry[1], entry[3]))
-            return continuity[0][0]
-        pool.sort(key=lambda entry: entry[3])
-        return pool[0][0]
+            chosen = continuity[0]
+        else:
+            pool.sort(key=lambda entry: entry[3])
+            chosen = pool[0]
+        return chosen[0], not chosen[4]
 
     def _auto_plan_set_weekly_templates(self):
         """Give fully uniform weeks their weekly template so the
@@ -74,7 +92,7 @@ class ShiftPlanning(models.Model):
         """
         self.ensure_one()
         self._update_coverage_gaps()
-        filled = unfilled = 0
+        filled = unfilled = overloaded = 0
         # Iterate on a snapshot: gaps are recomputed after each fill
         gaps = [
             {
@@ -98,11 +116,20 @@ class ShiftPlanning(models.Model):
                     }
                 )
                 cascade.action_generate_candidates()
-                candidate = self._auto_plan_pick(cascade)
+                candidate, over_hours = self._auto_plan_pick(cascade)
                 if not candidate:
                     cascade.action_cancel()
                     unfilled += 1
                     continue
+                if over_hours:
+                    overloaded += 1
+                    cascade.message_post(
+                        body=self.env._(
+                            "Assigned to %(employee)s beyond their contract "
+                            "hours: no lighter candidate was available.",
+                            employee=candidate.employee_id.display_name,
+                        )
+                    )
                 cascade.state = "running"
                 candidate.action_accept()
                 filled += 1
@@ -114,13 +141,19 @@ class ShiftPlanning(models.Model):
             filled=filled,
             unfilled=unfilled,
         )
+        if overloaded:
+            message += self.env._(
+                " %(overloaded)s assignment(s) exceed contract hours — "
+                "no lighter candidate was available; see the cascades.",
+                overloaded=overloaded,
+            )
         return {
             "type": "ir.actions.client",
             "tag": "display_notification",
             "params": {
-                "type": "success" if not unfilled else "warning",
+                "type": "success" if not (unfilled or overloaded) else "warning",
                 "title": self.env._("Auto-plan finished"),
                 "message": message,
-                "sticky": bool(unfilled),
+                "sticky": bool(unfilled or overloaded),
             },
         }
