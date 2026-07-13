@@ -1,5 +1,7 @@
 # Copyright 2026 Bemade Inc.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+from lxml import etree
+
 from odoo import api, fields, models
 
 
@@ -27,6 +29,33 @@ class ShiftPlanning(models.Model):
             planning.line_unassigned_count = len(
                 lines.filtered(lambda line: line.state == "unassigned")
             )
+
+    @api.model
+    def get_view(self, view_id=None, view_type="form", **options):
+        """Order the week-grid day columns after the user's first day of
+        week (res.lang week_start), like every Odoo calendar."""
+        result = super().get_view(view_id=view_id, view_type=view_type, **options)
+        if view_type != "form":
+            return result
+        lang = self.env["res.lang"]._lang_get(self.env.user.lang or "en_US")
+        first_day = (int(lang.week_start or "1") - 1) % 7
+        if not first_day:
+            return result
+        arch = etree.fromstring(result["arch"])
+        day_nodes = {
+            int(node.get("name")[-1]): node
+            for node in arch.iter("field")
+            if (node.get("name") or "").startswith("day_code_")
+        }
+        if len(day_nodes) == 7:
+            parent = day_nodes[0].getparent()
+            position = parent.index(day_nodes[0])
+            for node in day_nodes.values():
+                parent.remove(node)
+            for offset in range(7):
+                parent.insert(position + offset, day_nodes[(first_day + offset) % 7])
+            result["arch"] = etree.tostring(arch, encoding="unicode")
+        return result
 
     def action_view_week_days(self):
         """All day shifts of the week, grouped by day then by shift."""
