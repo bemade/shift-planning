@@ -165,28 +165,46 @@ class HrShiftSwap(models.Model):
             self.line_id.template_id = self.target_line_id.template_id
             self.target_line_id.template_id = template
             return
-        target_line = self.env["hr.shift.planning.line"].search(
+        target_lines = self.env["hr.shift.planning.line"].search(
             [
                 ("planning_id", "=", self.line_id.planning_id.id),
                 ("employee_id", "=", self.target_employee_id.id),
                 ("day_number", "=", self.line_id.day_number),
-            ],
-            limit=1,
+            ]
         )
-        if not target_line:
+        if not target_lines:
             raise UserError(
                 self.env._(
                     "%(employee)s has no generated shift on that day in this planning.",
                     employee=self.target_employee_id.display_name,
                 )
             )
-        if target_line.template_id:
-            raise UserError(
-                self.env._(
-                    "%(employee)s is already assigned on that day.",
-                    employee=self.target_employee_id.display_name,
+        target_line = target_lines.filtered(lambda line: line.state == "unassigned")[:1]
+        if not target_line:
+            # The colleague already works that day: hand the shift over on
+            # an extra line, unless the time windows overlap.
+            assigned = target_lines.filtered(lambda line: line.state == "assigned")
+            if not assigned:
+                raise UserError(
+                    self.env._(
+                        "%(employee)s is not available on that day.",
+                        employee=self.target_employee_id.display_name,
+                    )
                 )
+            conflicting = assigned.filtered(
+                lambda line: line.template_id._overlaps(template)
             )
+            if conflicting:
+                raise UserError(
+                    self.env._(
+                        "%(employee)s is already assigned to %(existing)s on "
+                        "that day, which overlaps %(new)s.",
+                        employee=self.target_employee_id.display_name,
+                        existing=conflicting[0].template_id.display_name,
+                        new=template.display_name,
+                    )
+                )
+            target_line = assigned[0].shift_id.action_add_line(self.line_id.day_number)
         target_line.template_id = template
         self.line_id.template_id = False
 

@@ -85,15 +85,17 @@ class HrShiftClaim(models.Model):
             )
 
     def _get_employee_line(self):
+        """Line of the employee for the claimed day, preferring a free
+        one: an employee can hold several lines the same day."""
         self.ensure_one()
-        return self.env["hr.shift.planning.line"].search(
+        lines = self.env["hr.shift.planning.line"].search(
             [
                 ("planning_id", "=", self.planning_id.id),
                 ("employee_id", "=", self.employee_id.id),
                 ("day_number", "=", self.day_number),
-            ],
-            limit=1,
+            ]
         )
+        return lines.filtered(lambda line: line.state == "unassigned")[:1] or lines[:1]
 
     def action_approve(self):
         self._check_manager()

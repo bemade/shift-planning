@@ -188,3 +188,53 @@ class TestShiftRequest(TransactionCase):
             {"employee_id": self.employees[1].id}
         )
         self.assertTrue(wildcard._matches(self.template_day, "2"))
+
+    def test_08_swap_handover_to_busy_colleague(self):
+        """Handing a shift to a colleague already working that day adds
+        an extra line when the time windows don't overlap."""
+        self._line(self.employees[0], "1").template_id = self.template_night
+        day_line = self._line(self.employees[1], "1")
+        day_line.template_id = self.template_day
+        swap = self.env["hr.shift.swap"].create(
+            {
+                "line_id": self._line(self.employees[0], "1").id,
+                "employee_id": self.employees[0].id,
+                "target_employee_id": self.employees[1].id,
+            }
+        )
+        swap.with_user(self.users[1]).action_accept()
+        swap.action_approve()
+        self.assertEqual(swap.state, "approved")
+        self.assertFalse(self._line(self.employees[0], "1").template_id)
+        target_lines = self._line(self.employees[1], "1")
+        self.assertEqual(len(target_lines), 2)
+        self.assertEqual(
+            set(target_lines.mapped("template_id").ids),
+            {self.template_day.id, self.template_night.id},
+        )
+
+    def test_09_swap_handover_overlap_refused(self):
+        """The transfer is still refused when the shifts overlap."""
+        template_late = self.env["hr.shift.template"].create(
+            {
+                "name": "Late",
+                "day_of_week_start": "0",
+                "day_of_week_end": "6",
+                "start_time": 22.0,
+                "end_time": 6.0,
+                "tz": "UTC",
+            }
+        )
+        self._line(self.employees[0], "1").template_id = self.template_night
+        self._line(self.employees[1], "1").template_id = template_late
+        swap = self.env["hr.shift.swap"].create(
+            {
+                "line_id": self._line(self.employees[0], "1").id,
+                "employee_id": self.employees[0].id,
+                "target_employee_id": self.employees[1].id,
+            }
+        )
+        swap.with_user(self.users[1]).action_accept()
+        with self.assertRaises(UserError), self.env.cr.savepoint():
+            swap.action_approve()
+        self.assertEqual(len(self._line(self.employees[1], "1")), 1)

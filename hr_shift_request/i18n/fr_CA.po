@@ -1,0 +1,31 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_shift_request
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-13 00:00+0000\n"
+"PO-Revision-Date: 2026-07-13 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_CA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_shift_request
+#: code:addons/hr_shift_request/models/hr_shift_swap.py:0
+msgid ""
+"%(employee)s is already assigned to %(existing)s on that day, which "
+"overlaps %(new)s."
+msgstr ""
+"%(employee)s est déjà assignée à %(existing)s ce jour-là, qui chevauche "
+"%(new)s."
+
+#. module: hr_shift_request
+#: code:addons/hr_shift_request/models/hr_shift_swap.py:0
+msgid "%(employee)s is not available on that day."
+msgstr "%(employee)s n'est pas disponible ce jour-là."
