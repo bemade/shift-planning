@@ -11,7 +11,9 @@ def post_init_hook(env):
         .search([("color", "=", 0)])
     )
     for template in templates:
-        if template.start_time < 12:
+        if template.start_time < 6 or template.start_time >= 22:
+            template.color = 5
+        elif template.start_time < 12:
             template.color = 10  # green
         elif template.start_time < 18:
             template.color = 2  # orange
