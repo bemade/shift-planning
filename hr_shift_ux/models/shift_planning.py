@@ -93,14 +93,15 @@ class ShiftPlanningShift(models.Model):
     @api.depends("line_ids.template_id", "line_ids.state")
     def _compute_day_codes(self):
         """Short shift code per week day: the first word of the template
-        name (J, S, N…), the leave marker, or nothing on a day off."""
+        name (J, S, N…), the leave marker, or nothing on a day off.
+        Multiple shifts the same day are joined with a plus (Ja+N)."""
         for shift in self:
-            codes = dict.fromkeys(range(7), "")
+            codes = {number: [] for number in range(7)}
             for line in shift.line_ids:
                 day = int(line.day_number)
                 if line.state in ("holiday", "on_leave"):
-                    codes[day] = self.env._("Leave")
+                    codes[day].append(self.env._("Leave"))
                 elif line.template_id:
-                    codes[day] = line.template_id.display_name.split()[0]
+                    codes[day].append(line.template_id.display_name.split()[0])
             for number in range(7):
-                shift[f"day_code_{number}"] = codes.get(number, "")
+                shift[f"day_code_{number}"] = "+".join(codes.get(number, []))
