@@ -1,0 +1,302 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_shift_rotation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-13 18:02+0000\n"
+"PO-Revision-Date: 2026-07-13 18:02+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_CA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_shift_rotation
+#: model:ir.model.constraint,message:hr_shift_rotation.constraint_hr_shift_rotation_week_line_day_uniq
+msgid "A pattern week can only assign one shift per day."
+msgstr "Une semaine de motif ne peut assigner qu'un quart par jour."
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation__active
+msgid "Active"
+msgstr "Actif"
+
+#. module: hr_shift_rotation
+#: model:ir.actions.act_window,name:hr_shift_rotation.hr_shift_rotation_apply_action
+#: model:ir.ui.menu,name:hr_shift_rotation.hr_shift_rotation_apply_menu
+#: model_terms:ir.ui.view,arch_db:hr_shift_rotation.hr_shift_rotation_apply_form
+msgid "Apply Rotation"
+msgstr "Appliquer la rotation"
+
+#. module: hr_shift_rotation
+#: model:ir.model,name:hr_shift_rotation.model_hr_shift_rotation_apply
+msgid "Apply a Shift Rotation"
+msgstr "Appliquer une rotation de quarts"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation__assignment_ids
+msgid "Assignment"
+msgstr "Assignations"
+
+#. module: hr_shift_rotation
+#: model_terms:ir.ui.view,arch_db:hr_shift_rotation.hr_shift_rotation_apply_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation__create_uid
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_apply__create_uid
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_assignment__create_uid
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_week__create_uid
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_week_line__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation__create_date
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_apply__create_date
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_assignment__create_date
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_week__create_date
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_week_line__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_week_line__day_number
+msgid "Day Number"
+msgstr "Numéro du jour"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation__display_name
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_apply__display_name
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_assignment__display_name
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_week__display_name
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_week_line__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields,help:hr_shift_rotation.field_hr_shift_rotation_week__name
+msgid "E.g. 'Week on' / 'Week off' / 'Weekend only'."
+msgstr ""
+"P. ex. « Semaine travaillée » / « Semaine de repos » / « Fin de semaine "
+"seulement »."
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_assignment__employee_id
+msgid "Employee"
+msgstr "Employée"
+
+#. module: hr_shift_rotation
+#: model_terms:ir.ui.view,arch_db:hr_shift_rotation.hr_shift_rotation_form
+msgid "Employees"
+msgstr "Employées"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields.selection,name:hr_shift_rotation.selection__hr_shift_rotation_week_line__day_number__4
+msgid "Friday"
+msgstr "Vendredi"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation__id
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_apply__id
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_assignment__id
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_week__id
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_week_line__id
+msgid "ID"
+msgstr "Identifiant"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation__write_uid
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_apply__write_uid
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_assignment__write_uid
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_week__write_uid
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_week_line__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation__write_date
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_apply__write_date
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_assignment__write_date
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_week__write_date
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_week_line__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_week__line_ids
+msgid "Line"
+msgstr "Lignes"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields.selection,name:hr_shift_rotation.selection__hr_shift_rotation_week_line__day_number__0
+msgid "Monday"
+msgstr "Lundi"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation__name
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_week__name
+msgid "Name"
+msgstr "Nom"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields,help:hr_shift_rotation.field_hr_shift_rotation_apply__week_count
+msgid "Number of consecutive weeks to generate."
+msgstr "Nombre de semaines consécutives à générer."
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_assignment__offset
+msgid "Offset"
+msgstr "Décalage"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_apply__overwrite
+msgid "Overwrite"
+msgstr "Écraser"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields,help:hr_shift_rotation.field_hr_shift_rotation_apply__overwrite
+msgid ""
+"Overwrite shifts already assigned to the rotation employees. When unchecked,"
+" existing assignments are kept."
+msgstr ""
+"Écraser les quarts déjà assignés aux employées de la rotation. Si décoché, "
+"les assignations existantes sont conservées."
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_apply__rotation_id
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_assignment__rotation_id
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_week__rotation_id
+msgid "Rotation"
+msgstr "Rotation"
+
+#. module: hr_shift_rotation
+#: model:ir.actions.act_window,name:hr_shift_rotation.hr_shift_rotation_action
+#: model:ir.ui.menu,name:hr_shift_rotation.hr_shift_rotation_menu
+msgid "Rotations"
+msgstr "Rotations"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields.selection,name:hr_shift_rotation.selection__hr_shift_rotation_week_line__day_number__5
+msgid "Saturday"
+msgstr "Samedi"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_week__sequence
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: hr_shift_rotation
+#: model:ir.model,name:hr_shift_rotation.model_hr_shift_rotation_assignment
+msgid "Shift Rotation Assignment"
+msgstr "Assignation de rotation de quarts"
+
+#. module: hr_shift_rotation
+#: model:ir.model,name:hr_shift_rotation.model_hr_shift_rotation
+msgid "Shift Rotation Pattern"
+msgstr "Motif de rotation de quarts"
+
+#. module: hr_shift_rotation
+#: model:ir.model,name:hr_shift_rotation.model_hr_shift_rotation_week
+msgid "Shift Rotation Week Pattern"
+msgstr "Motif hebdomadaire de rotation de quarts"
+
+#. module: hr_shift_rotation
+#: model:ir.model,name:hr_shift_rotation.model_hr_shift_rotation_week_line
+msgid "Shift Rotation Week Pattern Line"
+msgstr "Ligne de motif hebdomadaire de rotation de quarts"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields,help:hr_shift_rotation.field_hr_shift_rotation_assignment__offset
+msgid ""
+"Starting position in the rotation cycle. Two employees with offsets 0 and 1 "
+"on a two-week rotation alternate weeks."
+msgstr ""
+"Position de départ dans le cycle de rotation. Deux employées avec les "
+"décalages 0 et 1 sur une rotation de deux semaines alternent leurs semaines."
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields.selection,name:hr_shift_rotation.selection__hr_shift_rotation_week_line__day_number__6
+msgid "Sunday"
+msgstr "Dimanche"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_week_line__template_id
+msgid "Template"
+msgstr "Gabarit"
+
+#. module: hr_shift_rotation
+#. odoo-python
+#: code:addons/hr_shift_rotation/wizards/hr_shift_rotation_apply.py:0
+msgid "The requested weeks must stay within the same year (1 to 52)."
+msgstr "Les semaines demandées doivent rester dans la même année (1 à 52)."
+
+#. module: hr_shift_rotation
+#. odoo-python
+#: code:addons/hr_shift_rotation/wizards/hr_shift_rotation_apply.py:0
+msgid "The rotation has no employee assigned."
+msgstr "La rotation n'a aucune employée assignée."
+
+#. module: hr_shift_rotation
+#. odoo-python
+#: code:addons/hr_shift_rotation/wizards/hr_shift_rotation_apply.py:0
+msgid "The rotation has no week pattern defined."
+msgstr "La rotation n'a aucun motif hebdomadaire défini."
+
+#. module: hr_shift_rotation
+#: model:ir.model.constraint,message:hr_shift_rotation.constraint_hr_shift_rotation_assignment_employee_uniq
+msgid "This employee is already assigned to this rotation."
+msgstr "Cette employée est déjà assignée à cette rotation."
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields.selection,name:hr_shift_rotation.selection__hr_shift_rotation_week_line__day_number__3
+msgid "Thursday"
+msgstr "Jeudi"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields.selection,name:hr_shift_rotation.selection__hr_shift_rotation_week_line__day_number__1
+msgid "Tuesday"
+msgstr "Mardi"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields.selection,name:hr_shift_rotation.selection__hr_shift_rotation_week_line__day_number__2
+msgid "Wednesday"
+msgstr "Mercredi"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation__week_ids
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_week_line__week_id
+msgid "Week"
+msgstr "Semaine"
+
+#. module: hr_shift_rotation
+#. odoo-python
+#: code:addons/hr_shift_rotation/models/hr_shift_rotation.py:0
+msgid "Week %(number)s"
+msgstr "Semaine %(number)s"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_apply__week_count
+msgid "Week Count"
+msgstr "Nombre de semaines"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_apply__week_from
+msgid "Week From"
+msgstr "Semaine de départ"
+
+#. module: hr_shift_rotation
+#: model_terms:ir.ui.view,arch_db:hr_shift_rotation.hr_shift_rotation_form
+msgid "Week Patterns"
+msgstr "Motifs hebdomadaires"
+
+#. module: hr_shift_rotation
+#: model:ir.model.fields,field_description:hr_shift_rotation.field_hr_shift_rotation_apply__year
+msgid "Year"
+msgstr "Année"
