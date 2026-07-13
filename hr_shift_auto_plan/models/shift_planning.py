@@ -72,6 +72,30 @@ class ShiftPlanning(models.Model):
             chosen = pool[0]
         return chosen[0], not chosen[4]
 
+    def _auto_plan_scarcity(self, rule_id, template_id):
+        """How many employees could ever take this slot: job and
+        department of the rule, and a matching availability (employees
+        without any declaration are available for everything)."""
+        rule = self.env["hr.shift.coverage.rule"].browse(rule_id)
+        template = self.env["hr.shift.template"].browse(template_id)
+        employees = self.env["hr.employee"].search([("shift_planning", "=", True)])
+        if rule.job_id:
+            employees = employees.filtered(lambda e: e.job_id == rule.job_id)
+        if rule.department_id:
+            employees = employees.filtered(
+                lambda e: e.department_id == rule.department_id
+            )
+        count = 0
+        for employee in employees:
+            availabilities = self.env["hr.shift.availability"].search(
+                [("employee_id", "=", employee.id)]
+            )
+            if not availabilities or any(
+                availabilities._matches(template, day) for day in map(str, range(7))
+            ):
+                count += 1
+        return count
+
     def _auto_plan_set_weekly_templates(self):
         """Give fully uniform weeks their weekly template so the
         assignment kanban groups them in the right column. Writing the
@@ -103,8 +127,22 @@ class ShiftPlanning(models.Model):
             }
             for gap in self.coverage_gap_ids
         ]
-        # Group the week's slots by template so continuity picks chain up
-        gaps.sort(key=lambda gap: (gap["template_id"], gap["day_number"]))
+        # Fill the scarcest slots first (fewest eligible employees, e.g.
+        # nights restricted by availabilities) while everyone is still
+        # light, then group by template so continuity picks chain up.
+        scarcity = {
+            (gap["rule_id"], gap["template_id"]): self._auto_plan_scarcity(
+                gap["rule_id"], gap["template_id"]
+            )
+            for gap in gaps
+        }
+        gaps.sort(
+            key=lambda gap: (
+                scarcity[(gap["rule_id"], gap["template_id"])],
+                gap["template_id"],
+                gap["day_number"],
+            )
+        )
         for gap in gaps:
             for _index in range(gap["missing"]):
                 cascade = self.env["hr.shift.cascade"].create(
