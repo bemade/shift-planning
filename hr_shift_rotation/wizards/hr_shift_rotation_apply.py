@@ -60,10 +60,16 @@ class HrShiftRotationApply(models.TransientModel):
                     )
                 )
                 for pattern_line in pattern.line_ids:
-                    line = lines.filtered(
+                    day_lines = lines.filtered(
                         lambda line, day=pattern_line.day_number: (
                             line.day_number == day
                         )
+                    )
+                    # An employee can hold several lines the same day:
+                    # fill a free one first, otherwise overwrite the first
+                    line = (
+                        day_lines.filtered(lambda line: not line.template_id)[:1]
+                        or day_lines[:1]
                     )
                     if line and (not line.template_id or self.overwrite):
                         line.template_id = pattern_line.template_id
