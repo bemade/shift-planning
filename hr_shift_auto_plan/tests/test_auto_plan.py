@@ -252,3 +252,12 @@ class TestAutoPlan(TransactionCase):
             candidate.employee_id, self.employees[0], "8h overshoot beats 12h overshoot"
         )
         self.assertAlmostEqual(overshoot, 8.0, places=2)
+
+    def test_09_continuity_cap_is_configurable(self):
+        """A shorter company cap spreads the week between employees."""
+        self.env.company.auto_plan_continuity_days = 2
+        self.planning.action_auto_plan()
+        days = [len(self._assigned_days(e)) for e in self.employees]
+        self.assertEqual(
+            sorted(days), [3, 4], "Seven nights split 4/3 with chains capped at 2"
+        )

@@ -36,6 +36,9 @@ class ShiftPlanning(models.Model):
         )
         if not candidates:
             return candidates, False
+        continuity_cap = (
+            self.env.company.auto_plan_continuity_days or MAX_CONTINUITY_DAYS
+        )
         assigned_lines = self.shift_ids.line_ids.filtered(
             lambda line: line.state == "assigned"
         )
@@ -68,8 +71,13 @@ class ShiftPlanning(models.Model):
             scored.sort(key=lambda entry: (entry[4], entry[3]))
             chosen = scored[0]
             return chosen[0], chosen[4]
-        under_cap = [entry for entry in within_hours if entry[2] < MAX_CONTINUITY_DAYS]
-        pool = under_cap or within_hours
+        under_cap = [entry for entry in within_hours if entry[2] < continuity_cap]
+        if not under_cap:
+            # Everyone is past the continuity cap: balance the load
+            # instead of chaining further on the same person.
+            within_hours.sort(key=lambda entry: (entry[2], entry[3]))
+            return within_hours[0][0], 0.0
+        pool = under_cap
         continuity = [entry for entry in pool if entry[1] > 0]
         if continuity:
             continuity.sort(key=lambda entry: (-entry[1], entry[3]))

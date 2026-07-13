@@ -9,6 +9,9 @@
     "license": "AGPL-3",
     "website": "https://github.com/OCA/shift-planning",
     "category": "Human Resources/Shifts",
-    "depends": ["hr_shift_cascade", "hr_shift_workload"],
-    "data": ["views/shift_planning_views.xml"],
+    "depends": ["hr", "hr_shift_cascade", "hr_shift_workload"],
+    "data": [
+        "views/shift_planning_views.xml",
+        "views/res_config_settings_views.xml",
+    ],
 }
