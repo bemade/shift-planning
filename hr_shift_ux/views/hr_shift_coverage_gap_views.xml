@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Coverage gaps: most urgent first, redundant column hidden. -->
+    <record id="hr_shift_coverage_gap_tree" model="ir.ui.view">
+        <field name="model">hr.shift.coverage.gap</field>
+        <field name="inherit_id" ref="hr_shift_coverage.hr_shift_coverage_gap_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="attributes">
+                <attribute name="default_order">date asc, missing desc</attribute>
+            </xpath>
+            <field name="day_number" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="template_id" position="attributes">
+                <attribute name="string">Shift</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

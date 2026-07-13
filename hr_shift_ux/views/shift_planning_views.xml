@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Weeks kanban: state badge, coverage gaps, publication and
+         assignment counters so each card tells its own story. -->
+    <record id="shift_planning_kanban" model="ir.ui.view">
+        <field name="model">hr.shift.planning</field>
+        <field name="inherit_id" ref="hr_shift.shift_planning_kanban" />
+        <field name="arch" type="xml">
+            <field name="shifts_count" position="after">
+                <field name="state" />
+                <field name="coverage_gap_count" />
+                <field name="published_on" />
+                <field name="line_assigned_count" />
+                <field name="line_unassigned_count" />
+            </field>
+            <xpath expr="//div[hasclass('text-end')]" position="inside">
+                <div
+                    class="d-flex flex-wrap justify-content-end align-items-center gap-2 mt-2"
+                >
+                    <field
+                        name="state"
+                        widget="label_selection"
+                        options="{'classes': {'new': 'info', 'assignment': 'warning', 'planned': 'success'}}"
+                    />
+                    <span
+                        t-if="record.coverage_gap_count.raw_value"
+                        class="badge text-bg-danger"
+                    >
+                        <i
+                        class="fa fa-exclamation-triangle me-1"
+                        role="img"
+                        title="Coverage gaps"
+                    />
+                        <t t-esc="record.coverage_gap_count.value" /> coverage gaps
+                    </span>
+                    <span
+                        t-if="record.published_on.raw_value"
+                        class="badge text-bg-success"
+                    >
+                        <i
+                        class="fa fa-envelope me-1"
+                        role="img"
+                        title="Schedules sent"
+                    />
+                        Sent <t t-esc="record.published_on.value" />
+                    </span>
+                    <span
+                        t-if="record.line_unassigned_count.raw_value"
+                        class="badge text-bg-warning"
+                    >
+                        <t t-esc="record.line_unassigned_count.value" /> open day shifts
+                    </span>
+                    <span
+                        t-if="record.line_assigned_count.raw_value"
+                        class="badge text-bg-light"
+                    >
+                        <t
+                        t-esc="record.line_assigned_count.value"
+                    /> day shifts assigned
+                    </span>
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <!-- Planning form: a real control desk. Buttons renamed and ordered
+         as a numbered flow, contextual alerts, and the real content of
+         the week (employees, hours, gaps) inside the form. -->
+    <record id="shift_planning_form" model="ir.ui.view">
+        <field name="model">hr.shift.planning</field>
+        <field name="inherit_id" ref="hr_shift.shift_planning_form" />
+        <field name="arch" type="xml">
+            <!-- Order the header buttons following the workflow. -->
+            <xpath expr="//button[@name='generate_shifts']" position="after">
+                <xpath expr="//button[@name='action_auto_plan']" position="move" />
+            </xpath>
+            <xpath expr="//button[@name='action_auto_plan']" position="after">
+                <xpath expr="//button[@name='action_check_coverage']" position="move" />
+            </xpath>
+            <xpath expr="//button[@name='action_check_coverage']" position="after">
+                <xpath expr="//button[@name='action_publish']" position="move" />
+            </xpath>
+            <xpath expr="//button[@name='action_publish']" position="after">
+                <xpath expr="//button[@name='action_view_workload']" position="move" />
+            </xpath>
+            <!-- Human labels, numbered like the recipe to follow. -->
+            <xpath expr="//button[@name='generate_shifts']" position="attributes">
+                <attribute name="string">1. Create the week shifts</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_auto_plan']" position="attributes">
+                <attribute name="string">2. Auto-assign employees</attribute>
+                <attribute name="class">btn btn-primary</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_check_coverage']" position="attributes">
+                <attribute name="string">3. Check coverage</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_publish']" position="attributes">
+                <attribute name="string">4. Send schedules to employees</attribute>
+                <attribute
+                    name="confirm"
+                >Every employee will receive their week schedule by email. Continue?</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_view_workload']" position="attributes">
+                <attribute name="string">Weekly hours</attribute>
+            </xpath>
+            <xpath expr="//button[@name='copy_to_planning']" position="attributes">
+                <attribute name="string">Copy to a new week</attribute>
+            </xpath>
+            <!-- Contextual alerts: always tell the coordinator the next step. -->
+            <div name="button_box" position="before">
+                <div
+                    class="alert alert-info mb-3"
+                    role="alert"
+                    invisible="state != 'new'"
+                >
+Start by creating the shifts of the week with the button above: one card is created for every employee taking part in the planning.</div>
+                <div
+                    class="alert alert-warning mb-3"
+                    role="alert"
+                    invisible="state != 'assignment' or not line_unassigned_count"
+                >
+                    <field
+                    name="line_unassigned_count"
+                    class="fw-bold me-1"
+                /> day shifts still have nobody assigned. Assign employees below or auto-assign them, then check the coverage.</div>
+                <div
+                    class="alert alert-danger mb-3"
+                    role="alert"
+                    invisible="not coverage_gap_count"
+                >
+                    <i
+                    class="fa fa-exclamation-triangle me-1"
+                    role="img"
+                    title="Coverage gaps"
+                />
+                    <field
+                    name="coverage_gap_count"
+                    class="fw-bold me-1"
+                /> coverage gaps: some shifts are short-staffed. See the Coverage gaps tab below to launch a replacement cascade or split a shift in two.</div>
+                <div
+                    class="alert alert-success mb-3"
+                    role="alert"
+                    invisible="not published_on"
+                >
+                    <i
+                    class="fa fa-envelope me-1"
+                    role="img"
+                    title="Schedules sent"
+                /> Schedules sent to the employees on <field
+                    name="published_on"
+                    readonly="1"
+                    class="fw-bold ms-1"
+                />
+                </div>
+            </div>
+            <!-- The real content of the week, inside the form. -->
+            <xpath expr="//sheet/group" position="after">
+                <notebook invisible="state == 'new'">
+                    <page string="Employees of the week" name="week_shifts">
+                        <field name="shift_ids" nolabel="1">
+                            <list
+                                editable="bottom"
+                                create="false"
+                                delete="false"
+                                decoration-danger="overtime"
+                                decoration-muted="not template_id"
+                            >
+                                <field
+                                    name="employee_id"
+                                    widget="many2one_avatar_employee"
+                                    readonly="1"
+                                />
+                                <field name="department_id" optional="show" />
+                                <field
+                                    name="template_id"
+                                    string="Weekly shift"
+                                    options="{'no_create': True}"
+                                />
+                                <field
+                                    name="planned_hours"
+                                    widget="float_time"
+                                    sum="Total planned"
+                                />
+                                <field
+                                    name="allocated_hours"
+                                    widget="float_time"
+                                    optional="show"
+                                />
+                                <field name="overtime" optional="show" />
+                                <button
+                                    name="action_view_shift_details"
+                                    type="object"
+                                    icon="fa-calendar"
+                                    string="Day by day"
+                                />
+                            </list>
+                        </field>
+                    </page>
+                    <page
+                        string="Coverage gaps"
+                        name="coverage_gaps"
+                        invisible="not coverage_gap_count"
+                    >
+                        <field name="coverage_gap_ids" nolabel="1">
+                            <list
+                                create="false"
+                                edit="false"
+                                decoration-danger="missing &gt; 0"
+                            >
+                                <field name="date" />
+                                <field name="template_id" string="Shift" />
+                                <field name="job_id" />
+                                <field name="required" />
+                                <field name="assigned" />
+                                <field name="missing" />
+                                <button
+                                    name="action_launch_cascade"
+                                    type="object"
+                                    string="Launch cascade"
+                                    icon="fa-phone"
+                                    groups="hr_shift.group_shift_manager"
+                                />
+                                <button
+                                    name="action_open_split_wizard"
+                                    type="object"
+                                    string="Split in two"
+                                    icon="fa-scissors"
+                                    groups="hr_shift.group_shift_manager"
+                                />
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+    <!-- Guidance on the empty weeks view. -->
+    <record id="hr_shift.shift_planning_action" model="ir.actions.act_window">
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Plan a new week</p>
+            <p
+            >Create the planning of the week, then follow the numbered buttons on its form: create the shifts, auto-assign the employees, check the coverage and send the schedules.</p>
+        </field>
+    </record>
+</odoo>
