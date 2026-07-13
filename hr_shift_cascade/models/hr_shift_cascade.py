@@ -3,7 +3,10 @@
 from odoo import api, fields, models
 from odoo.exceptions import UserError
 
-from odoo.addons.hr_shift.models.shift_template import WEEK_DAYS_SELECTION
+from odoo.addons.hr_shift.models.shift_template import (
+    WEEK_DAYS_SELECTION,
+    translated_week_days,
+)
 
 
 class HrShiftCascade(models.Model):
@@ -55,7 +58,7 @@ class HrShiftCascade(models.Model):
     @api.depends("template_id", "day_number", "planning_id")
     def _compute_display_name(self):
         for cascade in self:
-            day = dict(WEEK_DAYS_SELECTION).get(cascade.day_number, "")
+            day = translated_week_days(cascade.env).get(cascade.day_number, "")
             cascade.display_name = (
                 f"{cascade.template_id.display_name} / {day} — "
                 f"{cascade.planning_id.display_name}"

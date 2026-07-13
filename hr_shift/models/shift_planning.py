@@ -8,7 +8,7 @@ from dateutil.relativedelta import relativedelta
 from odoo import api, fields, models
 from odoo.exceptions import UserError
 
-from .shift_template import WEEK_DAYS_SELECTION
+from .shift_template import WEEK_DAYS_SELECTION, translated_week_days
 
 
 class ShiftPlanning(models.Model):
@@ -125,7 +125,7 @@ class ShiftPlanning(models.Model):
             dates.sort(key=lambda date: (date["weekday"] - first_day) % 7)
             plan.days_data = [
                 {
-                    "weekday": dict(WEEK_DAYS_SELECTION).get(str(date["weekday"])),
+                    "weekday": translated_week_days(self.env).get(str(date["weekday"])),
                     "weekday_number": str(date["weekday"]),
                     "plan": plan.id,
                     "day": date["date"].day,
@@ -192,7 +192,7 @@ class ShiftPlanning(models.Model):
         }
         action["display_name"] = self.env._(
             "%(day)s shifts of %(planning)s",
-            day=dict(WEEK_DAYS_SELECTION).get(weekday_number),
+            day=translated_week_days(self.env).get(weekday_number),
             planning=self.display_name,
         )
         return action
@@ -242,7 +242,7 @@ class ShiftPlanningShift(models.Model):
         for shift in self:
             shift.lines_data = {
                 line.id: {
-                    "day": dict(WEEK_DAYS_SELECTION).get(line.day_number),
+                    "day": translated_week_days(self.env).get(line.day_number),
                     "template": line.template_id.name,
                     "state": line.state,
                     "color": line.color,
@@ -429,10 +429,10 @@ class ShiftPlanningLine(models.Model):
                         "overlaps %(existing)s assigned on %(other_day)s.",
                         employee=line.employee_id.display_name,
                         new=line.template_id.display_name,
-                        day=self.env._(dict(WEEK_DAYS_SELECTION).get(line.day_number)),
+                        day=translated_week_days(self.env).get(line.day_number),
                         existing=conflicting[0].template_id.display_name,
-                        other_day=self.env._(
-                            dict(WEEK_DAYS_SELECTION).get(conflicting[0].day_number)
+                        other_day=translated_week_days(self.env).get(
+                            conflicting[0].day_number
                         ),
                     )
                 )
@@ -466,7 +466,7 @@ class ShiftPlanningLine(models.Model):
     def _compute_display_name(self):
         for line in self:
             line.display_name = (
-                f"{self.env._(dict(WEEK_DAYS_SELECTION).get(line.day_number))} - "
+                f"{translated_week_days(self.env).get(line.day_number)} - "
                 f"""
                 {
                     line.template_id.name

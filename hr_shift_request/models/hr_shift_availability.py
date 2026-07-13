@@ -2,7 +2,10 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import api, fields, models
 
-from odoo.addons.hr_shift.models.shift_template import WEEK_DAYS_SELECTION
+from odoo.addons.hr_shift.models.shift_template import (
+    WEEK_DAYS_SELECTION,
+    translated_week_days,
+)
 
 
 class HrShiftAvailability(models.Model):
@@ -36,7 +39,7 @@ class HrShiftAvailability(models.Model):
         for availability in self:
             template = availability.template_id.display_name or any_label
             day = (
-                dict(WEEK_DAYS_SELECTION).get(availability.day_number)
+                translated_week_days(availability.env).get(availability.day_number)
                 if availability.day_number
                 else any_label
             )

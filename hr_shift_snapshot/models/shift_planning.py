@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import api, fields, models
 
-from odoo.addons.hr_shift.models.shift_template import WEEK_DAYS_SELECTION
+from odoo.addons.hr_shift.models.shift_template import translated_week_days
 
 
 class ShiftPlanning(models.Model):
@@ -69,7 +69,7 @@ class ShiftPlanningLine(models.Model):
             (line, line.template_id) for line in self if line.planning_id.published_on
         ]
         result = super().write(vals)
-        day_labels = dict(WEEK_DAYS_SELECTION)
+        day_labels = translated_week_days(self.env)
         for line, previous_template in tracked:
             if line.template_id == previous_template:
                 continue

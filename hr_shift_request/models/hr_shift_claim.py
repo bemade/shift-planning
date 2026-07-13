@@ -3,7 +3,10 @@
 from odoo import api, fields, models
 from odoo.exceptions import AccessError, UserError
 
-from odoo.addons.hr_shift.models.shift_template import WEEK_DAYS_SELECTION
+from odoo.addons.hr_shift.models.shift_template import (
+    WEEK_DAYS_SELECTION,
+    translated_week_days,
+)
 
 
 class HrShiftClaim(models.Model):
@@ -50,7 +53,7 @@ class HrShiftClaim(models.Model):
     @api.depends("employee_id", "template_id", "day_number")
     def _compute_display_name(self):
         for claim in self:
-            day = dict(WEEK_DAYS_SELECTION).get(claim.day_number, "")
+            day = translated_week_days(claim.env).get(claim.day_number, "")
             claim.display_name = (
                 f"{claim.employee_id.display_name}: "
                 f"{claim.template_id.display_name} / {day}"

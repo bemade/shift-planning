@@ -20,6 +20,15 @@ WEEK_DAYS_SELECTION = [
 ]
 
 
+def translated_week_days(env):
+    """WEEK_DAYS_SELECTION labels translated in the environment language.
+
+    dict(WEEK_DAYS_SELECTION) yields the raw source labels; selection
+    labels only get translated through _description_selection."""
+    field = env["hr.shift.template"]._fields["day_of_week_start"]
+    return dict(field._description_selection(env))
+
+
 class ShiftTemplate(models.Model):
     _name = "hr.shift.template"
     _description = "Shifts"
