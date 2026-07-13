@@ -1,0 +1,217 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_shift_split
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-13 18:02+0000\n"
+"PO-Revision-Date: 2026-07-13 18:02+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_CA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_shift_split
+#. odoo-python
+#: code:addons/hr_shift_split/models/shift_template.py:0
+msgid "%(parent)s — part %(start)s-%(end)s"
+msgstr "%(parent)s — partie %(start)s-%(end)s"
+
+#. module: hr_shift_split
+#. odoo-python
+#: code:addons/hr_shift_split/models/shift_template.py:0
+msgid "A partial shift cannot be split again."
+msgstr "Un quart partiel ne peut pas être divisé de nouveau."
+
+#. module: hr_shift_split
+#: model:ir.model.fields,help:hr_shift_split.field_hr_shift_split_wizard__line_id
+msgid "Assigned line to free and replace by two partial shifts."
+msgstr "Ligne assignée à libérer et à remplacer par deux quarts partiels."
+
+#. module: hr_shift_split
+#: model_terms:ir.ui.view,arch_db:hr_shift_split.hr_shift_split_wizard_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: hr_shift_split
+#: model:ir.model.fields,field_description:hr_shift_split.field_hr_shift_template__child_template_ids
+msgid "Child Template"
+msgstr "Gabarits enfants"
+
+#. module: hr_shift_split
+#: model:ir.model.fields,help:hr_shift_split.field_hr_shift_split_wizard__cut_time
+msgid "Clock time where the shift is cut in two."
+msgstr "Heure à laquelle le quart est coupé en deux."
+
+#. module: hr_shift_split
+#: model:ir.model.fields,field_description:hr_shift_split.field_hr_shift_split_wizard__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: hr_shift_split
+#: model:ir.model.fields,field_description:hr_shift_split.field_hr_shift_split_wizard__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: hr_shift_split
+#: model:ir.model.fields,field_description:hr_shift_split.field_hr_shift_split_wizard__cut_time
+msgid "Cut Time"
+msgstr "Heure de coupure"
+
+#. module: hr_shift_split
+#: model:ir.model.fields,field_description:hr_shift_split.field_hr_shift_split_wizard__day_number
+msgid "Day Number"
+msgstr "Numéro du jour"
+
+#. module: hr_shift_split
+#: model:ir.model.fields,field_description:hr_shift_split.field_hr_shift_coverage_gap__display_name
+#: model:ir.model.fields,field_description:hr_shift_split.field_hr_shift_coverage_rule__display_name
+#: model:ir.model.fields,field_description:hr_shift_split.field_hr_shift_split_wizard__display_name
+#: model:ir.model.fields,field_description:hr_shift_split.field_hr_shift_template__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: hr_shift_split
+#: model:ir.model.fields,help:hr_shift_split.field_hr_shift_template__parent_template_id
+msgid "Full shift this partial shift is a part of."
+msgstr "Quart complet dont ce quart partiel fait partie."
+
+#. module: hr_shift_split
+#: model:ir.model.fields,field_description:hr_shift_split.field_hr_shift_split_wizard__gap_id
+msgid "Gap"
+msgstr "Trou"
+
+#. module: hr_shift_split
+#: model:ir.model.fields,field_description:hr_shift_split.field_hr_shift_coverage_gap__id
+#: model:ir.model.fields,field_description:hr_shift_split.field_hr_shift_coverage_rule__id
+#: model:ir.model.fields,field_description:hr_shift_split.field_hr_shift_split_wizard__id
+#: model:ir.model.fields,field_description:hr_shift_split.field_hr_shift_template__id
+msgid "ID"
+msgstr "Identifiant"
+
+#. module: hr_shift_split
+#: model:ir.model.fields,field_description:hr_shift_split.field_hr_shift_split_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: hr_shift_split
+#: model:ir.model.fields,field_description:hr_shift_split.field_hr_shift_split_wizard__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: hr_shift_split
+#: model:ir.model.fields,field_description:hr_shift_split.field_hr_shift_split_wizard__line_id
+msgid "Line"
+msgstr "Ligne"
+
+#. module: hr_shift_split
+#: model:ir.model.fields,help:hr_shift_split.field_hr_shift_split_wizard__gap_id
+msgid "Open slot to fill with two partial shifts."
+msgstr "Créneau à combler avec deux quarts partiels."
+
+#. module: hr_shift_split
+#: model:ir.model.fields,field_description:hr_shift_split.field_hr_shift_template__parent_template_id
+msgid "Parent Template"
+msgstr "Gabarit parent"
+
+#. module: hr_shift_split
+#. odoo-python
+#: code:addons/hr_shift_split/wizards/hr_shift_split_wizard.py:0
+msgid ""
+"Partial shifts created: %(first)s and %(second)s. Assign them from the "
+"planning."
+msgstr ""
+"Quarts partiels créés : %(first)s et %(second)s. Assignez-les depuis la "
+"planification."
+
+#. module: hr_shift_split
+#: model:ir.model.fields,field_description:hr_shift_split.field_hr_shift_split_wizard__planning_id
+msgid "Planning"
+msgstr "Planification"
+
+#. module: hr_shift_split
+#. odoo-python
+#: code:addons/hr_shift_split/wizards/hr_shift_split_wizard.py:0
+msgid "Replacement cascades"
+msgstr "Cascades de remplacement"
+
+#. module: hr_shift_split
+#. odoo-python
+#: code:addons/hr_shift_split/wizards/hr_shift_split_wizard.py:0
+msgid "Select an assigned line or an open slot."
+msgstr "Sélectionnez une ligne assignée ou un créneau à combler."
+
+#. module: hr_shift_split
+#: model:ir.model,name:hr_shift_split.model_hr_shift_coverage_gap
+msgid "Shift Coverage Gap"
+msgstr "Trou de couverture de quart"
+
+#. module: hr_shift_split
+#: model:ir.model,name:hr_shift_split.model_hr_shift_coverage_rule
+msgid "Shift Coverage Rule"
+msgstr "Règle de couverture de quart"
+
+#. module: hr_shift_split
+#. odoo-python
+#: code:addons/hr_shift_split/wizards/hr_shift_split_wizard.py:0
+msgid "Shift of %(employee)s split for replacement: %(first)s + %(second)s"
+msgstr ""
+"Quart de %(employee)s divisé pour remplacement : %(first)s + %(second)s"
+
+#. module: hr_shift_split
+#. odoo-python
+#: code:addons/hr_shift_split/wizards/hr_shift_split_wizard.py:0
+msgid "Shift split"
+msgstr "Quart divisé"
+
+#. module: hr_shift_split
+#: model:ir.model,name:hr_shift_split.model_hr_shift_template
+msgid "Shifts"
+msgstr "Quarts"
+
+#. module: hr_shift_split
+#: model:ir.model,name:hr_shift_split.model_hr_shift_split_wizard
+msgid "Split a shift into two replacement parts"
+msgstr "Diviser un quart en deux parties de remplacement"
+
+#. module: hr_shift_split
+#: model_terms:ir.ui.view,arch_db:hr_shift_split.hr_shift_split_wizard_form
+msgid "Split and launch replacements"
+msgstr "Diviser et lancer les remplacements"
+
+#. module: hr_shift_split
+#: model_terms:ir.ui.view,arch_db:hr_shift_split.hr_shift_coverage_gap_tree
+msgid "Split in two"
+msgstr "Diviser en deux"
+
+#. module: hr_shift_split
+#. odoo-python
+#: code:addons/hr_shift_split/models/hr_shift_coverage_gap.py:0
+#: model:ir.actions.act_window,name:hr_shift_split.hr_shift_split_line_action
+msgid "Split shift"
+msgstr "Diviser le quart"
+
+#. module: hr_shift_split
+#: model:ir.model.fields,field_description:hr_shift_split.field_hr_shift_split_wizard__template_id
+msgid "Template"
+msgstr "Gabarit"
+
+#. module: hr_shift_split
+#. odoo-python
+#: code:addons/hr_shift_split/models/shift_template.py:0
+msgid ""
+"The cut time must fall strictly inside the shift (%(start)s to %(end)s)."
+msgstr ""
+"L'heure de coupure doit se situer strictement à l'intérieur du quart "
+"(%(start)s à %(end)s)."
+
+#. module: hr_shift_split
+#. odoo-python
+#: code:addons/hr_shift_split/wizards/hr_shift_split_wizard.py:0
+msgid "id"
+msgstr "id"
