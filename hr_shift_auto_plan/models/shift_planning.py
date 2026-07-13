@@ -32,7 +32,10 @@ class ShiftPlanning(models.Model):
         fits). When nobody fits, the candidate hurt the least is chosen.
         """
         candidates = cascade.candidate_ids.filtered(
+            # Auto-planning never stacks an extra shift on someone already
+            # working that day: that step needs the employee's consent.
             lambda candidate: candidate.state == "pending"
+            and not candidate.is_extra_line
         )
         if not candidates:
             return candidates, False
