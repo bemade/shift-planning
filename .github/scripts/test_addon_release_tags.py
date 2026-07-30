@@ -113,6 +113,48 @@ class TestDiscoverReleaseTags(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Invalid Odoo version"):
             discover_release_tags(self.repo, before, after)
 
+    def test_version_outside_19_0_is_rejected(self):
+        self._write_manifest("hr_shift", "19.0.1.0.0")
+        before = self._commit("Initial version")
+
+        self._write_manifest("hr_shift", "20.0.1.0.0")
+        after = self._commit("Wrong branch version")
+
+        with self.assertRaisesRegex(ValueError, "Invalid Odoo version"):
+            discover_release_tags(self.repo, before, after)
+
+    def test_invalid_addon_name_is_rejected(self):
+        self._write_manifest("hr_shift", "19.0.1.0.0")
+        before = self._commit("Initial version")
+        self._write_manifest("BadAddon", "19.0.1.0.0")
+        after = self._commit("Invalid addon")
+
+        with self.assertRaisesRegex(ValueError, "Invalid addon name"):
+            discover_release_tags(self.repo, before, after)
+
+    def test_zero_before_sha_is_rejected(self):
+        self._write_manifest("hr_shift", "19.0.1.0.0")
+        after = self._commit("Initial version")
+
+        with self.assertRaisesRegex(ValueError, "zero before SHA"):
+            discover_release_tags(self.repo, "0" * 40, after)
+
+    def test_non_fast_forward_range_is_rejected(self):
+        self._write_manifest("hr_shift", "19.0.1.0.0")
+        before = self._commit("Initial version")
+        self._write_manifest("hr_shift", "19.0.1.0.1")
+        after = self._commit("Release")
+
+        with self.assertRaisesRegex(ValueError, "not a fast-forward"):
+            discover_release_tags(self.repo, after, before)
+
+    def test_unknown_before_commit_is_rejected(self):
+        self._write_manifest("hr_shift", "19.0.1.0.0")
+        after = self._commit("Initial version")
+
+        with self.assertRaisesRegex(ValueError, "Invalid Git commit"):
+            discover_release_tags(self.repo, "f" * 40, after)
+
 
 if __name__ == "__main__":
     unittest.main()

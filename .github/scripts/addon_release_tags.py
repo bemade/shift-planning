@@ -10,8 +10,8 @@ import subprocess
 from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
 
-ADDON_NAME_RE = re.compile(r"^[A-Za-z0-9_]+$")
-ODOO_VERSION_RE = re.compile(r"^\d+\.\d+\.\d+\.\d+\.\d+$")
+ADDON_NAME_RE = re.compile(r"^[a-z][a-z0-9_]*$")
+ODOO_VERSION_RE = re.compile(r"^19\.0\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)$")
 ZERO_SHA_RE = re.compile(r"^0{40}$")
 
 
@@ -33,10 +33,33 @@ def _git(repo: Path, *args: str, input_text: str | None = None) -> str:
     ).stdout.strip()
 
 
-def _normalize_before(repo: Path, before: str) -> str:
+def _validate_commit(repo: Path, revision: str) -> None:
+    result = subprocess.run(
+        ["git", "cat-file", "-e", f"{revision}^{{commit}}"],
+        cwd=repo,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        raise ValueError(f"Invalid Git commit: {revision}")
+
+
+def _validate_range(repo: Path, before: str, after: str) -> None:
     if ZERO_SHA_RE.fullmatch(before):
-        return _git(repo, "mktree", input_text="")
-    return before
+        raise ValueError("Refusing a zero before SHA; bootstrap tags explicitly")
+
+    _validate_commit(repo, before)
+    _validate_commit(repo, after)
+    result = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", before, after],
+        cwd=repo,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        raise ValueError(f"Release range is not a fast-forward: {before}..{after}")
 
 
 def _manifest_at(repo: Path, revision: str, path: str) -> dict | None:
@@ -66,7 +89,7 @@ def discover_release_tags(repo: Path, before: str, after: str) -> list[ReleaseTa
     """Return sorted addon/version tags introduced between two revisions."""
 
     repo = repo.resolve()
-    before = _normalize_before(repo, before)
+    _validate_range(repo, before, after)
     changed_paths = _git(
         repo,
         "diff",
@@ -101,11 +124,17 @@ def discover_release_tags(repo: Path, before: str, after: str) -> list[ReleaseTa
         if current_version == previous_version:
             continue
 
+        tag = f"{addon}/{current_version}"
+        try:
+            _git(repo, "check-ref-format", f"refs/tags/{tag}")
+        except subprocess.CalledProcessError as error:
+            raise ValueError(f"Invalid Git tag: {tag}") from error
+
         releases.append(
             ReleaseTag(
                 addon=addon,
                 version=current_version,
-                tag=f"{addon}/{current_version}",
+                tag=tag,
             )
         )
 
