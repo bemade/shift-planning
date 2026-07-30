@@ -1,0 +1,94 @@
+name: Publish addon release tags
+
+on:
+  pull_request:
+    branches:
+      - "19.0"
+  push:
+    branches:
+      - "19.0"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: addon-release-tags-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Test release tag discovery
+        run: python3 .github/scripts/test_addon_release_tags.py
+
+  publish-tags:
+    if: github.event_name == 'push'
+    needs: test
+    permissions:
+      contents: write
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Discover and publish immutable addon tags
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git fetch --force --tags origin
+          tags_file="$(mktemp)"
+          trap 'rm -f "${tags_file}"' EXIT
+          python3 .github/scripts/addon_release_tags.py \
+            "${BEFORE_SHA}" "${AFTER_SHA}" > "${tags_file}"
+          mapfile -t release_tags < "${tags_file}"
+
+          if (( ${#release_tags[@]} == 0 )); then
+            echo "No addon version changes to publish."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          new_tags=()
+
+          for tag in "${release_tags[@]}"; do
+            tag_ref="refs/tags/${tag}"
+            if git show-ref --verify --quiet "${tag_ref}"; then
+              existing_sha="$(git rev-list --max-count=1 "${tag_ref}")"
+              if [[ "${existing_sha}" != "${AFTER_SHA}" ]]; then
+                echo "::error::Immutable tag ${tag} already points to ${existing_sha}, not ${AFTER_SHA}."
+                exit 1
+              fi
+              echo "Tag ${tag} already points to this commit; skipping."
+              continue
+            fi
+
+            git tag --annotate "${tag}" "${AFTER_SHA}" \
+              --message "Release ${tag}"
+            new_tags+=("${tag_ref}")
+          done
+
+          if (( ${#new_tags[@]} == 0 )); then
+            echo "All addon release tags already exist."
+            exit 0
+          fi
+
+          git push --atomic origin "${new_tags[@]}"
